@@ -1,0 +1,357 @@
+html {
+    box-sizing: border-box;
+
+}
+element.style {
+    overflow: none !important;
+
+}
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+body{
+    overflow-y: scroll !important ;
+    padding-right: 0px !important;
+
+}
+
+:root {
+
+    --a: linear-gradient(to bottom, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    --b: linear-gradient(to bottom, #051937, #003f64, #00698e, #0097b3, #00c6cf);
+    --azul: rgb(31, 210, 216);
+    --blaco:  #fff;
+    --box: 12px 10px 20px 8px rgba(51, 52, 53, 0.7);
+    --color_letra:#56008c;
+}
+
+
+
+
+
+
+
+
+@font-face{
+
+    font-family:'Krub';
+    src:url('../Fuentes/Krb-ExtraLight.ttf');
+    font-weight: 900px;
+    font-style:italic;
+    font-stretch: condensed;
+    unicode-range: "U+0-10FFFF";
+}
+
+
+.f {
+    height: 100%;
+}
+
+
+
+
+
+header{
+
+    background-color: #a6c7f0;
+}
+.inicio{
+    background-image:url('../../public/img/inciologin.svg');
+   /* background-image: linear-gradient(180deg, #b4f2a0 0, #a1ec9c 16.67%, #89e397 33.33%, #6cd890 50%, #49cd8a 66.67%, #10c488 83.33%, #00bd88 100%);
+*/
+
+height: 100%;
+}
+
+.verde{
+    background-color:rgb(90,185,93);
+    color:#fff;
+}
+.verde:hover{
+
+    background-color:rgb(90,185,93);
+    color:#fff;
+}
+h3{
+    margin-top:20px;
+    color: #0097b3;
+    font-weight: bold;
+
+}
+.table-striped>tbody>tr:nth-of-type(odd)>*{
+
+    --bs-table-accent-bg:var(--blaco);
+}
+
+.navbar{
+    font-family: 'Krub';
+   /* background: rgb(26,94,115);*/
+
+  background: rgb(6, 137, 156);
+    margin-top: 0;
+
+}
+/*
+.dataTables_length select {
+    display: inline-block;
+}
+
+
+
+.dataTables_length select {
+    background-color: rgba(255,255,255,0.9);
+    width: auto;
+    padding: 5px;
+    border: 1px solid #f2f2f2;
+    border-radius: 2px;
+    height: 3rem;
+}
+
+.dataTables_length label {
+    font-size: 1.2rem;
+    color: #6b6969;
+}
+
+
+.dataTables_filter label {
+    font-size: 1.2rem;
+    color: #9e9e9e;
+}
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Krub';
+
+
+
+
+}
+
+
+main {
+
+    font-family: 'Krub';
+}
+
+
+section{
+    background-color: #fff;
+
+font-family: 'Krub';
+
+}
+footer {
+
+    font-size: 2.8rem;
+    font-family: 'Krub', sans-serif;
+    background-color: #ffffff;
+}
+
+/* Login */
+
+.Contenedor--login {
+    height: 100vh;
+    font-family: 'Krub';
+}
+
+.wilsone{
+    height: 100vh;
+}
+.Contenedor__login--Formulario {
+    background-color: #ffffff;
+    border-radius: 20px;
+
+
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 4px 4px 4px 4px rgba(218, 221, 224, 0.7);
+    color: var(--color_letra);
+    border: solid 3px rgba(179, 182, 185, 0.548);
+    font-family: 'Krub';
+}
+/*usuarios*/
+.contenedor_form_usuarios {
+    width: 45%;
+    height: 90%;
+    background-color: #fff;
+    font-family: 'Krub', sans-serif;
+    box-shadow: 12px 10px 20px 8px rgba(51, 52, 53, 0.7);
+}
+/*Prestar*/
+.contenedor_form_prestamos{
+    width: 45%;
+    height: 70%;
+    background-color: #fff;
+    font-family: 'Krub', sans-serif;
+    box-shadow: 12px 10px 20px 8px rgba(51, 52, 53, 0.7);
+}
+
+/*
+#example  tfoot input {
+    width: 100% !important;
+}
+
+#example tfoot {
+    display: table-header-group !important;
+}
+#example thead{
+
+    text-align: center;
+}
+#example {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 45px !important;
+}
+div.dataTables_wrapper div.dataTables_length select{
+    width: 60px !important;
+}
+div.dataTables_wrapper div.dataTables_paginate{
+    margin-top: 10px !important;
+}*/
+/*panel*/
+.usu_a {
+    box-shadow: 1px 1px 1px 1px #054b58;
+    transition: 1s linear;
+    background-color: rgb(255, 255, 255);
+}
+.usu_a:hover {
+    box-shadow: 4px 4px 4px 4px rgba(4, 70, 114, 0.7);
+    transform: scale(.9);
+}
+
+.cardPanel{
+    background-color: #ffffff;
+}
+.car {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.car strong{
+    color:rgb(19, 218, 19);
+}
+.car h3{
+color: #0097b3;
+    font-weight: bold;
+}
+
+/*Home */
+
+
+#grafica{
+    width: 500px;
+    height: 800px;
+    font-family: 'Krub';
+}
+#graficacirculo{
+    max-width: 500px;
+    max-height: 300px;
+}
+
+#my{
+    max-width: 400px;
+    max-height: 300px;
+}
+.side{
+    height: 100%;
+}
+
+
+
+
+/*Registro*/
+.Contenedor__Registro--Formulario{
+
+    height: 450px;
+    background-color: #ffffff;
+
+}
+
+.columna__fo{
+
+    height: 100%;
+}
+.columna__fo label{
+    font-size: medium;
+
+}
+/*tablas*/
+.container__tablas {
+    height: 55vh;
+     font-size: large;
+ }
+ /*modooscuro*/
+
+.oscuro{
+    background-color: #1f1f1f;
+    color: #f1eded;
+}
+.textarea{
+    resize: none;
+}
+/*Editar*/
+.contenedor--editar{
+    background-color: #ffffff;
+    border-radius: 20px;
+
+    width: 32vw;
+    font-size: 1.5rem;
+}
+/**/
+.container__cards {
+    height: 55vh;
+     font-size: large;
+     display: grid;
+
+     grid-template-columns: repeat(3,1fr);
+   grid-gap: 10px 10px;
+   grid-auto-rows: 1fr;
+
+     overflow-y: scroll;
+
+ }
+
+.card{
+height: auto;
+background-color: #fff;
+
+    font-size: 'Krub';
+    font-size: 1rem;
+}
+#buscar{
+    background: url(/assets/img/icons8-search-32.png) no-repeat;
+    text-align: center;
+}
+
+
+/*tabla libros*/
+#libros  tfoot input {
+    width: 100% !important;
+}
+
+#libros tfoot {
+    display: table-header-group !important;
+}
+#libros thead{
+
+    text-align: center;
+}
+#libros {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 45px !important;
+}
+
+
+
+
+
+
+
+
+
