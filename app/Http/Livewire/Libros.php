@@ -546,7 +546,7 @@ public function actualizarEstadoLibor(){
             $libro->save();
             $libro->delete();
 
-            $this->dispatchBrowserEvent('swal', [
+            $this->dispatchBrowserEvent('crear', [
                 'title' => 'Libro Inactivado Con Exito..',
                 'icon' => 'info',
                 
@@ -559,7 +559,7 @@ public function actualizarEstadoLibor(){
             $libro->save();
             $libro->delete();
 
-            $this->dispatchBrowserEvent('swal', [
+            $this->dispatchBrowserEvent('crear', [
                 'title' => 'Libro Inactivado Con Exito..',
                 'icon' => 'info',
                 
@@ -574,7 +574,7 @@ public function actualizarEstadoLibor(){
 
 	//Restaurar Libro Eliminada
 
-public function restaurarLibro($id){
+        public function restaurarLibro($id){
         $resLibro =Libro::onlyTrashed()->where('id', $id)->first();
         if($resLibro->Estado == 'Inactivo' and $resLibro->TipoNovedad =='Alta'){
             $resLibro->Estado = 'NoDisponible';
@@ -582,7 +582,7 @@ public function restaurarLibro($id){
 
             $resLibro->save();
             $resLibro->restore();
-        $this->dispatchBrowserEvent('swal', [
+        $this->dispatchBrowserEvent('crear', [
             'title' => 'Libro Restaurado  Con Exito..',
             'icon' => 'success',
             
@@ -593,7 +593,7 @@ public function restaurarLibro($id){
             
             $resLibro->save();
             $resLibro->restore();
-        $this->dispatchBrowserEvent('swal', [
+        $this->dispatchBrowserEvent('crear', [
             'title' => 'Libro Restaurado  Con Exito..',
             'icon' => 'success',
             

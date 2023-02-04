@@ -70,7 +70,7 @@
 
                                 <a data-bs-toggle="modal" data-bs-target=""
                                 class=" text-white btn bi bi-arrow-counterclockwise  m-1 btn-warning  " title="Restaurar"
-                                wire:click="restaurarUsuario"></a>
+                                wire:click="restaurarUsuario({{ $row->id }})"></a>
 
                                 <a class="bi bi-trash3-fill  text-white  m-1  btn btn-danger " title="Eliminar"
                                     onclick="confirm('Desea eliminar el usuario? \nSi  No')||event.stopImmediatePropagation()"

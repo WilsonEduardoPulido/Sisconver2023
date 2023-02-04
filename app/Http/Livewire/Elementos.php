@@ -16,7 +16,7 @@ class Elementos extends Component
 {
     use WithPagination;
 
-
+    protected $listeners = [ 'inactivarElemento' => 'inactivarElemento'];
     public $nombreElemento, $cantidadElemento,$NovedadesElemento,$TipoNovedad;
     public $totalCantidad;
 
@@ -245,7 +245,11 @@ public function actualizarEstadoNovedad(){
             $resElemento->save();
         }
         $resElemento->restore();
-        session()->flash('message', 'Elemento Restaurado Con Exito.');
+        $this->dispatchBrowserEvent('crear', [
+            'title' => 'Elemento Restaurado Con Exito...',
+            'icon' => 'success',
+
+        ]);
     }
 
 
@@ -618,5 +622,17 @@ $this->validate([
 
         $this->resetValidation();
     }
+
+    public function eliminar($id){
+
+        $this->dispatchBrowserEvent('eliminar', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar Este Elemento?',
+            'id' => $id,
+
+        ]);
+
+    }
+
 
 }

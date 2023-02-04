@@ -18,7 +18,7 @@ class Prestamos extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['render' => 'render'];
+    protected $listeners = ['render' => 'render' ,'eliminarTemporalPrestamo' => 'inactivarPrestamo'];
     public $datos = [], $elementosentregados = [];
     public $keyarray;
     protected $paginationTheme = 'bootstrap';
@@ -231,17 +231,21 @@ public function productosPrestados($id){
             }
 
  }
-        
-        
-    
 
 
- 
-        
 
 
-       
-        
+
+    public function eliminar($id){
+
+        $this->dispatchBrowserEvent('eliminar', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar Este Prestamo?',
+            'id' => $id,
+
+        ]);
+
+    }
     
     
     

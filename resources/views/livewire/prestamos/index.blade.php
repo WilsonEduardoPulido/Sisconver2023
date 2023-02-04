@@ -88,3 +88,31 @@
 
     });
 </script>
+
+
+<script>
+    window.addEventListener('eliminar', event => {
+        Swal.fire({
+            title: 'Desea Inactivar Este Prestamo?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Inactivar!',
+            cancelButtonText: 'No, Cancelar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.livewire.emit('eliminarTemporalPrestamo', event.detail.id);
+                Swal.fire(
+                    'Inactivada!',
+                    'Prestamo Inactivado Con Exito.',
+                    'success'
+                )
+            }
+        })
+
+
+    });
+</script>

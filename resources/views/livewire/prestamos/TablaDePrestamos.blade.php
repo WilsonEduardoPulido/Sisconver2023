@@ -50,7 +50,7 @@
                             <td>
                                 @if ($row->Estado_Prestamo == 'Activo')
                                     <button title="Activo"
-                                        class="btn btn-warning m-1 bi bi bi-check2-square btn-sm text-white">
+                                        class="btn btn-warning m-1 bi bi bi-check2-square  text-white ">
 
                                     </button>
                                 @else
@@ -64,16 +64,18 @@
                             <td> 
 
 
-                                <a title="Inactivar" class="btn m-1 btn-danger bi bi-trash3-fill btn-sm  text-white "
-                                    onclick="confirm('Desea inactivar el prestamo {{ $row->id }}? \nSi No!')||event.stopImmediatePropagation()"
-                                    wire:click="inactivarPrestamo({{ $row->id }})"></a>
+
+
                                 <a title="Ver Detalles" data-bs-toggle="modal" data-bs-target="#VerDetallesPrestamo"
-                                    class=" bi bi bi-eye-fill m-1 btn-sm text-white btn btn-warning "
+                                    class=" bi bi bi-eye-fill text-white btn btn-warning m-1 "
                                     wire:click="verDetallesPrestamo({{ $row->id }})"> </a>
+
+                                <a title="Inactivar" class="btn btn-danger bi bi-trash3-fill  text-white m-1 "
+                                   wire:click="eliminar({{ $row->id }})"></a>
 
                                 <a title="Finalizar Prestamo" data-bs-toggle="modal"
                                     data-bs-target="#yuca"
-                                    class=" bi bi-clock-fill m-1 btn-sm text-white btn btn-primary "
+                                    class=" bi bi-clock-fill m-1  text-white btn btn-primary "
                                     wire:click="productosPrestados({{ $row->id }})"> </a>
                             </td>
 

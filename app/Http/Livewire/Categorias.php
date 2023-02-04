@@ -189,7 +189,7 @@ class Categorias extends Component
             $categoria->save();
             $categoria->delete();
 
-            $this->dispatchBrowserEvent('swal', [
+            $this->dispatchBrowserEvent('crear', [
                 'title' => 'Categoria Inactivada Con Exito..',
                 'icon' => 'success',
 
@@ -216,7 +216,7 @@ class Categorias extends Component
         $categoriao->restore();
 
 
-        $this->dispatchBrowserEvent('swal', [
+        $this->dispatchBrowserEvent('crear', [
             'title' => 'Categoria Restaurada Con Exito...',
             'icon' => 'success',
 

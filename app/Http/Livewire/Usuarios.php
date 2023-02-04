@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Libro;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -15,6 +16,7 @@ class Usuarios extends Component
 {
     use WithPagination;
 
+    protected $listeners = ['eliminarTemporalUsuario' => 'eliminarTemporalUsuario'];
     protected $paginationTheme = 'bootstrap';
     public $buscar;
     public $usuario_id;
@@ -166,7 +168,12 @@ $this->TipoDoc=$usuario->TipoDoc;
             $usuarioR->save();
         }
         $usuarioR->restore();
-        session()->flash('mensaje', 'Usuario Restaurado Con Exito.');
+        $this->dispatchBrowserEvent('crear', [
+            'type' => 'success',
+            'title' => 'Usuario Restaurado Con Exito',
+            'icon'=>'success',
+
+        ]);
     }
 
 
@@ -366,6 +373,18 @@ $this->TipoDoc=$usuario->TipoDoc;
             return redirect()->route('login');
 
         }
+    }
+
+
+        public function eliminar($id){
+
+        $this->dispatchBrowserEvent('eliminar', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar El Libro?',
+            'id' => $id,
+
+        ]);
+
     }
 
 

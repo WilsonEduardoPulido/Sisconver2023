@@ -185,9 +185,9 @@
                                     value="{{ old('GradoM') }}" required name="GradoM" id="GradoM"
                                     aria-label="Default select example" wire:model="Grado">
                                     <option selected>Selecione Un Grado Escolar</option>
-                                    <option value="{{ old('Grado') }} " value="Prescolar">Prescolar</option>
-                                    <option value="{{ old('Grado') }} " value="Primero">Primero</option>
-                                    <option value="{{ old('Grado') }}" value="Segundo">Segundo</option>
+                                    <option value="Prescolar">Prescolar</option>
+                                    <option value="Primero">Primero</option>
+                                    <option value="Segundo">Segundo</option>
                                     <option value="Tercero">Tercero</option>
                                     <option value="Cuarto">Cuarto</option>
                                     <option value="Quinto">Quinto</option>
@@ -245,7 +245,7 @@
                                 </label>
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password" wire:model="password">
+                                     autocomplete="new-password" wire:model="password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -259,7 +259,7 @@
                                 <label for="password-confirm"
                                     class="form-label ">{{ __('Confirm Password') }}</label>
                                 <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required autocomplete="current-password"
+                                    name="password_confirmation" autocomplete="current-password"
                                     wire:model="password">
                             </div>
 
@@ -547,7 +547,7 @@
                                 </label>
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password" wire:model="password">
+                                     autocomplete="new-password" wire:model="password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

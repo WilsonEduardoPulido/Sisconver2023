@@ -55,8 +55,7 @@
                                 </td>
                             @else
                                 <td class=" text-white ">
-                                    <button class="btn btn-danger text-white">
-                                        {{ $row->Estado }}
+                                    <button class="btn btn-danger bi bi-x-square text-white">
                                     </button>
 
 
@@ -71,9 +70,10 @@
                                 <a  title="Editar" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"
                                     class=" bi bi-pencil-square m-1  text-white btn btn-info "
                                     wire:click="editarUsuario({{ $row->id }})"> </a>
+
                                 <a title="Inactivar" class="btn btn-danger bi bi-trash3-fill  m-1  text-white "
-                                    onclick="confirm('Desea inactivar usuario? \nSi No!')||event.stopImmediatePropagation()"
-                                    wire:click="eliminarTemporalUsuario({{ $row->id }})"> </a>
+                                    wire:click="eliminar({{ $row->id }})"> </a>
+
                                 <a   title="Ver Detalles" data-bs-toggle="modal" data-bs-target="#verDetallesUsuario"
                                     class=" bi bi bi-eye-fill m-1  text-white btn btn-warning "
                                     wire:click="editarUsuario({{ $row->id }})"> </a>
@@ -81,13 +81,13 @@
 
                                 @if ($row->Estado=='Sancionado')
                                     <a   title="Retirar Sancion" data-bs-toggle="modal" data-bs-target="#cargarDatosSancion"
-                                         class="bi bi-lock-fill btn-sm text-white btn btn-warning  "
+                                         class="bi bi-lock-fill  m-1 text-white btn btn-warning  "
                                          wire:click="retirarSancion({{ $row->id }})"> </a>
 
                                 @else
 
                                     <a   title="Sancionar" data-bs-toggle="modal" data-bs-target="#cargarDatosSancion"
-                                         class="bi bi-lock-fill btn-sm text-white btn btn-primary  "
+                                         class="bi bi-lock-fill m-1 text-white btn btn-primary  "
                                          wire:click="sancionarUsuario({{ $row->id }})"> </a>
                                 @endif
 

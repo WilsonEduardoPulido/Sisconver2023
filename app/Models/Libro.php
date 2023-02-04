@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Libro extends Model
 {
-	use HasFactory;
+    use HasFactory;
     use SoftDeletes;
 
     public $timestamps = true;
@@ -43,7 +43,7 @@ class Libro extends Model
 
     public function detalle_prestamo()
     {
-        return $this->belongsToMany(Prestamos\DetallePrestamo::class,'id_libro','id');
+        return $this->hasOne(Prestamos\DetallePrestamo::class,'id_libro','id');
     }
 
     public function librosNovedades()

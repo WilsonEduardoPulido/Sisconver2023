@@ -78,7 +78,7 @@
                                wire:click="editarElemento({{ $row->id }})"></a>
 
                             <a  title="Inactivar"  class="btn btn-danger bi bi-trash3-fill  text-white m-1 "
-                                wire:click="inactivarElemento({{ $row->id }})"></a>
+                                wire:click="eliminar({{ $row->id }})"></a>
 
                             <a  title="Ver" data-bs-toggle="modal" data-bs-target="#verDetallesElemento"
                                 class=" bi bi bi-eye-fill text-white btn btn-warning m-1 "
