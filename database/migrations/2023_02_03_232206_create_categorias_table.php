@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('categorias', function (Blueprint $table) {
             $table->comment('');
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('nombre', 70);
+            $table->string('descripcion', 200);
             $table->enum('Tipo', ['Libros', 'Elementos']);
             $table->timestamps();
             $table->softDeletes();

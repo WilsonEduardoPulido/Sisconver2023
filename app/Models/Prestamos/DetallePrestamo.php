@@ -18,7 +18,7 @@ class DetallePrestamo extends Model
 
     protected $table = 'detalle_prestamo';
 
-    protected $fillable = ['id','id_libro','id_elemento','CantidadPrestadaU','NovedadesPrestamoU','id_prestamo'];
+    protected $fillable = ['id','id_libro','id_elemento','CantidadPrestadaU','NovedadesPrestamoU','id_prestamo','DetallePrestamo','EstadoDetalle'];
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'usuario_id');

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('updated_at');
             $table->softDeletes();
             $table->unsignedBigInteger('id_prestamo')->index('prestamo_fk');
+            $table->enum('EstadoDetalle', ['Activo', 'Pendiente', 'Finalizado'])->default('Activo');
         });
     }
 
