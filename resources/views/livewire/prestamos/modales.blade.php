@@ -453,6 +453,7 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Novedades</th>
+                                        <th scope="col">Estado</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
@@ -460,7 +461,7 @@
 
                                     @foreach ($datos as $key => $value)
 
-                                
+                              
                                 <tbody>
                                     <tr class="text-center " wir:key=" {{ $key }} ">
                                         <td scope="row" wire:key=" {{ $key + 1 }} "> {{ $loop->iteration }}
@@ -476,10 +477,12 @@
 
                                         <td> {{ $value['CantidaPrestadaU'] }} </td>
                                         <td> {{ $value['NovedadesPrestamoU'] }} </td>
+                                               
+                                        
                                         <td> <button
                                                 wire:click.prevent="cargarDatosDevolucionPrestamo(  {{ $key }} )"
                                                 class="btn btn-danger  text-white bi bi-dash-circle"></button>
-                                            Finalizar
+                                           
                                         </td>
                                     </tr>
 
@@ -679,6 +682,7 @@
         
         
                                         <td> {{ $value['CantidaPrestadaU'] }} </td>
+                                        <td> {{ $value['Est'] }} </td>
                                         <td> {{ $value['NovedadesPrestamoU'] }} </td>
                                         <td> <button
                                                 wire:click.prevent="cargarDatosDevolucionPrestamo(  {{ $key }} )"

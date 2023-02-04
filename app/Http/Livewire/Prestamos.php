@@ -172,7 +172,7 @@ public $arrayElementosPrestados,$op,$datosDevolucion,$FechaPrestamo,$CodigoPrest
 public function productosPrestados($id){
 
     
-    $arrayElementosPrestados = DetallePrestamo::select('prestamos.*','libros.*','elementos.*','detalle_prestamo.*','users.name','users.lastname')
+    $arrayElementosPrestados = DetallePrestamo::select('prestamos.*','libros.Nombre','libros.id','elementos.*','detalle_prestamo.*','users.name','users.lastname')
     ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
     ->leftjoin('libros', 'libros.id', '=', 'detalle_prestamo.id_libro')
     ->leftjoin('users', 'users.id', '=', 'prestamos.usuario_id')
@@ -187,7 +187,7 @@ public function productosPrestados($id){
 
 
 
-        dd($arrayElementosPrestados);
+       
        
         foreach ($arrayElementosPrestados as $key => $value) {
 
@@ -218,6 +218,8 @@ public function productosPrestados($id){
                 "updated_at"=>$value['updated_at'],
                 "id"=>$value['id'],
                 "lasname"=>$value['lastname'],
+                "Est"=>$value['EstadoDetalle'],
+                
 
                 
             );
@@ -225,8 +227,8 @@ public function productosPrestados($id){
          
             $this->datos[] = $datos;
 
-            
 
+           
                
             }
 
@@ -298,7 +300,21 @@ public function productosPrestados($id){
     public function cargarDatosDevolucionPrestamo($key )
     {
 
-       
+        //dd($this->datos[$key]['Est']);
+        $detallePrestamo=DetallePrestamo::find($this->datos[$key]['id']);
+    if($detallePrestamo->EstadoDetalle=='Finalizado'){
+        $this->dispatchBrowserEvent('swal', [
+            'type' => 'error',
+            'title' => 'Este Prestamo ya fue Finalizado',
+            'text' => 'No se puede realizar la devolucion',
+            'icon' => 'error',
+               
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+        ]);
+
+    }else{
 
           if($this->datos[$key]['Tipo_Elemento'] == "Libro" ){
             $prestador = Auth::user()->name;
@@ -308,8 +324,8 @@ public function productosPrestados($id){
             $tomo = $this->datosDevolucion = $this->datos[$key]['NombreTomo'];
             $apellido = $this->datosDevolucion = $this->datos[$key]['lasname'];
             $this->selected_id = $this->datos[$key]['id'];
-            $this->usuarioDeudorD=$this->datos[$key]['name'].$apellido;
-            $this->articuloDevolver=$this->datos[$key]['Nombre'].$tomo;
+            $this->usuarioDeudorD=$this->datos[$key]['name'].''.$apellido;
+            $this->articuloDevolver=$this->datos[$key]['Nombre'].''.$tomo;
             $this->CantidadPrestadaDevolver=$this->datos[$key]['CantidaPrestadaU'];
             $this->NovedadesDevolucion=$this->datos [$key]  ['NovedadesPrestamoU'];
 
@@ -348,10 +364,10 @@ public function productosPrestados($id){
             ]);
 
 
-            dd($this->datos);
+         
         }
 
-        
+         } 
 
        
 
@@ -468,18 +484,47 @@ elseif($this->CantidadDevuelta > $this->CantidadPrestadaDevolver){
      else{
 
 
-    $elementosentregados = array(
-
-
-            "Articulo"=>$this->articuloDevolver,
-            "Cantidad"=>$this->CantidadDevuelta,
-            "Novedades"=>$this->NovedadesDevolucion,
-          );
-
+   
             
-          $this->datos[$this->keyarray]['CantidaPrestadaU']-3;
-          $this->elementosentregados[] =  $elementosentregados;
+          $this->datos[$this->keyarray]['Est'];
 
+            $this->datos[$this->keyarray]['id'];
+
+
+$detallePrestamo=DetallePrestamo::find($this->datos[$this->keyarray]['id']);
+
+   if($this->CantidadDevuelta != $this->CantidadPrestadaDevolver){
+
+   $cantidadActual=$this->datos[$this->keyarray]['CantidaPrestadaU']-$this->CantidadDevuelta;
+
+
+   if($this->CantidadDevuelta == $this->CantidadPrestadaDevolver){
+    $detallePrestamo->EstadoDetalle="Finalizado";
+    $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+    $detallePrestamo->save();
+   }elseif($this->CantidadDevuelta < $this->CantidadPrestadaDevolver){
+    $detallePrestamo->EstadoDetalle="Pendiente";
+    $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+    $detallePrestamo->save();
+   }
+
+$detallePrestamo->CantidaPrestadaU=$cantidadActual;
+                
+$detallePrestamo->save();
+
+
+
+
+$elementosentregados = array(
+
+
+    "Articulo"=>$this->articuloDevolver,
+    "Cantidad"=>$this->CantidadDevuelta,
+    "Novedades"=>$this->NovedadesDevolucion,
+  );
+  $this->elementosentregados[] =  $elementosentregados;
+
+   
 
          
           $this->limpiarCamposPrestamo();
@@ -494,7 +539,7 @@ elseif($this->CantidadDevuelta > $this->CantidadPrestadaDevolver){
         ]);
      }
 
-    
+       }
     } 
 
 
