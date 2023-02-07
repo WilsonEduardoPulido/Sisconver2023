@@ -716,10 +716,11 @@ class Prestamos extends Component
         
 
 
-      }
+        }
 
+        }
       $this->crearDevolucion();
-  }
+
 
   }
     // dd($this->elementosentregados);
@@ -744,7 +745,6 @@ class Prestamos extends Component
     }
 
     public function crearDevolucion(){
-
 
         $codigo_Devolucion ='LAINB'. rand(1, 99999999);
         $apellido= Auth::user()->lastname;

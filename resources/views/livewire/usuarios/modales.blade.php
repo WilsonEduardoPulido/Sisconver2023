@@ -623,23 +623,62 @@
                     <div class="row g-0">
                         <div class="col-md-12 ">
                             <h5 class="card-header bi bi-bookmark-star-fill bg-primary text-white">Nombre de Usuario:{{ $name }} {{ $lastname }}</h5>
-
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card-body">
 
-                                <p class="card-text bi bi-caret-right-fill">Correo electronico:{{ $email }}</p>
-                                <p class="card-text bi bi-caret-right-fill" >Tipo de Documento :{{ $TipoDoc }}</p>
-                                <p class="card-text bi bi-caret-right-fill">Numero de Documento:{{ $NumeroDoc }}</p>
-                                <p class="card-text bi bi-caret-right-fill">Direccion:{{ $direccion }}</p>
-                                <p class="card-text bi bi-caret-right-fill">Celular:{{ $celular }}</p>
-                                <p class="card-text bi bi-caret-right-fill">Grado:{{ $Grado }}</p>
-                                <p class="card-text bi bi-caret-right-fill text-warning"">Estado:{{ $Estado }}</p>
+                                <div class="table-responsive col-12">
+                                    <table class="table table-light">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        <tr class="">
+                                            <th scope="col-6">Correo electronico:</td>
+                                            <td>{{ $email }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Tipo de Documento :</td>
+                                            <td>{{ $TipoDoc }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Numero de Documento:</th>
+                                            <td>{{ $NumeroDoc }}</td>
+
+                                        </tr>
+
+                                        <tr class="">
+                                            <th scope="row">Direccion:</th>
+                                            <td>{{ $direccion }}</td>
+
+                                        </tr>
+
+                                        <tr class="">
+                                            <th scope="row">Celular:</th>
+                                            <td>{{ $celular }}</td>
+
+                                        </tr>
+
+                                        <tr class="">
+                                            <th scope="row">Grado:</th>
+                                            <td>{{ $Grado }}</td>
+
+                                        </tr>
+
+                                        <tr class="">
+                                            <th scope="row">Estado:</th>
+                                            <td>{{ $Estado }}</td>
+
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
             <div class="modal-footer">
                 <button type="button" wire:click="resetInput()" class="btn btn-warning text-white close-btn"
                         data-bs-dismiss="modal">Cerrar</button>

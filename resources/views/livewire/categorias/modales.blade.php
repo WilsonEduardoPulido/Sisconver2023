@@ -16,18 +16,35 @@
                         <div class="col-md-12 ">
                             <h5 class="card-header bi bi-bookmark-star-fill bg-primary text-white">Categoría o Género literario:{{ $nombre }}</h5>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card-body">
 
-                                <p class="card-text bi bi-caret-right-fill">Tipo :{{ $Tipo }}</p>
-                                <p class="card-text bi bi-caret-right-fill">Descripción:{{ $descripcion }}</p>
-                                <p class="card-text bi bi-caret-right-fill text-warning">Estado :<small
-                                        class="  text-warning   " @disabled(true)> <strong>{{ $Estado }}</strong>  </small></p>
+                                <div class="table-responsive col-12">
+                                    <table class="table table-light">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+                                        <tr class="">
+                                            <th scope="col-6">Tipo :</td>
+                                            <td>{{ $Tipo }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Descripción:</td>
+                                                <td>{{ $descripcion }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Estado : </th>
+                                            <td>{{ $Estado }}</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
+
             <div class="modal-footer">
                 <button type="button" wire:click="cancelar()" class="btn btn-warning text-white close-btn"
                     data-bs-dismiss="modal">Cerrar</button>
