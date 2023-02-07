@@ -4,7 +4,7 @@
 
 
 
-   @include('Alertas.Alertas')
+    @include('Alertas.Alertas')
 
 
 
@@ -38,7 +38,7 @@
                     <option> Elige un Usuario
                     </option>
                     @foreach ($consultaUsuarios as $usuario)
-                        <option selected value="{{ $usuario->id }}"> {{ $usuario->name }}
+                        <option selected value="{{ $usuario->id }}"> {{ $usuario->name }} {{ $usuario->lastname }}
                         </option>
                     @endforeach
 
@@ -65,7 +65,7 @@
             </div>
             <label for="exampleFormControlTextarea1" class="form-label">Novedades</label>
             <textarea class="form-control @error('Novedades') is-invalid @enderror" id="exampleFormControlTextarea1"
-                wire:model.defer="NovedadesElemento" cols="1" rows="3" disabled></textarea>
+                      wire:model="NovedadesElemento" cols="1" rows="3" disabled></textarea>
 
 
             <div class="col-12 d-flex justify-content-around ">
@@ -96,9 +96,12 @@
                 </div>
             </div>
             <div class="mt-4 col-12 justify-content-around  d-flex">
-                <button type="button" title="Cancelar" wire:click="limpiarCampos()"
-                        class="btn btn-danger  btn-sm text-white ">Cancelar</button>
+
                 <button type="submit" title="Prestar" class="btn btn-warning btn-sm text-white  ">Prestar</button>
+
+                <button type="button" title="Cancelar" wire:click="limpiarCampos()"
+                        class="btn btn-danger  btn-sm text-white ">Limpiar Campos</button>
+
 
             </div>
 
@@ -146,4 +149,3 @@
             </div>
         </form>
     </div>
-

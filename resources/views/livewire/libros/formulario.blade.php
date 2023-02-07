@@ -1,5 +1,5 @@
 <div class="card p-1">
-   @include('Alertas.Alertas')
+  
     <div class="card-header m-2 bg-info text-center text-white">
         Formulario Libros
     </div>
@@ -9,12 +9,13 @@
             <input type="text" disabled class="form-control   @error('nombreBibliotecario') is-invalid @enderror "
                    id="nombreBibliotecario" value="Mark" required name="nombreBibliotecario"
                    wire:model="nombreBibliotecario">
+                   @error('nombreBibliotecario')
+                   <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                       </span>
+                   @enderror
         </div>
-        @error('nombreBibliotecario')
-        <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+      
 
         <div class="col-md-12">
             <label for="nombreUsuario" class="form-label">Usuario</label>
@@ -28,7 +29,7 @@
                         <option selected value="{{ $usuario->id }}"> {{ $usuario->name }} {{ $usuario->lastname }}
                         </option>
                     @endforeach
-
+                   
 
                 </select>
                 @error('nombreUsuario')
@@ -46,18 +47,25 @@
             <label for="nombreLibro" class="form-label">Libro</label>
             <input type="text" disabled class="form-control   @error('nombreLibro') is-invalid @enderror"
                    id="nombreLibro" value="Otto" required name="nombreLibro" wire:model="nombreLibro">
+                   @error('nombreLibro')
+                   <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                       </span>
+                   @enderror
         </div>
-        @error('nombreLibro')
-        <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+       
 
         <div>
-            <label for="exampleFormControlTextarea1" class="form-label">Novedades</label>
-            <textarea class="form-control @error('Novedades') is-invalid @enderror" id="exampleFormControlTextarea1"
-                wire:model.defer="NovedadesF" cols="1" rows="3" disabled></textarea>
+            <label for="NovedadesF" class="form-label">Novedades</label>
+            <textarea class="form-control @error('NovedadesF') is-invalid @enderror" id="NovedadesF"
+                wire:model="NovedadesF" cols="1" rows="3" disabled></textarea>
+                @error('NovedadesF')
+                <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
         </div>
+
        
         <div class="col-md-12  d-flex justify-content-around ">
             <div class="col-md-5">
@@ -76,7 +84,7 @@
                 <input type="text" class="form-control @error('cantidadPrestamo') is-invalid @enderror"
                        id="cantidadPrestamo" required name="cantidadPrestamo" wire:model="cantidadPrestamo">
 
-                @error('nombrePrestamo')
+                @error('cantidadPrestamo')
                 <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

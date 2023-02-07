@@ -40,5 +40,10 @@ class Elemento extends Model
     {
         return $this->hasMany('App\Models\Prestamo', 'elementos_id', 'id');
     }
-    
+
+    public function detalle_prestamo()
+    {
+        return $this->hasOne(Prestamos\DetallePrestamo::class,'id_elemento','id');
+    }
+
 }

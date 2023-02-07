@@ -37,7 +37,7 @@
 
 
     </section>
-
+    @include('partials.footer')
 
 
 

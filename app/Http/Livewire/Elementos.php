@@ -25,7 +25,7 @@ class Elementos extends Component
     public $arrayElementos = [];
     public function render()
     {
-        $consultaUsuarios = User::where('Estado', "=", 'Activo')->select('id', 'name')->get();
+        $consultaUsuarios = User::where('Estado', "=", 'Activo')->select('id', 'name','lastname')->get();
         $elementosPrestados = Elemento::where('Estado', "=", 'Prestado')->paginate(10);
         $consulta = Elemento::onlyTrashed()->where('Estado', "=", "Inactivo")->paginate(10);
 
@@ -59,13 +59,13 @@ class Elementos extends Component
         $this->validateOnly($propertyName);
     }
     protected $rules = [
-        'nombre' => 'required',
+        'nombre' => 'required|min:3|max:80',
         'cantidad' => 'required|min:1|numeric',
-        'descripcion' => 'required',
-        
+        'descripcion' => 'required|min:3|max:150',
+
         'categoria_id' => 'required',
-        'NovedadesElemento'=>'required',
-        'TipoNovedad'=>'required'
+        'NovedadesElemento'=>'nullable|min:3|max:150',
+        'TipoNovedad'=>'nullable'
 
 
 
@@ -74,6 +74,19 @@ class Elementos extends Component
         'cantidad.required' => 'La cantidad es requerida',
         'cantidad.min' => 'La cantidad debe tener al menos  un numero mayor a 0',
         'cantidad.numeric' => 'La cantidad debe ser un numero mayor a 0',
+        'nombre.required' => 'El nombre es requerido',
+        'nombre.min' => 'El nombre debe tener al menos 3 caracteres',
+        'nombre.max' => 'El nombre debe tener maximo 80 caracteres',
+        'descripcion.required' => 'La descripcion es requerida',
+        'descripcion.min' => 'La descripcion debe tener al menos 3 caracteres',
+        'descripcion.max' => 'La descripcion debe tener maximo 150 caracteres',
+        'categoria_id.required' => 'La categoria es requerida',
+        'NovedadesElemento.required' => 'La Novedad es requerida',
+        'TipoNovedad.required' => 'El Tipo de Novedad es requerido',
+        'NovedadesElemento.min' => 'La Novedad debe tener al menos 3 caracteres',
+        'NovedadesElemento.max' => 'La Novedad debe tener maximo 150 caracteres',
+
+
     ];
 
 
@@ -86,6 +99,8 @@ class Elementos extends Component
         $this->categoria_id = null;
         $this->NovedadesElemento = null;
         $this->TipoNovedad = null;
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function crearElemento()
@@ -96,33 +111,34 @@ class Elementos extends Component
 
         $crearElemento = new Elemento();
 
-           $crearElemento->nombre = $this->nombre;
-              $crearElemento->cantidad = $this->cantidad;
-                    $crearElemento->descripcion = $this->descripcion;
-                        $crearElemento->Estado = 'Disponible';
-                        $crearElemento->categoria_id = $this->categoria_id;
-                        $crearElemento->NovedadesElemento = $this->NovedadesElemento;
-                        $crearElemento->TipoNovedad = $this->TipoNovedad;
-                            $crearElemento->save();
-    
-
-                            $this->selected_id=$crearElemento->id;
-                            $this->actualizarEstadoNovedad();
-
-                         
-                            $this->resetErrorBag();
-                                $this->cancelar();
-                                $this->dispatchBrowserEvent('cerrar');
-                                $this->dispatchBrowserEvent('crear', [
-                                    'type' => 'success',
-                                    'title' => 'Elemento Agregado Con Exito...',
-                                    'icon'=>'success',
-                                    
-                                ]);
+        $crearElemento->nombre = $this->nombre;
+        $crearElemento->cantidad = $this->cantidad;
+        $crearElemento->descripcion = $this->descripcion;
+        $crearElemento->Estado = 'Disponible';
+        $crearElemento->categoria_id = $this->categoria_id;
+        $crearElemento->NovedadesElemento = $this->NovedadesElemento;
+        $crearElemento->TipoNovedad = $this->TipoNovedad;
+        $crearElemento->save();
 
 
+        $this->selected_id=$crearElemento->id;
+        $this->actualizarEstadoNovedad();
 
-       
+
+        $this->resetErrorBag();
+        $this->cancelar();
+        $this->dispatchBrowserEvent('cerrar');
+        $this->dispatchBrowserEvent('crear', [
+            'type' => 'success',
+            'title' => 'Elemento Agregado Con Exito...',
+            'icon'=>'success',
+
+        ]);
+
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+
 
     }
 
@@ -150,12 +166,12 @@ class Elementos extends Component
     public function actualizarElemento()
     {
         $this->validate([
-            'nombre' => 'required',
-            'cantidad' => 'required',
-            'descripcion' => 'required',
-            'Estado' => 'required',
+            'nombre' => 'required|min:3|max:80',
+            'cantidad' => 'required|min:1|numeric',
+            'descripcion' => 'required|min:3|max:150',
+
             'categoria_id' => 'required',
-            'NovedadesElemento'=>'required',
+            'NovedadesElemento'=>'required|min:3|max:150',
             'TipoNovedad'=>'required'
         ]);
 
@@ -171,16 +187,16 @@ class Elementos extends Component
                 'TipoNovedad' => $this->TipoNovedad,
 
             ]);
-$this->actualizarEstadoNovedad();
+            $this->actualizarEstadoNovedad();
             $this->cancelar();
             $this->dispatchBrowserEvent('cerrar');
-           
             $this->resetErrorBag();
+            $this->resetValidation();
             $this->dispatchBrowserEvent('crear', [
                 'type' => 'success',
                 'title' => 'Elemento Actualizado Con Exito...',
                 'icon'=>'success',
-                
+
             ]);
         }
     }
@@ -189,26 +205,26 @@ $this->actualizarEstadoNovedad();
 
 
 
-public function actualizarEstadoNovedad(){
+    public function actualizarEstadoNovedad(){
 
-    $elementoN = Elemento::find($this->selected_id);
+        $elementoN = Elemento::find($this->selected_id);
 
-        
-      if($elementoN->TipoNovedad =='Alta'){
 
-        $elementoN->Estado='NoDisponible';
-        $elementoN->update();
-      }elseif($elementoN->TipoNovedad =='Ninguna'){
-        $elementoN->Estado='Disponible';
-        $elementoN->update();
+        if($elementoN->TipoNovedad =='Alta'){
+
+            $elementoN->Estado='NoDisponible';
+            $elementoN->update();
+        }elseif($elementoN->TipoNovedad =='Ninguna'){
+            $elementoN->Estado='Disponible';
+            $elementoN->update();
         }elseif($elementoN->TipoNovedad =='Media'){
             $elementoN->Estado='Disponible';
             $elementoN->update();
-             }elseif($elementoN->Estado=='Agotado'){
+        }elseif($elementoN->Estado=='Agotado'){
 
             session()->flash('info', 'El Elemento no puede ser actualizado porque esta agotado.');
-             }
-}
+        }
+    }
 
 
 
@@ -270,9 +286,9 @@ public function actualizarEstadoNovedad(){
 
 
         $prestamoC = Elemento::findOrFail($id);
-       
 
-    
+
+
 
 
 
@@ -299,45 +315,48 @@ public function actualizarEstadoNovedad(){
         elseif($prestamoC->TipoNovedad =='Media'){
 
             session()->flash('info', 'Este elemento tiene una novedad media, se debe revisar antes de ser prestado');
-            
-            $prestador = Auth::user()->name;
-        $this->name = $prestador;
-        $this->prestador_id = Auth::user()->id;
-        $this->selected_id = $id;
 
-        $this->nombreElemento = $prestamoC->nombre;
-        $this->cantidadElemento = $prestamoC->cantidad;
-        $this->NovedadesElemento = $prestamoC->NovedadesElemento;
-        $this->Estado = $prestamoC->Estado;
+            $prestador = Auth::user()->name;
+            $this->name = $prestador;
+            $this->prestador_id = Auth::user()->id;
+            $this->selected_id = $id;
+
+            $this->nombreElemento = $prestamoC->nombre;
+            $this->cantidadElemento = $prestamoC->cantidad;
+            $this->NovedadesElemento = $prestamoC->NovedadesElemento;
+            $this->Estado = $prestamoC->Estado;
         }elseif($prestamoC->cantidad==0 ){
             session()->flash('info', 'No se puede prestar este elemento porque no hay unidades disponibles y tiene una novedad');
             return;
-          }
+        }
 
         else{
 
 
             $prestador = Auth::user()->name;
-        $this->name = $prestador;
-        $this->prestador_id = Auth::user()->id;
-        $this->selected_id = $id;
+            $this->name = $prestador;
+            $this->prestador_id = Auth::user()->id;
+            $this->selected_id = $id;
 
-        $this->nombreElemento = $prestamoC->nombre;
-        $this->cantidadElemento = $prestamoC->cantidad;
-        $this->NovedadesElemento = $prestamoC->NovedadesElemento;
-        $this->Estado = $prestamoC->Estado;
+            $this->nombreElemento = $prestamoC->nombre;
+            $this->cantidadElemento = $prestamoC->cantidad;
+            $this->NovedadesElemento = $prestamoC->NovedadesElemento;
+            $this->Estado = $prestamoC->Estado;
 
-        session()->flash('exito', 'Datos cargados con exito');
+            $this->dispatchBrowserEvent('error', [
+                'title' => 'Datos Cargados Con Exito ...',
+                'icon'=>'success',  ]);
         }
 
-
+        $this->resetErrorBag();
+        $this->resetValidation();
 
 
 
 
     }
 
-  
+
 
 
     //Funcion Actualizar Cantidad
@@ -366,21 +385,21 @@ public function actualizarEstadoNovedad(){
         if($elemento->cantidad==0){
             $elemento->Estado='Agotado';
 
-        $elemento->update(); }
+            $elemento->update(); }
         elseif($elemento->TipoNovedad=='Alta'){
             $elemento->Estado='Fueradeservicio';
-              }elseif($elemento->Estado=='Agotado'){
+        }elseif($elemento->Estado=='Agotado'){
             $elemento->Estado='Disponible';
 
-        $elemento->update(); }
+            $elemento->update(); }
         elseif($elemento->Estado=='Fueradeservicio'){
             $elemento->Estado='Disponible';
             $elemento->update();
-              }
+        }
         else{
             $elemento->Estado='Disponible';
-       
-    }  }
+
+        }  }
 
 
 
@@ -395,9 +414,9 @@ public function actualizarEstadoNovedad(){
         $CantidadPrestar = $this->CantidadPrestar;
         $cantidadElemento = $this->cantidadElemento;
 
-$this->validate([
+        $this->validate([
             'usuario_id' => 'required',
-            
+
         ]);
 
         if ($CantidadPrestar > $cantidadElemento) {
@@ -427,57 +446,59 @@ $this->validate([
                 $this->idarray = $idrr;
 
                 $arrayElementos = array(
-'id_array'=>$this->idarray,
+                    'id_array'=>$this->idarray,
                     'NombreElemento'=>$this->nombreElemento,
                     'id'=>   $this->selected_id,
                     'usuario_id'=>$this->usuario_id,
 
-                    
+
+
                     // $this->nombreLibro = $prestamoLibrof -> Nombre,
                     'CantidadPrestada'=>             $this->CantidadPrestar,
 
-                   'NovedadesPrestamoU'=>$this->NovedadesElemento,
+                    'NovedadesPrestamoU'=>$this->NovedadesElemento,
 
 
                 );
-                
 
 
                 $this->arrayElementos[] = $arrayElementos;
 
-               
+                //dd($arrayElementos);
 
-                
-        
-               
-        
-               
 
-                        $this->actualizarCantidad();
 
-                        $this->actualizarEstado();
-        
-    
-        
-        
-                        session()->flash('info', 'Datos Cargados Con Exito.');
-                        $this->resetErrorBag();
-                       
-                        
-                        
-                        
-                   
 
-                
 
-                
-              
+
+
+                $this->actualizarCantidad();
+
+                $this->actualizarEstado();
+
+
+
+
+                $this->dispatchBrowserEvent('error', [
+                    'title' => ' Elemento listo para prestar...',
+                    'icon'=>'success',  ]);
+                $this->resetErrorBag();
+
+
+
+                $this->limpiarCampos();
+
+
+
+
+
+
 
             }
         }
 
 
-        
+
 
     }
 
@@ -485,7 +506,7 @@ $this->validate([
 
 
 
-    
+
 
 
 
@@ -515,7 +536,11 @@ $this->validate([
 
 
         unset($this->arrayElementos[$key]);
-        session()->flash('exito','Prestamo Cancelado');
+        $this->dispatchBrowserEvent('swal', [
+            'title' => 'Prestamo Cancelado.',
+            'icon'=>'info',
+            'iconColor'=>'red',
+        ]);
 
     }
 
@@ -530,15 +555,16 @@ $this->validate([
 
 
         $codigo_Prestamo ='LAINB'. rand(1, 99999999);
-        
+
         $this->$codigo_Prestamo = $codigo_Prestamo;
 
-        
+
         $prestamos = new Prestamo();
         $prestamos->Codigo_Prestamo = $codigo_Prestamo;
-     
+
 
         $prestamos->usuario_id = $this->usuario_id;
+
         $prestamos->Tipo_Elemento = 'Elemento';
         $prestamos->NombreBibliotecario  = Auth::user()->name;
 
@@ -547,7 +573,7 @@ $this->validate([
 
         $prestamos->save();
 
-        
+
 
 
         foreach($this->arrayElementos as $key =>$elemento){
@@ -572,7 +598,7 @@ $this->validate([
             'type' => 'success',
             'title' => 'Prestamo Realizado Con Exito...',
             'icon'=>'success',
-            
+
         ]);
     }
 
@@ -612,25 +638,42 @@ $this->validate([
         $this->nombreElemento = '';
         $this->CantidadPrestar = '';
         $this->Fecha_Prestamo = '';
-        $this->usuario_id = '';
         $this->prestador_id = '';
         $this->selected_id = '';
         $this->descripcion = '';
         $this->Estado = '';
         $this->categoria_id = '';
+        $this->NovedadesElemento = "";
 
-
+        $this->resetErrorBag();
+        $this->resetValidation();
         $this->resetValidation();
     }
 
     public function eliminar($id){
 
-        $this->dispatchBrowserEvent('eliminar', [
-            'type' => 'warning',
-            'title' => '¿Estas Seguro De Inactivar Este Elemento?',
-            'id' => $id,
+        $elemento = Elemento::where('id',$id)->with('detalle_prestamo')->first();
 
-        ]);
+        if($elemento->detalle_prestamo == null ){
+
+            $this->dispatchBrowserEvent('eliminar', [
+                'type' => 'warning',
+                'title' => '¿Estas Seguro De Inactivar Este Elemento?',
+                'id' => $id,
+
+            ]);
+        }
+        elseif($elemento->detalle_prestamo->count() >0 ){
+
+
+
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'No se puede Inactivar El Elemento, tiene prestamos asociados.',
+                'icon'=>'error',
+                'iconColor'=>'red',
+            ]);
+        }
+
 
     }
 

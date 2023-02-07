@@ -16,7 +16,23 @@ body{
     padding-right: 0px !important;
 
 }
+body.dark{
+    background: #000;
+}
+body.dark span {
+    color: #ffffff;
+}
+body.dark h2{
+    color: #ffffff;
+}
 
+body.dark .icons-footer{
+    background-color: #ffffff;
+}
+
+nav .dark{
+    background-color: #000000;
+}
 :root {
 
     --a: linear-gradient(to bottom, #051937, #004d7a, #008793, #00bf72, #a8eb12);
@@ -49,7 +65,9 @@ body{
     height: 100%;
 }
 
-
+body.dark button{
+    color: #ffffff;
+}
 
 
 
@@ -140,16 +158,31 @@ main {
 
 
 section{
-    background-color: #fff;
+   /* background-color: #fff;*/
 
 font-family: 'Krub';
 
+}
+section.dark{
+    background: #000000;
+}
+section.dark h2{color: #ffffff;
 }
 footer {
 
     font-size: 2.8rem;
     font-family: 'Krub', sans-serif;
+   /* background-color: #ffffff;*/
+}
+footer.dark{
+    background: #000;
+}
+footer.dark ul {
     background-color: #ffffff;
+}
+
+body .sidebar.dark{
+    background: #000000;
 }
 
 /* Login */
@@ -167,7 +200,7 @@ footer {
     border-radius: 20px;
 
 
-    background-color: #ffffff;
+   /* background-color: #ffffff;*/
     border-radius: 20px;
     box-shadow: 4px 4px 4px 4px rgba(218, 221, 224, 0.7);
     color: var(--color_letra);
@@ -178,7 +211,7 @@ footer {
 .contenedor_form_usuarios {
     width: 45%;
     height: 90%;
-    background-color: #fff;
+   /* background-color: #fff;*/
     font-family: 'Krub', sans-serif;
     box-shadow: 12px 10px 20px 8px rgba(51, 52, 53, 0.7);
 }
@@ -226,7 +259,10 @@ div.dataTables_wrapper div.dataTables_paginate{
 }
 
 .cardPanel{
-    background-color: #ffffff;
+   /* background-color: #ffffff;*/
+}
+.cardPanel.dark {
+    background: #000;
 }
 .car {
     background-color: rgb(255, 255, 255);
@@ -318,11 +354,13 @@ color: #0097b3;
 
 .card{
 height: auto;
-background-color: #fff;
+/*background-color: #fff;*/
 
     font-size: 'Krub';
     font-size: 1rem;
 }
+
+
 #buscar{
     background: url(/assets/img/icons8-search-32.png) no-repeat;
     text-align: center;

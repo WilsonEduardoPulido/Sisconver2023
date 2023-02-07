@@ -1,8 +1,8 @@
 <div class="card  mt-3 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
-        <h4 class="text-center ">Gestiòn De Prestamos</h4>
-
+       
+        <caption>Gestiòn De Prestamos</caption>
     </div>
 
     <div class="d-flex  justify-content-between">
@@ -18,7 +18,7 @@
 
 
     <div class="card-body  ">
-        <caption>Gestion De Prestamos</caption>
+       
         <div class="table-responsive  table-bordered border-primary">
             <table  class="table ">
                 <thead class="thead">
@@ -26,11 +26,11 @@
                         <td>#</td>
 
                         <th>Bibliotecario</th>
-                        <th>Fecha Prestamo</th>
-
-                        <th>Codigo</th>
+                        <th>Fecha Prèstamo</th>
+                        <th>Tipo </th>
+                        <th>Còdigo</th>
                         <th>Usuario</th>
-                        <th>Estado Prestamo</th>
+                        <th>Estado </th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -40,10 +40,12 @@
                         <tr>
                             <th>{{ $loop->iteration }}</td>
                             <td>{{ $row->NombreBibliotecario }} </td>
+                           
                             <td>
                                 {{ $row->created_at }} </td>
-                            <td> {{ $row->Codigo_Prestamo  }} </td>
-
+                                <td>     {{ $row->Tipo_Elemento }}  </td>
+                            <th> {{ $row->Codigo_Prestamo  }} </th>
+                            
                             <td>{{ $row->name }} {{ $row->lastname }} </td>
 
 
@@ -109,7 +111,7 @@
                 <td class="text-center bg-emerald-300" colspan="100%">No hay registros para mostrar</td>
             </tr>
             @endforelse
-
+            <div class="float-end">{{ $consultaPrestamos->links() }}</div>
             </tbody>
 
 

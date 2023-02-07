@@ -93,17 +93,18 @@
                                         @enderror
                                     </div>
 
-                                    <div class="mb-1 col-4 form-group ">
+                                    <div class="mb-1 col-4 form-group mb-1 ">
                                         <label for="Cantidad" class="form-label">Cantidad De Unidades</label>
                                         <input type="number" name="Cantidad"
                                             class="form-control @error('Cantidad') is-invalid @enderror" id="Cantidad"
                                             wire:model="Cantidad" />
+                                        @error('Cantidad')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('Cantidad')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+
 
 
 
@@ -114,23 +115,30 @@
 
 
                                     <div class="mb-1 col-4" id="novedades">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Descripciòn</label>
+                                        <label for="Descripcion" class="form-label">Descripciòn</label>
                                         <textarea class="form-control @error('Descripcion') is-invalid @enderror" id="exampleFormControlTextarea1"
                                             wire:model="Descripcion" style="resize: none;" cols="1" rows="3"></textarea>
+                                        @error('Descripcion')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('Descripcion')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+
 
                                     <div class="mb-1 col-4">
-                                        <label for="Cantidad" class="form-label">Nombre Y Numero de
+                                        <label for="NombreTomo" class="form-label">Nombre Y Numero de
                                             Tomo</label>
-                                        <input type="text" name="Cantidad"
-                                            class="form-control @error('Cantidad') is-invalid @enderror" id="Cantidad"
-                                            wire:model.defer="NombreTomo" />
+                                        <input type="text" name="NombreTomo"
+                                            class="form-control @error('NombreTomo') is-invalid @enderror"
+                                            id="NombreTomo" wire:model="NombreTomo" />
+                                        @error('NombreTomo')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+
                                 </div>
 
                                 <div class="row m-auto" id="Novedades">
@@ -138,38 +146,63 @@
 
                                     <label for="exampleFormControlTextarea1" class="form-label">Novedades</label>
                                     <textarea class="form-control @error('Novedades') is-invalid @enderror" id="exampleFormControlTextarea1"
-                                        wire:model.defer="Novedades" cols="1" rows="3"></textarea>
+                                        wire:model="Novedades" cols="1" rows="3"></textarea>
+                                    @error('Novedades')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="row mt-2 d-flex m-auto">
 
-                                    <div class="row d-flex m-auto">
 
+                                        <label for="">Clasifica La Novedad Segun El Daño o Estado Fìsico  </label>
 
-                                        <label for="">Clasifica La Novedad Segun El Daño </label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="exampleRadios"
-                                                id="exampleRadios1" value="Ninguna" checked wire:model="TipoNovedad">
-                                            <label class="form-check-label" for="exampleRadios1">
-                                                Ninguna
-                                            </label>
+                                        <div class="col-3 mt-1">
+                                            <div class="form-check">
+                                                <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                                    id="exampleRadios1" value="Ninguna" checked wire:model="TipoNovedad">
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    Ninguna
+                                                </label>
+                                                @error('TipoNovedad')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="exampleRadios"
-                                                id="exampleRadios2" value="Media" wire:model.defer="TipoNovedad">
-                                            <label class="form-check-label" for="exampleRadios2">
-                                                Media
-                                            </label>
+                                       
+                                        <div class="col-3 mt-1">
+                                            <div class="form-check">
+                                                <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                                    id="exampleRadios2" value="Media" wire:model.defer="TipoNovedad">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    Media
+                                                </label>
+                                                 @error('TipoNovedad')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            </div>
                                         </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="exampleRadios"
-                                                id="exampleRadios3" value="Alta" wire:model.defer="TipoNovedad">
-                                            <label class="form-check-label" for="exampleRadios3">
-                                                Alta
-                                            </label>
+                                       
+                                        <div class="col-3 mt-1">
+                                            <div class="form-check">
+                                                <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                                    id="exampleRadios3" value="Alta" wire:model.defer="TipoNovedad">
+                                                <label class="form-check-label" for="exampleRadios3">
+                                                    Alta
+                                                </label>
+                                                @error('TipoNovedad')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            </div>
                                         </div>
-                                        @error('Descripcion')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
+                                       
+                                       
                                     </div>
 
                                 </div>
@@ -179,8 +212,9 @@
 
 
                             <button wire:click.prevent="anadirTomo"
-                                class="btn col-2 mt-2 btn-warning text-white">Agregar Libro</button>
+                                class="btn col-2 m-2 btn-warning text-white">Agregar Libro</button>
 
+                                <a class="btn btn-info col-2  text-white m-2" wire:click="limpiarCampos"  >Limpiar Campos</a>
 
 
 
@@ -188,7 +222,7 @@
 
                         </form>
 
-                        <div class="mt-2">
+                        <div class="mt-2 row m-auto">
 
                             <div class="table-responsive mt-1">
                                 <caption>Libros Agregados</caption>
@@ -211,7 +245,7 @@
 
 
                                             <tr class="text-center " wir:key=" {{ $key }} ">
-                                                <td scope="row" wire:key=" {{ $key + 1 }} "></td>
+                                                <td scope="row" wire:key=" {{ $key + 1 }} "> {{ $key +1  }} </td>
 
                                                 <td> {{ $libroa['Nombre'] }} {{ $libroa['NombreTomo'] }} </td>
 
@@ -347,7 +381,7 @@
                         @enderror
                     </div>
 
-                 
+
                     <div class="form-group col-6 mb-1">
                         <label for="categoria_id">Seleccione el Genero Literario </label>
                         <select wire:model="categoria_id" name="categoria_id"
@@ -356,71 +390,113 @@
                             @foreach ($categorias as $row)
                                 <option selected value="{{ $row->id }}">{{ $row->nombre }}</option>
                             @endforeach
-                        </select>
-                        @error('categoria_id')
+                            @error('categoria_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                        </select>
+                       
                     </div>
                     <div class="mb-1 form-group col-6 ">
                         <label for="CantidadLibros" class="form-label">Cantidad</label>
                         <input type="number" name="CantidadLibros"
                             class="form-control @error('CantidadLibros') is-invalid @enderror" id="CantidadLibros"
                             wire:model="CantidadLibros">
+                            @error('CantidadLibros')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
-                    @error('CantidadLibros')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                   
                     <div class="mb-1 col-4">
                         <label for="NombreTomo" class="form-label">Nombre Y Numero de
                             Tomo</label>
                         <input type="text" name="NombreTomo"
                             class="form-control @error('Cantidad') is-invalid @enderror" id="NombreTomo"
                             wire:model="NombreTomo" />
+                            @error('NombreTomo')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="mb-1 ">
                         <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
                         <textarea class="form-control @error('Descripcion') is-invalid @enderror" id="exampleFormControlTextarea1"
                             wire:model="Descripcion" cols="1" rows="3"></textarea>
-                    </div>
-                    @error('Descripcion')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                    <div>
-                        <label for="exampleFormControlTextarea1" class="form-label">Novedades</label>
-                        <textarea class="form-control @error('Novedades') is-invalid @enderror" id="exampleFormControlTextarea1"
-                            wire:model.defer="Novedades" cols="1" rows="3"></textarea>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="Ninguna" checked wire:model.defer="TipoNovedad">
-                            <label class="form-check-label" for="exampleRadios1">
-                                Ninguna
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                value="Media" wire:model.defer="TipoNovedad">
-                            <label class="form-check-label" for="exampleRadios2">
-                                Media
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
-                                value="Alta" wire:model.defer="TipoNovedad">
-                            <label class="form-check-label" for="exampleRadios3">
-                                Alta
-                            </label>
-                        </div>
-                        @error('Descripcion')
+                            @error('Descripcion')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                   
+                    <div class="row m-auto" id="Novedades">
+
+
+                        <label for="exampleFormControlTextarea1" class="form-label">Novedades</label>
+                        <textarea class="form-control @error('Novedades') is-invalid @enderror" id="exampleFormControlTextarea1"
+                            wire:model="Novedades" cols="1" rows="3"></textarea>
+                        @error('Novedades')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="row mt-2 d-flex m-auto">
+
+
+                            <label for="">Clasifica La Novedad Segun El Daño o Estado Fìsico  </label>
+
+                            <div class="col-3 mt-1">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                        id="exampleRadios1" value="Ninguna" checked wire:model="TipoNovedad">
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Ninguna
+                                    </label>
+                                    @error('TipoNovedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+                           
+                            <div class="col-3 mt-1">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                        id="exampleRadios2" value="Media" wire:model.defer="TipoNovedad">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Media
+                                    </label>
+                                     @error('TipoNovedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+                           
+                            <div class="col-3 mt-1">
+                                <div class="form-check">
+                                    <input class="form-check-input @error('TipoNovedad') is-invalid @enderror" type="radio" name="exampleRadios"
+                                        id="exampleRadios3" value="Alta" wire:model.defer="TipoNovedad">
+                                    <label class="form-check-label" for="exampleRadios3">
+                                        Alta
+                                    </label>
+                                    @error('TipoNovedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                </div>
+                            </div>
+                           
+                           
+                        </div>
+
                     </div>
                 </form>
             </div>
@@ -440,54 +516,78 @@
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12 ">
+                            <h5 class="card-header bi bi-bookmark-star-fill bg-primary text-white">Nombre Del Libro:
+                                {{ $categoriaNombre }}</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-body">
 
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        Detalles Del Libro
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title ">Nombre Del Libro:{{ $categoriaNombre }}</h5>
-                        <table class="table">
+                                <div class="table-responsive col-12">
+                                    <table class="table table-light">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Elemento</th>
+                                            <th scope="col">Datos</th>
 
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="">
+                                            <th scope="col-6">Autor:</th>
+                                            <td>{{ $categoriaAutor }}</td>
 
-                            <tbody>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Editorial:</th>
+                                            <td>{{ $categoriaEditorial }}</td>
 
-                                <tr>
-                                    <h5 scope="col">Autor:{{ $categoriaAutor }}</h5>
-                                </tr>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Edicion:</th>
+                                            <td>{{ $categoriaEdicion }}</td>
 
-                                <tr>
-                                    <h5 scope="col">Editorial:{{ $categoriaEditorial }}</h5>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Cantidad:</th>
+                                            <td>{{ $categoriaCantidad }}</td>
 
-                                </tr>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Estado:</th>
+                                            <td>{{ $categoriaEstado }}</td>
 
-                                <tr>
-                                    <h5 scope="col">Edicion:{{ $categoriaEdicion }}</h5>
+                                        </tr>
 
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Descripción:</th>
+                                            <td>{{ $categoriaDescripcion }}</td>
 
-                                </tr>
+                                        </tr>
 
-                                <tr>
-                                    <h5 scope="row">Cantidad:{{ $categoriaCantidad }}</h5>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Novedades:</th>
+                                            <td>{{ $categoriaNovedades}}</td>
 
+                                        </tr>
 
-                                </tr>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Tipo Novedad:</th>
+                                            <td>{{ $categoriaTipoNovedad }}</td>
 
-                                <tr>
-                                    <h5 scope="row">Estado:{{ $categoriaEstado }}</h5>
+                                        </tr>
 
-                                </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
-                                <tr>
-                                    <h5 scope="row">Descripción:{{ $categoriaDescripcion }}</h5>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
+                        </div>
                     </div>
                 </div>
 
@@ -495,8 +595,6 @@
 
 
 
-
-            </div>
 
 
 

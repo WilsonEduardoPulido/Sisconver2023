@@ -162,3 +162,21 @@
 
     });
 </script>
+
+<script>
+    window.addEventListener('error', function(e) {
+        Swal.fire({
+            title: e.detail.title,
+            icon: e.detail.icon,
+            iconColor: e.detail.iconColor,
+            timer: 6000,
+            toast: true,
+            position: 'top-right',
+            toast: true,
+            showConfirmButton: false,
+
+        });
+
+
+    });
+</script>

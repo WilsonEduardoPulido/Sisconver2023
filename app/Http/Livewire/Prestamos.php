@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Devoluciones\Detalle_Devolucion;
 use App\Models\Libro;
 use App\Models\Prestamos\DetallePrestamo;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use App\Models\Devolucion;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+
 //SELECT detalle_prestamo.CantidaPrestadaU,prestamos.CantidadPrestada,prestamos.NombreBibliotecario,libros.Nombre,libros.NombreTomo,libros.Novedades,elementos.nombre,elementos.NovedadesElemento,users.name,users.lastname,prestamos.Estado_Prestamo,prestamos.id from detalle_prestamo LEFT join prestamos on detalle_prestamo.id_prestamo=prestamos.id LEFT JOIN libros on detalle_prestamo.id_libro=libros.id LEFT join elementos on detalle_prestamo.id_elemento = elementos.id INNER join users on prestamos.usuario_id=users.id;
 class Prestamos extends Component
 {
@@ -20,44 +22,49 @@ class Prestamos extends Component
 
     protected $listeners = ['render' => 'render' ,'eliminarTemporalPrestamo' => 'inactivarPrestamo'];
     public $datos = [], $elementosentregados = [];
-    public $keyarray;
+    public $keyarray, $arrayElementosPrestado,$detaPrestamo= [];
     protected $paginationTheme = 'bootstrap';
-    public $prestamos_id, $CantidadPrestamo, $Estado_Prestamo, $cambiarEstado,$NombreBibliotecarioP;
-    public $selected_id, $buscadorPrestamos, $Fecha_prestamo, $libros_id, $elementos_id,
-     $usuario_id, $curso_id, $CantidadPrestada, $ArticuloPrestado;
+    public $prestamos_id, $CantidadPrestamo, $Estado_Prestamo, $cambiarEstado, $NombreBibliotecarioP, $Tipo_elemento;
+    public $selected_id, $buscadorPrestamos, $Fecha_prestamo, $libros_id, $elementos_id, $id_libro,
+        $usuario_id, $curso_id, $CantidadPrestada, $ArticuloPrestado, $usuarioDeudorid;
     public $usuarioDeudor, $prestador_id, $bibliotecario, $articuloDevolver, $CantidadPrestadaDevolver, $usuarioDeudorD, $NovedadesDevolucion, $CantidadDevuelta;
 
-    public $consultaLibrosElementos,$detalleElemento, $cantidadPrestadaDetalle, $fechaDetalle, $nombreDeudor, $apellidoDeudor, $gradoDeudor, $numeroiDeudor, $tipoDocDeudor, $celularDeudor, $direccionDeudor, $estadoDetalle,$Tipo_novedad;
+    public $consultaLibrosElementos, $detalleElemento, $cantidadPrestadaDetalle, $fechaDetalle, $nombreDeudor, $apellidoDeudor, $gradoDeudor, $numeroiDeudor, $tipoDocDeudor, $celularDeudor, $direccionDeudor, $estadoDetalle, $Tipo_novedad;
 
-public $arrayElementosPrestados,$op,$datosDevolucion,$FechaPrestamo,$CodigoPrestamo,$Estadop;
+    public $arrayElementosPrestados, $op, $datosDevolucion, $FechaPrestamo, $CodigoPrestamo, $Estadop;
 
     public function render()
     {
         $prestamosEliminados = Prestamo::onlyTrashed()->where('Estado_Prestamo', 'Inactivo')->paginate(10);
 
-        $consultaUsuariosPrestamos = User::where('Estado', "=", 'Activo')->select('id', 'name')->get();
+        $consultaUsuariosPrestamos = User::where('Estado', "=", 'Activo')->select('id', 'name','lastname')->get();
 
         $buscadorPrestamos = '%' . $this->buscadorPrestamos . '%';
 
 
         $arrayElementosPrestados = DetallePrestamo::all()->groupby('id_prestamo');
 
-        
-        $consultaPrestamos = Prestamo::select('prestamos.*','users.name','users.lastname')
-        ->leftjoin('users','prestamos.usuario_id','=','users.id')
-        ->where('prestamos.Estado_Prestamo', 'Activo')
-        ->paginate(8);
-            
+
+        $consultaPrestamos = Prestamo::select('prestamos.*', 'users.name', 'users.lastname')
+            ->leftjoin('users', 'prestamos.usuario_id', '=', 'users.id')
+            ->orderBy('prestamos.id', 'desc')
+            ->orWhere('prestamos.created_at', 'like', $buscadorPrestamos)
+            ->orWhere('prestamos.Tipo_Elemento', 'like', $buscadorPrestamos)
+            ->orWhere('prestamos.Codigo_Prestamo', 'like', $buscadorPrestamos)
+            ->orWhere('users.name', 'like', $buscadorPrestamos)
+            ->where('prestamos.Estado_Prestamo', 'Activo')
+            ->paginate(8);
+
         ;
 
         return view('livewire.prestamos.vistaprestamos', [
             'prestamos' => Prestamo::latest()
                 ->paginate(8),
-        ], compact('consultaUsuariosPrestamos', 'prestamosEliminados', 'consultaPrestamos','arrayElementosPrestados'));
+        ], compact('consultaUsuariosPrestamos', 'prestamosEliminados', 'consultaPrestamos', 'arrayElementosPrestados'));
     }
-   
 
-   
+
+
 
 
     public function cancel()
@@ -77,7 +84,7 @@ public $arrayElementosPrestados,$op,$datosDevolucion,$FechaPrestamo,$CodigoPrest
     public function store()
     {
         $this->validate([
-            
+
             'libros_id' => 'required',
             'elementos_id' => 'required',
             'usuario_id' => 'required',
@@ -85,7 +92,7 @@ public $arrayElementosPrestados,$op,$datosDevolucion,$FechaPrestamo,$CodigoPrest
         ]);
 
         Prestamo::create([
-            
+
             'libros_id' => $this->libros_id,
             'elementos_id' => $this->elementos_id,
             'usuario_id' => $this->usuario_id,
@@ -168,73 +175,89 @@ public $arrayElementosPrestados,$op,$datosDevolucion,$FechaPrestamo,$CodigoPrest
 
     }
 
+    public function verDetallesPrestamo($id)
+    {
+        $detaPrestamo = DetallePrestamo::select('prestamos.*', 'libros.Nombre', 'libros.id', 'elementos.*', 'detalle_prestamo.*', 'users.name', 'users.lastname')
+            ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
+            ->leftjoin('libros', 'libros.id', '=', 'detalle_prestamo.id_libro')
+            ->leftjoin('users', 'users.id', '=', 'prestamos.usuario_id')
+            ->leftjoin('elementos', 'elementos.id', '=', 'detalle_prestamo.id_elemento')
+            ->where('detalle_prestamo.id_prestamo', $id)->get();
 
-public function productosPrestados($id){
+        $this->detaPrestamo = $detaPrestamo;
 
-    
-    $arrayElementosPrestados = DetallePrestamo::select('prestamos.*','libros.Nombre','libros.id','elementos.*','detalle_prestamo.*','users.name','users.lastname')
-    ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
-    ->leftjoin('libros', 'libros.id', '=', 'detalle_prestamo.id_libro')
-    ->leftjoin('users', 'users.id', '=', 'prestamos.usuario_id')
-    ->leftjoin('elementos', 'elementos.id', '=', 'detalle_prestamo.id_elemento')
-    ->where('detalle_prestamo.id_prestamo', $id)->get();
+        for($i=0; $i<1;$i++){
 
-
-
-    
-    $this->arrayElementosPrestados = $arrayElementosPrestados;
-
-
+            $tota=$this->detaPrestamo[$i]->CantidaPrestaU+$i;
+        }
 
 
-       
-       
+
+    }
+    public function productosPrestados($id)
+    {
+
+
+        $arrayElementosPrestados = DetallePrestamo::select('prestamos.*', 'libros.Nombre', 'libros.id', 'elementos.*', 'detalle_prestamo.*', 'users.name', 'users.lastname')
+            ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
+            ->leftjoin('libros', 'libros.id', '=', 'detalle_prestamo.id_libro')
+            ->leftjoin('users', 'users.id', '=', 'prestamos.usuario_id')
+            ->leftjoin('elementos', 'elementos.id', '=', 'detalle_prestamo.id_elemento')
+            ->where('detalle_prestamo.id_prestamo', $id)->get();
+
+
+
+
+
+
+
+        $this->arrayElementosPrestados = $arrayElementosPrestados;
+
+
+
+
+
         foreach ($arrayElementosPrestados as $key => $value) {
 
 
-           
 
-              
+
+
 
             $datos = array(
 
-                
+
                 "id_elemento" => $value['id_elemento'],
                 "Tipo_Elemento" => $value['Tipo_Elemento'],
                 "Estado_Prestamo" => $value['Estado_Prestamo'],
-                "NombreTomo" => $value['NombreTomo'],   
+                "NombreTomo" => $value['NombreTomo'],
 
-                "nombre"=> $value['nombre'],
+                "nombre" => $value['nombre'],
                 "CantidaPrestadaU" => $value['CantidaPrestadaU'],
                 "Nombre" => $value['Nombre'],
                 "CantidadPrestada" => $value['CantidadPrestada'],
                 "NovedadesPrestamoU" => $value['NovedadesPrestamoU'],
                 "TipoNovedad" => $value['TipoNovedad'],
-                "name"=>$value['name'],
-                "id_prestamo"=>$value['id_prestamo'],
-                "id_libro"=>$value['id_libro'],
-                
-                "created_at"=>$value['created_at'],
-                "updated_at"=>$value['updated_at'],
-                "id"=>$value['id'],
-                "lasname"=>$value['lastname'],
-                "Est"=>$value['EstadoDetalle'],
-                
+                "name" => $value['name'],
+                "id_prestamo" => $value['id_prestamo'],
+                "id_libro" => $value['id_libro'],
 
-                
+                "created_at" => $value['created_at'],
+                "updated_at" => $value['updated_at'],
+                "id" => $value['id'],
+                "lasname" => $value['lastname'],
+                "Est" => $value['EstadoDetalle'],
+
+
+
             );
 
-         
             $this->datos[] = $datos;
 
 
-           
-               
-            }
 
- }
-
-
+        }
+    }
 
 
 
@@ -248,12 +271,12 @@ public function productosPrestados($id){
         ]);
 
     }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 
 
     public function cambiarEstadoPrestamo()
@@ -301,109 +324,95 @@ public function productosPrestados($id){
 
 
 
-    public function cargarDatosDevolucionPrestamo($key )
+    public function cargarDatosDevolucionPrestamo($key)
     {
 
-        //dd($this->datos[$key]['Est']);
-        $detallePrestamo=DetallePrestamo::find($this->datos[$key]['id']);
-    if($detallePrestamo->EstadoDetalle=='Finalizado'){
-        $this->dispatchBrowserEvent('swal', [
-            'type' => 'error',
-            'title' => 'Este Prestamo ya fue Finalizado',
-            'text' => 'No se puede realizar la devolucion',
-            'icon' => 'error',
-               
-                'timer' => 5000,
-                'toast' => true,
-                'position' => 'center',
-        ]);
 
-    }else{
-
-          if($this->datos[$key]['Tipo_Elemento'] == "Libro" ){
-            $prestador = Auth::user()->name;
-            $this->bibliotecario = $prestador;
-            $this->prestador_id = Auth::user()->id;
-            $this->datosDevolucion = $this->datos[$key];
-            $tomo = $this->datosDevolucion = $this->datos[$key]['NombreTomo'];
-            $apellido = $this->datosDevolucion = $this->datos[$key]['lasname'];
-            $this->selected_id = $this->datos[$key]['id'];
-            $this->usuarioDeudorD=$this->datos[$key]['name'].''.$apellido;
-            $this->articuloDevolver=$this->datos[$key]['Nombre'].''.$tomo;
-            $this->CantidadPrestadaDevolver=$this->datos[$key]['CantidaPrestadaU'];
-            $this->NovedadesDevolucion=$this->datos [$key]  ['NovedadesPrestamoU'];
-
-            $this->keyarray = $key;
-
+        // $detallePrestamo = DetallePrestamo::find($this->datos[$key]['id']);
+        if ($this->datos[$key]['Est'] == 'Finalizado') {
             $this->dispatchBrowserEvent('swal', [
-                'title' => 'Datos Cargados Con exito.',
-                'icon' => 'success',
-               
-                'timer' => 5000,
-                'toast' => true,
-                'position' => 'center',
-                'showConfirmButton' => false,
-            ]);
-          }elseif($this->datos[$key]['Tipo_Elemento'] == "Elemento"){
+                'type' => 'error',
+                'title' => 'Este Prestamo ya fue Finalizado',
+                'text' => 'No se puede realizar la devolucion',
+                'icon' => 'error',
 
-            $prestador = Auth::user()->name;
-            $this->bibliotecario = $prestador;
-            $this->prestador_id = Auth::user()->id;
-            $this->datosDevolucion = $this->datos[$key];
-            $tomo = $this->datosDevolucion = $this->datos[$key]['NombreTomo'];
-            $apellido = $this->datosDevolucion = $this->datos[$key]['lasname'];
-            $this->usuarioDeudorD=$this->datos[$key]['name'].$apellido;
-            $this->articuloDevolver=$this->datos[$key]['nombre'];
-            $this->CantidadPrestadaDevolver=$this->datos[$key]['CantidaPrestadaU'];
-            $this->NovedadesDevolucion=$this->datos [$key]  ['NovedadesPrestamoU'];
-            $this->keyarray = $key;
-            $this->dispatchBrowserEvent('swal', [
-                'title' => 'Datos Cargados Con exito.',
-                'icon' => 'success',
-               
                 'timer' => 5000,
                 'toast' => true,
                 'position' => 'center',
-                'showConfirmButton' => false,
             ]);
 
+        } else {
 
-         
+            if ($this->datos[$key]['Tipo_Elemento'] == "Libro") {
+                $prestador = Auth::user()->name;
+                $this->bibliotecario = $prestador;
+                $this->prestador_id = Auth::user()->id;
+                $this->datosDevolucion = $this->datos[$key];
+                $tomo = $this->datosDevolucion = $this->datos[$key]['NombreTomo'];
+                $apellido = $this->datosDevolucion = $this->datos[$key]['lasname'];
+                $this->selected_id = $this->datos[$key]['id'];
+                $this->usuarioDeudorD = $this->datos[$key]['name'] . '' . $apellido;
+                $this->articuloDevolver = $this->datos[$key]['Nombre'] . '' . $tomo;
+                $this->CantidadPrestadaDevolver = $this->datos[$key]['CantidaPrestadaU'];
+                $this->NovedadesDevolucion = $this->datos[$key]['NovedadesPrestamoU'];
+                $this->id_libro = $this->datos[$key]['id_libro'];
+                $this->keyarray = $key;
+                $this->Tipo_elemento = $this->datos[$key]['Tipo_Elemento'];
+
+                $this->dispatchBrowserEvent('swal', [
+                    'title' => 'Datos Cargados Con exito.',
+                    'icon' => 'success',
+
+                    'timer' => 5000,
+                    'toast' => true,
+                    'position' => 'center',
+                    'showConfirmButton' => false,
+                ]);
+            } elseif ($this->datos[$key]['Tipo_Elemento'] == "Elemento") {
+
+                $prestador = Auth::user()->name;
+                $this->bibliotecario = $prestador;
+                $this->prestador_id = Auth::user()->id;
+                $this->datosDevolucion = $this->datos[$key];
+                $tomo = $this->datosDevolucion = $this->datos[$key]['NombreTomo'];
+                $apellido = $this->datosDevolucion = $this->datos[$key]['lasname'];
+                $this->usuarioDeudorD = $this->datos[$key]['name'] . $apellido;
+                $this->articuloDevolver = $this->datos[$key]['nombre'];
+                $this->CantidadPrestadaDevolver = $this->datos[$key]['CantidaPrestadaU'];
+                $this->NovedadesDevolucion = $this->datos[$key]['NovedadesPrestamoU'];
+                $this->keyarray = $key;
+                $this->Tipo_elemento = $this->datos[$key]['Tipo_Elemento'];
+                $this->elementos_id = $this->datos[$key]['id_elemento'];
+                $this->dispatchBrowserEvent('swal', [
+                    'title' => 'Datos Cargados Con exito.',
+                    'icon' => 'success',
+
+                    'timer' => 5000,
+                    'toast' => true,
+                    'position' => 'center',
+                    'showConfirmButton' => false,
+                ]);
+
+
+
+            }
+
         }
 
-         } 
-
-       
-
-     
-
-      }
-      public function restarCantidad($key){
-
-        
-        
-
-       
-        
-      }
 
 
 
 
-       
-    public function agregarElementosPrestamo(){
+    }
 
-       /* $this->validate([
-            'CantidadDevuelta' => 'required',
-            'NovedadesDevolucion' => 'required',
-            'articuloDevolver' => 'required',
-            'CantidadPrestadaDevolver' => 'required', 
-            'bibliotecario' => 'required',
-            'Tipo_novedad' => 'required',
-                  
-        ]);*/
-            
-        if($this->bibliotecario == null){
+
+
+
+    public function agregarElementosPrestamo()
+    {
+
+
+        if ($this->bibliotecario == null) {
             $this->dispatchBrowserEvent('swal', [
                 'title' => 'El campo bibliotecario no puede estar vacio.',
                 'icon' => 'error',
@@ -414,168 +423,359 @@ public function productosPrestados($id){
                 'showConfirmButton' => false,
             ]);
             return;
-  }
-  elseif( $this->CantidadDevuelta == null){
-    $this->dispatchBrowserEvent('swal', [
-        'title' => 'El campo cantidad devuelta no puede estar vacio.',
-        'icon' => 'info',
-       
-        'timer' => 5000,
-        'toast' => true,
-        'position' => 'center',
-        'showConfirmButton' => false,
-    ]);
-    return;
-
-
-}
-
-elseif($this->NovedadesDevolucion == null   ){
-    $this->dispatchBrowserEvent('swal', [
-        'title' => 'El campo novedades no puede estar vacio.',
-        'icon' => 'info',
-       
-        'timer' => 5000,
-        'toast' => true,
-        'position' => 'center',
-        'showConfirmButton' => false,
-    ]);
-    return;
-
-}
-
-
-elseif($this->Tipo_novedad == null){
+        } elseif ($this->CantidadDevuelta == null) {
             $this->dispatchBrowserEvent('swal', [
-                'title' => 'Por Favor Seleccione una clasificaciòn para la novedad.',
+                'title' => 'El campo cantidad devuelta no puede estar vacio.',
                 'icon' => 'info',
-               
+
                 'timer' => 5000,
                 'toast' => true,
                 'position' => 'center',
                 'showConfirmButton' => false,
-            ]);  }
+            ]);
+            return;
 
 
-elseif($this->CantidadDevuelta > $this->CantidadPrestadaDevolver){
-   
-    $this->dispatchBrowserEvent('swal', [
-        'title' => 'La cantidad devuelta no puede ser mayor a la prestada.',
-        'icon' => 'error',
-        'iconColor' => 'red',
-        'timer' => 5000,
-        'toast' => true,
-        'position' => 'center',
-        'showConfirmButton' => false,
+        } elseif ($this->NovedadesDevolucion == null) {
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'El campo novedades no puede estar vacio.',
+                'icon' => 'info',
 
-    ]);
-    return;
-}elseif($this->CantidadDevuelta == 0){
-    $this->dispatchBrowserEvent('swal', [
-        'title' => 'La cantidad devuelta no puede ser 0.',
-        'icon' => 'error',
-        'iconColor' => 'red',
-        'timer' => 5000,
-        'toast' => true,
-        'position' => 'center',
-        'showConfirmButton' => false,
-    ]);
-    return;
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+                'showConfirmButton' => false,
+            ]);
+            return;
+        } elseif ($this->Tipo_novedad == null) {
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Por Favor Seleccione una clasificaciòn para la novedad.',
+                'icon' => 'info',
 
-     }
-     
-     
-     else{
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+                'showConfirmButton' => false,
+            ]);
+        } elseif ($this->CantidadDevuelta > $this->CantidadPrestadaDevolver) {
 
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'La cantidad devuelta no puede ser mayor a la prestada.',
+                'icon' => 'error',
+                'iconColor' => 'red',
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+                'showConfirmButton' => false,
 
-   
-            
-          $this->datos[$this->keyarray]['Est'];
+            ]);
+            return;
 
-            $this->datos[$this->keyarray]['id'];
+        } elseif ($this->CantidadDevuelta == 0) {
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'La cantidad devuelta no puede ser 0.',
+                'icon' => 'error',
+                'iconColor' => 'red',
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+                'showConfirmButton' => false,
+            ]);
+            return;
 
-
-$detallePrestamo=DetallePrestamo::find($this->datos[$this->keyarray]['id']);
-
-   if($this->CantidadDevuelta != $this->CantidadPrestadaDevolver){
-
-   $cantidadActual=$this->datos[$this->keyarray]['CantidaPrestadaU']-$this->CantidadDevuelta;
-
-
-   if($this->CantidadDevuelta == $this->CantidadPrestadaDevolver){
-    $detallePrestamo->EstadoDetalle="Finalizado";
-    $detallePrestamo->CantidaPrestadaU=$cantidadActual;
-    $detallePrestamo->save();
-   }elseif($this->CantidadDevuelta < $this->CantidadPrestadaDevolver){
-    $detallePrestamo->EstadoDetalle="Pendiente";
-    $detallePrestamo->CantidaPrestadaU=$cantidadActual;
-    $detallePrestamo->save();
-   }
-
-$detallePrestamo->CantidaPrestadaU=$cantidadActual;
-                
-$detallePrestamo->save();
+        }
 
 
 
 
-$elementosentregados = array(
+
+        $this->datos[$this->keyarray]['Est'];
+
+        $this->datos[$this->keyarray]['CantidaPrestadaU'];
+        $this->datos[$this->keyarray]['id'];
+
+        $detallePrestamo = DetallePrestamo::find($this->datos[$this->keyarray]['id']);
+
+        if ($this->CantidadDevuelta == $this->CantidadPrestadaDevolver) {
+
+            $cantidadActual = $this->datos[$this->keyarray]['CantidaPrestadaU'] - $this->CantidadDevuelta;
+
+            $this->datos[$this->keyarray]['Est'] = "Finalizado";
+            $this->datos[$this->keyarray]['CantidaPrestadaU'] = $cantidadActual;
 
 
-    "Articulo"=>$this->articuloDevolver,
-    "Cantidad"=>$this->CantidadDevuelta,
-    "Novedades"=>$this->NovedadesDevolucion,
-  );
-  $this->elementosentregados[] =  $elementosentregados;
+            /// $detallePrestamo->EstadoDetalle="Finalizado";
+            // $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+            // $detallePrestamo->save();
 
-   
+        } elseif ($this->CantidadDevuelta < $this->CantidadPrestadaDevolver) {
 
-         
-          $this->limpiarCamposPrestamo();
-          $this->dispatchBrowserEvent('swal', [
+            $cantidadActual = $this->datos[$this->keyarray]['CantidaPrestadaU'] - $this->CantidadDevuelta;
+            $this->datos[$this->keyarray]['Est'] = "Pendiente";
+            $this->datos[$this->keyarray]['CantidaPrestadaU'] = $cantidadActual;
+
+            //  $detallePrestamo->EstadoDetalle = "Pendiente";
+
+            // $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+            //$detallePrestamo->save();
+
+        } elseif ($this->$this->CantidadDevuelta == $this->CantidadPrestadaDevolver and $detallePrestamo->EstadoDetalle == "Pendiente") {
+
+            $cantidadActual = $this->datos[$this->keyarray]['CantidaPrestadaU'] - $this->CantidadDevuelta;
+            $detallePrestamo->EstadoDetalle = "Finalizado";
+            $this->datos[$this->keyarray]['Est'] = "Finalizado";
+            $this->datos[$this->keyarray]['CantidaPrestadaU'] = $cantidadActual;
+            // $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+            // $detallePrestamo->save();
+        } elseif ($this->CantidadDevuelta < $this->CantidadPrestadaDevolver and $detallePrestamo->EstadoDetale == "Pendiente") {
+            $cantidadActual = $this->datos[$this->keyarray]['CantidaPrestadaU'] - $this->CantidadDevuelta;
+            $detallePrestamo->EstadoDetalle = "Pendiente";
+            // $detallePrestamo->CantidaPrestadaU=$cantidadActual;
+            // $detallePrestamo->save();
+            $this->datos[$this->keyarray]['Est'] = "Pendiente";
+            $this->datos[$this->keyarray]['CantidaPrestadaU'] = $cantidadActual;
+        }
+
+
+
+
+
+        $elementosentregados = array(
+
+            "id_libro" => $this->id_libro,
+            "id_elemento" => $this->elementos_id,
+            "Articulos" => $this->Tipo_elemento,
+            "Articulo" => $this->articuloDevolver,
+            "Cantidad" => $this->CantidadDevuelta,
+            "Novedades" => $this->NovedadesDevolucion,
+            "TipoNovedad" => $this->Tipo_novedad,
+            "id_usuario"=>$this->usuarioDeudorD
+        );
+
+
+        $this->elementosentregados[] = $elementosentregados;
+
+
+
+
+
+        $this->limpiarCamposPrestamo();
+        $this->dispatchBrowserEvent('swal', [
             'title' => 'Articulo Añadido A La Lista De Devolucion.',
             'icon' => 'success',
-            
+
             'timer' => 5000,
             'toast' => true,
             'position' => 'center',
-          
+
         ]);
-     }
-
-       }
-    } 
+    }
 
 
 
 
-public function limpiarCamposPrestamo(){
+    public function retornarValores()
+    {
+        $tota = count($this->datos);
+        dd($this->datos);
+        for ($i = 0; $i < $tota; $i++) {
 
-    $this->articuloDevolver="";
-    $this->CantidadDevuelta="";
-    $this->NovedadesDevolucion="";
-    $this->bibliotecario="";
-    $this->CantidadPrestadaDevolver="";
-    $this->usuarioDeudorD="";
-    $this->Tipo_novedad="";
+            $detallePrestamo = DetallePrestamo::find($this->datos[$i]['id']);
+            $detallePrestamo->EstadoDetalle = $this->datos[$i]['Est'];
+            $detallePrestamo->CantidaPrestadaU = $this->datos[$i]['CantidaPrestadaU'];
+            $detallePrestamo->save();
 
+        }
 
-}
+    }
 
-
-
-      
-           
-          
-   
+    public function enviarDatosDevolucionPrestamo()
+    {
 
 
 
 
+        $total = count($this->datos);
+
+        for ($i = 0; $i < $total; $i++) {
+
+            $detallePrestamo = DetallePrestamo::find($this->datos[$i]['id']);
+            $detallePrestamo->EstadoDetalle = $this->datos[$i]['Est'];
+            $detallePrestamo->CantidaPrestadaU = $this->datos[$i]['CantidaPrestadaU'];
+
+            $detallePrestamo->save();
+
+        }
+
+
+        if ($this->Tipo_elemento == "Libro") {
+
+
+            $tota = count($this->elementosentregados);
+
+            for ($i = 0; $i < $tota; $i++) {
+
+
+                $detallePrestamoLibro = Libro::find($this->datos[$i]['id_libro']);
+
+                $detallePrestamoLibro->CantidadLibros = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoLibro->CantidadLibros;
+
+
+                $detallePrestamoLibro->Novedades=$this->elementosentregados[$i]['Novedades'];
+                $detallePrestamoLibro->TipoNovedad=$this->elementosentregados[$i]['TipoNovedad'];
+
+                if($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Ninguna"){
+                    $detallePrestamoLibro->Estado="Disponible";
+                    $detallePrestamoLibro->save();
+                }elseif($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Media"){
+                    $detallePrestamoLibro->Estado="Disponible";
+                    $detallePrestamoLibro->save();
+
+                }else{
+                    $detallePrestamoLibro->Estado="NoDisponible";
+                    $detallePrestamoLibro->save();
+
+                }
+            }
+
+        }else  {
+
+
+            $tota = count($this->elementosentregados);
+
+            for ($i = 0; $i < $tota; $i++) {
+
+
+                $detallePrestamoElemento = Elemento::find($this->datos[$i]['id_elemento']);
+
+                $detallePrestamoElemento->cantidad = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoElemento->cantidad;
+                $detallePrestamoElemento->NovedadesElemento = $this->elementosentregados[$i]['Novedades'];
+                $detallePrestamoElemento->TipoNovedad = $this->elementosentregados[$i]['TipoNovedad'];
+
+                if ($detallePrestamoElemento->cantidad > 0 and $detallePrestamoElemento->TipoNovedad == "Ninguna") {
+                    $detallePrestamoElemento->Estado = "Disponible";
+                    $detallePrestamoElemento->save();
+                } elseif ($detallePrestamoElemento->TipoNovedad == "Alta" and $detallePrestamoElemento->cantidad > 0) {
+
+                    $detallePrestamoElemento->Estado = "NoDisponible";
+                    $detallePrestamoElemento->save();
+                } elseif ($detallePrestamoElemento->TipoNovedad == "Media" and $detallePrestamoElemento->cantidad > 0) {
+
+                    $detallePrestamoElemento->Estado = "Disponible";
+                    $detallePrestamoElemento->save();
+
+                }
+            }
+        }
+
+        $this->crearDevolucion();
+
+
+    }
 
 
 
-    
+
+
+    // dd($this->elementosentregados);
+
+
+
+
+
+    public function limpiarCamposPrestamo()
+    {
+
+        $this->articuloDevolver = "";
+        $this->CantidadDevuelta = "";
+        $this->NovedadesDevolucion = "";
+        $this->bibliotecario = "";
+        $this->CantidadPrestadaDevolver = "";
+        $this->Tipo_novedad = "";
+
+
+
+
+    }
+
+    public function crearDevolucion(){
+
+
+        $codigo_Devolucion ='LAINB'. rand(1, 99999999);
+        $apellido= Auth::user()->lastname;
+        $this->$codigo_Devolucion = $codigo_Devolucion;
+
+        $idusuario=$this->elementosentregados[0]['id_usuario'];
+        $prestamos = new Devolucion();
+        $prestamos->CodigoDevolucion = $codigo_Devolucion;
+        $prestamos->prestamos_id = $this->datos[0]['id_prestamo'];
+        $prestamos->usuario_id =$this->usuarioDeudorid;
+        $prestamos->Tipo_Elemento = $this->Tipo_elemento;
+        $prestamos->Bibliotecario_Re  = Auth::user()->name."_".$apellido;
+
+        $prestamos->created_at = now();
+        $prestamos->updated_at = now();
+
+
+        $prestamos->save();
+
+        foreach($this->elementosentregados as $key =>$devolucion){
+
+
+            $datos = array(
+                "id_DevolucioD"=> $prestamos->id,
+                "id_libroD" => $devolucion['id_libro'],
+                "id_elementoD" => $devolucion['id_elemento'],
+
+
+                "CantidaDevueltaU" => $devolucion['Cantidad'],
+                "NovedadesDevolucionU" => $devolucion['Novedades'],
+
+
+            );
+
+
+            Detalle_Devolucion::insert($datos);
+
+        }
+
+        $this->dispatchBrowserEvent('swal', [
+            'title' => 'Articulos Devueltos  Con Exito....',
+            'icon' => 'success',
+
+            'timer' => 5000,
+            'toast' => true,
+            'position' => 'center',
+
+        ]);
+
+
+    }
+    public function cerrar()
+    {
+
+        $this->articuloDevolver = "";
+        $this->CantidadDevuelta = "";
+        $this->NovedadesDevolucion = "";
+        $this->bibliotecario = "";
+        $this->CantidadPrestadaDevolver = "";
+        $this->Tipo_novedad = "";
+        $this->Tipo_elemento = "";
+        $this->elementosentregados = [];
+        $this->datos = [];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     //Finalizar Prestamo
 
     public function finalizarPrestamoEstado($id)
@@ -592,430 +792,5 @@ public function limpiarCamposPrestamo(){
         }
     }
 
-    public function actualizarCantidadElementosDevolucion()
-    {
 
-
-
-        $elementoDevo = Elemento::findOrFail($this->elementos_id);
-
-        // 0
-
-        //250
-        $CantidadDevuelta = $this->CantidadDevuelta;
-
-
-        $total = $CantidadDevuelta + $elementoDevo->cantidad;
-
-        $elementoDevo->cantidad = $total;
-
-        $elementoDevo->Estado = 'Disponible';
-
-        $elementoDevo->update();
-
-
-
-
-
-        session()->flash('mensajedevo', 'Cantidad Devuelta Con Exito .....');
-    }
-
-
-    public function actualizarCantidadLibrosDevolucion()
-    {
-
-
-
-        $libroDevo = Libro::findOrFail($this->libros_id);
-
-        // 0
-
-        //250
-        $CantidadDevuelta = $this->CantidadDevuelta;
-
-
-        $total = $CantidadDevuelta + $libroDevo->CantidadLibros;
-
-        $libroDevo->CantidadLibros = $total;
-
-
-
-        $libroDevo->update();
-
-        session()->flash('mensajedevo', 'Cantidad Devuelta Con Exito .....');
-    }
-    public function actualizarCantidadDevolucionLibros()
-    {
-
-       
-
-
-
-        $CantidadDevuelta = $this->CantidadDevuelta;
-
-      //  $cantidadActual = $prestamo->CantidadPrestada;
-
-        if ($CantidadDevuelta > $cantidadActual) {
-            session()->flash('mensajedevo', 'La Cantidad Devuelta No Puede Ser Mayor A La Cantidad Prestada .....');
-
-        } elseif ($CantidadDevuelta == 0) {
-            session()->flash('mensajedevo', 'La Cantidad Devuelta No Puede Ser menor o igual a 0 .....');
-        } else {
-
-
-            $total = $cantidadActual - $CantidadDevuelta;
-
-
-            if ($total == 0) {
-                $prestamo->Estado_Prestamo = 'Finalizado';
-                session()->flash('mensajedevo', 'Prestamo Finalizado Con exito.......');
-            }
-
-            $prestamo->CantidadPrestada = $total;
-
-
-
-            $this->actualizarCantidadLibrosDevolucion();
-
-
-            $prestamo->update();
-
-
-
-            $prestamo->save();
-            $this->cancelarDevolucion();
-        }
-
-
-
-
-    }
-
-
-
-
-    public function actualizarCantidadDevolucion()
-    {
-
-      
-
-
-
-
-        $CantidadDevuelta = $this->CantidadDevuelta;
-
-        $cantidadActual = $prestamo->CantidadPrestada;
-
-        if ($CantidadDevuelta > $cantidadActual) {
-            session()->flash('mensajedevo', 'La Cantidad Devuelta No Puede Ser Mayor A La Cantidad Prestada .....');
-
-        } elseif ($CantidadDevuelta == 0) {
-            session()->flash('mensajedevo', 'La Cantidad Devuelta No Puede Ser menor o igual a 0 .....');
-        } else {
-
-
-            $total = $cantidadActual - $CantidadDevuelta;
-
-
-            if ($total == 0) {
-                $prestamo->Estado_Prestamo = 'Finalizado';
-                session()->flash('mensajedevo', 'Prestamo Finalizado Con exito.......');
-            }
-
-            $prestamo->CantidadPrestada = $total;
-
-
-
-            $this->actualizarCantidadElementosDevolucion();
-
-
-            $prestamo->update();
-
-
-
-            $prestamo->save();
-            $this->cancelarDevolucion();
-        }
-
-
-
-
-    }
-
-    public function enviarDatosDevolucion()
-    {
-$this->selected_id = $this->prestamos_id;
-
-
-$elementoPrestar = Prestamo::findOrFail($this->prestamos_id);
-
-
-
-
-
-
-
-
-
-        $this->validate([
-
-           'usuario_id'=>'required'
-
-
-        ]);
-
-
-
-
-
-
-        if ($this->selected_id) {
-
-
-
-
-           if($elementoPrestar->Tipo_Elemento =='Libro'){
-
-
-            $finalizarPrestamo = new Devolucion();
-
-            $finalizarPrestamo->elementos_id = null;
-            $finalizarPrestamo->Cantidad_Devuelta = $this->CantidadDevuelta;
-            $finalizarPrestamo->libros_id = $this->libros_id;
-
-
-            $finalizarPrestamo->usuario_id = $this->usuario_id;
-            $finalizarPrestamo->prestamos_id = $this->selected_id;
-
-
-            $finalizarPrestamo->prestador_id = Auth::user()->id;
-            $finalizarPrestamo->Bibliotecario_Re = Auth::user()->name;
-
-          $this->actualizarCantidadDevolucionLibros();
-           $Cargarnovedad = new Novedades();
-           $Cargarnovedad->Novedades = $this->NovedadesDevolucion;
-           $Cargarnovedad -> id_libros = $this->libros_id;
-           $Cargarnovedad -> Tipo_novedad = $this->Tipo_novedad;
-           $Cargarnovedad -> save();
-           $finalizarPrestamo->save();
-
-        }elseif($elementoPrestar->Tipo_Elemento =='Elemento'){
-
-
-            $finalizarPrestamo = new Devolucion();
-
-            $finalizarPrestamo->elementos_id = $this->elementos_id;
-            $finalizarPrestamo->Cantidad_Devuelta = $this->CantidadDevuelta;
-            $finalizarPrestamo->libros_id = null;
-
-
-            $finalizarPrestamo->usuario_id = $this->usuario_id;
-            $finalizarPrestamo->prestamos_id = $this->selected_id;
-
-            $finalizarPrestamo->Novedades = $this->NovedadesDevolucion;
-            $finalizarPrestamo->prestador_id = Auth::user()->id;
-            $finalizarPrestamo->Bibliotecario_Re = Auth::user()->name;
-
-
-            $this->actualizarCantidadDevolucion();
-            $finalizarPrestamo->save();
-        }
-else{
-    session()->flash('mensajedevo', 'No se puede realizar la devolucion.....');
-}
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Funcion Limpiar Campos ----------------------------------------------------------------------------------------
-    public function cancelarDevolucion()
-    {
-
-        $this->NovedadesDevolucion = '';
-        $this->CantidadDevuelta = '';
-        $this->elementos_id = '';
-        $this->usuario_id = '';
-        $this->prestamos_id = '';
-        $this->prestador_id = '';
-        $this->selected_id = '';
-        $this->CantidadPrestadaDevolver = '';
-
-        $this->bibliotecario = '';
-        $this->prestador_id = '';
-
-
-
-
-        $this->articuloDevolver = '';
-
-
-        $this->Fecha_prestamo = '';
-
-        $this->usuarioDeudorD = '';
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Funcion de Ver Detalles Del Prestamo -------------------------------------------------
-    public function verDetallesPrestamo($id)
-    {
-
-
-
-
-        if ($consulta->libros_id != null) {
-
-
-
-
-            $this->prestador_id = Auth::user()->id;
-
-            $this->bibliotecario = Auth::user()->name;
-
-            $this->detalleElemento = $consulta->Nombre;
-
-
-
-            $this->fechaDetalle = $consulta->Fecha_prestamo;
-            $this->cantidadPrestadaDetalle = $consulta->CantidadPrestada;
-            $this->nombreDeudor = $consulta->Name;
-            $this->apellidoDeudor = $consulta->lastname;
-            $this->gradoDeudor = $consulta->Grado;
-            $this->numeroiDeudor = $consulta->NumeroDoc;
-            $this->tipoDocDeudor = $consulta->TipoDoc;
-            $this->celularDeudor = $consulta->celular;
-            $this->direccionDeudor = $consulta->direccion;
-            $this->estadoDetalle = $consulta->Estado_Prestamo;
-        } else {
-
-            $this->prestador_id = Auth::user()->id;
-
-            $this->bibliotecario = Auth::user()->name;
-
-            $this->detalleElemento = $consulta->nombre;
-
-            $this->fechaDetalle = $consulta->Fecha_prestamo;
-            $this->cantidadPrestadaDetalle = $consulta->CantidadPrestada;
-            $this->nombreDeudor = $consulta->name;
-            $this->apellidoDeudor = $consulta->lastname;
-            $this->gradoDeudor = $consulta->Grado;
-            $this->numeroiDeudor = $consulta->NumeroDoc;
-            $this->tipoDocDeudor = $consulta->TipoDoc;
-            $this->celularDeudor = $consulta->celular;
-            $this->direccionDeudor = $consulta->direccion;
-            $this->estadoDetalle = $consulta->Estado_Prestamo;
-
-
-        }
-
-
-    }
 }

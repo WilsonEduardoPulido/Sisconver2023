@@ -1,15 +1,12 @@
 @extends('layouts.app')
 @section('title', __('Gestion De Usuarios'))
-
-
-
-
+@section('content')
 
     @include('partials.sidebar')
 
 
 
-    <section class="home-section h-100 bg-light">
+    <section class="home-section h-100">
         @include('partials.nav')
 
 
@@ -25,12 +22,12 @@
 
 
     </section>
-
-
-
-
-
+    <div class="mt-5">
+        @include('partials.footer')
     </div>
+
+
+@endsection
 <script src="{{ asset('jquery3.6.3.js') }}"></script>
 
 <script>

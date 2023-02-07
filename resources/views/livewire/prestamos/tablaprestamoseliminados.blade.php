@@ -24,13 +24,13 @@
             <table class="table libros table-bordered table-sm">
                 <thead class="thead">
                     <tr>
-                        <td>#</td>
+                        <th>#</th>
                         <th>Bibliotecario</th>
                         <th>Fecha Prestamo</th>
-                        <th>Elemento o Libro Prestado</th>
+                        <th>Tipo</th>
 
-                        <th>Usuario </th>
-                        <th>Cantidad  </th>
+                        <th>Codigo </th>
+                        <th>Usuario</th>
                         <th>Estado</th>
 
                         <td>Acciones</td>
@@ -44,14 +44,15 @@
                             <td>{{ $row->NombreBibliotecario }}</td>
                             <td>{{ $row->created_at }}</td>
 
-                            @if ($row->Tipo_Elemento == 'Libro')
-                                <td>{{ $row->Nombre }}</td>
-                            @else
-                                <td>{{ $row->nombre }}</td>
-                            @endif
+                            
+                                <td>{{ $row->Tipo_Elemento }}</td>
+                           
 
-                            <td>{{ $row->name }}</td>
-                            <td colspan="">{{ $row->CantidadPrestada }}</td>
+                           
+                            <th> {{ $row->Codigo_Prestamo  }} </th>
+                            
+                            <td>{{ $row->name }} {{ $row->lastname }} </td>
+
                             @if ($row->Estado_Prestamo == 'Inactivo')
                                 <td class=" text-white ">
                                     <button  title="Inactivo" class="btn btn-danger m-1 bi bi-x-square text-white">
@@ -92,7 +93,9 @@
                             <td class="text-center bg-emerald-300" colspan="100%">No hay registros para mostrar</td>
                         </tr>
                     @endforelse
+
                 </tbody>
+                <div class="float-end">{{ $prestamosEliminados->links() }}</div>
             </table>
            
         </div>
