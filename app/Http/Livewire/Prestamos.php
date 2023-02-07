@@ -498,6 +498,7 @@ class Prestamos extends Component
 
         if ($this->CantidadDevuelta == $this->CantidadPrestadaDevolver) {
 
+
             $cantidadActual = $this->datos[$this->keyarray]['CantidaPrestadaU'] - $this->CantidadDevuelta;
 
             $this->datos[$this->keyarray]['Est'] = "Finalizado";
@@ -613,18 +614,39 @@ class Prestamos extends Component
 
             $tota = count($this->elementosentregados);
 
-            for ($i = 0; $i < $tota; $i++) {
+           // for ($i = 0; $i < $tota; $i++) {      }
 
+           foreach ($this->elementosentregados as $key => $value) {
 
-                $detallePrestamoLibro = Libro::find($this->datos[$i]['id_libro']);
+                $detallePrestamoLibro = Libro::find($value['id_libro']);
 
-                $detallePrestamoLibro->CantidadLibros = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoLibro->CantidadLibros;
+                if($value['id_libro'] == $detallePrestamoLibro->id  ){
+
+                    $detallePrestamoLibro->CantidadLibros = $value['Cantidad'] + $detallePrestamoLibro->CantidadLibros;
+
+                    $detallePrestamoLibro->Novedades=$value['Novedades'];
+                    $detallePrestamoLibro->TipoNovedad=$value['TipoNovedad'];
+                    $detallePrestamoLibro->save();
+
+                }else{
+                        
+                        dd('no son iguales')
+                        ;
+    
+                    
+
+               
+                }
+    }
+
+   
+             /*   $detallePrestamoLibro->CantidadLibros = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoLibro->CantidadLibros;
 
 
                 $detallePrestamoLibro->Novedades=$this->elementosentregados[$i]['Novedades'];
-                $detallePrestamoLibro->TipoNovedad=$this->elementosentregados[$i]['TipoNovedad'];
+               $detallePrestamoLibro->TipoNovedad=$this->elementosentregados[$i]['TipoNovedad'];
 
-                if($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Ninguna"){
+               if($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Ninguna"){
                     $detallePrestamoLibro->Estado="Disponible";
                     $detallePrestamoLibro->save();
                 }elseif($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Media"){
@@ -635,13 +657,13 @@ class Prestamos extends Component
                     $detallePrestamoLibro->Estado="NoDisponible";
                     $detallePrestamoLibro->save();
 
-                }
-            }
+                }*/
+            
 
         }else  {
 
 
-            $tota = count($this->elementosentregados);
+           /* $tota = count($this->elementosentregados);
 
             for ($i = 0; $i < $tota; $i++) {
 
@@ -666,17 +688,40 @@ class Prestamos extends Component
 
                 }
             }
-        }
-
-        $this->crearDevolucion();
+        }*/
 
 
-    }
+        foreach ($this->elementosentregados as $key => $value) {
+
+           
+            $detallePrestamoElemento = Elemento::find($value['id_elemento']);
+            if($value['id_elemento'] == $detallePrestamoElemento->id  ){
+
+               
+                
+
+                $detallePrestamoElemento->cantidad = $value['Cantidad'] + $detallePrestamoElemento->cantidad;
+                $detallePrestamoElemento->NovedadesElemento = $value['Novedades'];
+                $detallePrestamoElemento->TipoNovedad = $value['TipoNovedad'];
+                $detallePrestamoElemento->save();
+            }else{
+                    
+                    dd('no son iguales')
+                    ;
+
+                
+
+           
+            }
+        
 
 
+      }
 
+      $this->crearDevolucion();
+  }
 
-
+  }
     // dd($this->elementosentregados);
 
 
