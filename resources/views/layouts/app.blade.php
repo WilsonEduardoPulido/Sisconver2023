@@ -23,7 +23,7 @@
 
 
     <!-- Styles -->
-    @vite(['resources/css/style.css', 'resources/css/newStyle.css'])
+    @vite(['resources/css/style.css', 'resources/css/newStyle.css','resources/css/darkmode.css'])
     <!-- Scripts -->
    
     @livewireStyles
@@ -43,7 +43,7 @@
     @livewireScripts
    
 <script src="{{ asset('jquery3.6.3.js') }}"></script>
-@vite(['resources/js/app.js'])
+@vite(['resources/js/app.js','resources/js/darkmode.js','resources/js/fontsize.js'])
 
 
 </body>

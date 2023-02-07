@@ -269,3 +269,42 @@ i{
     width: calc(100% - 78px);
   }
 }
+/*boton accesibilidad*/
+#btn-mas{
+  display: none;
+}
+.container-buttons{
+  position: fixed;
+  bottom: 4px;
+  right: 4px;
+}
+.botones a, .btn-mas label{
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  text-align: center;
+  border-radius: 20%;
+  transition: all 500ms ease;
+}
+.botones a{
+  margin-bottom: -15px;
+  opacity: 0;
+  visibility: hidden;
+}
+#btn-mas:checked~ .botones a{
+  margin-bottom: 10px;
+  opacity: 1;
+  visibility: visible;
+}
+.btn-mas label{
+  cursor: pointer;
+  background: #fff;
+  font-size: 23px;
+}
+#btn-mas:checked ~ .btn-mas label{
+  transform: rotate(135deg);
+  font-size: 25px;
+}

@@ -1,4 +1,4 @@
-@vite(['resources/css/darkmode.css'])
+
 <nav class="navbar  navbar-expand-md home-content  d-flex  navbar navbar-expand-lg align-items-center  shadow-sm">
 
         <div class=" col-4 col-sm-12 d-flex justify-content-between align-content-center align-items-center">
@@ -57,10 +57,7 @@
 
             </div>
 
-            <button class="switch active " id="switch">
-                <span><i class="bi bi-sun-fill fa-1x"></i></span>
-                <span><i class="bi bi-moon-fill fa-1x"></i></span>
-            </button>
+
 
         </div>
 
@@ -68,4 +65,3 @@
 
 
 </nav>
-@vite('resources/js/darkmode.js')
