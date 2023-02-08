@@ -22,16 +22,16 @@ class Prestamos extends Component
 
     protected $listeners = ['render' => 'render' ,'eliminarTemporalPrestamo' => 'inactivarPrestamo'];
     public $datos = [], $elementosentregados = [];
-    public $keyarray, $arrayElementosPrestado,$detaPrestamo= [];
+    public $keyarray, $arrayElementosPrestado,$detaPrestamo= [] ,$sumar=[],$id_prestamo;
     protected $paginationTheme = 'bootstrap';
     public $prestamos_id, $CantidadPrestamo, $Estado_Prestamo, $cambiarEstado, $NombreBibliotecarioP, $Tipo_elemento;
     public $selected_id, $buscadorPrestamos, $Fecha_prestamo, $libros_id, $elementos_id, $id_libro,
-        $usuario_id, $curso_id, $CantidadPrestada, $ArticuloPrestado, $usuarioDeudorid;
+        $usuario_id, $curso_id, $CantidadPrestada, $ArticuloPrestado, $usuarioDeudorid,$suma,$CodigoPrestamoD;
     public $usuarioDeudor, $prestador_id, $bibliotecario, $articuloDevolver, $CantidadPrestadaDevolver, $usuarioDeudorD, $NovedadesDevolucion, $CantidadDevuelta;
 
     public $consultaLibrosElementos, $detalleElemento, $cantidadPrestadaDetalle, $fechaDetalle, $nombreDeudor, $apellidoDeudor, $gradoDeudor, $numeroiDeudor, $tipoDocDeudor, $celularDeudor, $direccionDeudor, $estadoDetalle, $Tipo_novedad;
 
-    public $arrayElementosPrestados, $op, $datosDevolucion, $FechaPrestamo, $CodigoPrestamo, $Estadop;
+    public $arrayElementosPrestados, $op, $datosDevolucion, $FechaPrestamo, $CodigoPrestamo, $Estadop,$resultado;
 
     public function render()
     {
@@ -53,6 +53,7 @@ class Prestamos extends Component
             ->orWhere('prestamos.Codigo_Prestamo', 'like', $buscadorPrestamos)
             ->orWhere('users.name', 'like', $buscadorPrestamos)
             ->where('prestamos.Estado_Prestamo', 'Activo')
+            ->where('prestamos.Estado_Prestamo','Finalizado')
             ->paginate(8);
 
         ;
@@ -177,26 +178,59 @@ class Prestamos extends Component
 
     public function verDetallesPrestamo($id)
     {
-        $detaPrestamo = DetallePrestamo::select('prestamos.*', 'libros.Nombre', 'libros.id', 'elementos.*', 'detalle_prestamo.*', 'users.name', 'users.lastname')
+        $detaPrestamo = DetallePrestamo::select('prestamos.*','users.*', 'libros.Nombre', 'libros.id', 'elementos.*', 'detalle_prestamo.*', 'users.name', 'users.lastname')
             ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
             ->leftjoin('libros', 'libros.id', '=', 'detalle_prestamo.id_libro')
             ->leftjoin('users', 'users.id', '=', 'prestamos.usuario_id')
             ->leftjoin('elementos', 'elementos.id', '=', 'detalle_prestamo.id_elemento')
             ->where('detalle_prestamo.id_prestamo', $id)->get();
-
+         $this->detalleElemento = $detaPrestamo[0] ['Nombre'];
+        $this->fechaDetalle = $detaPrestamo[0] ['created_at'];
+        $this->bibliotecario = $detaPrestamo[0] ['NombreBibliotecario'];
+        $this->cantidadPrestadaDetalle = $detaPrestamo[0] ['CantidaPrestadaU'];
+        $this->nombreDeudor = $detaPrestamo[0] ['name'];
+        $this->apellidoDeudor = $detaPrestamo[0] ['lastname'];
+        $this->gradoDeudor = $detaPrestamo[0] ['Grado'];
+        $this->tipoDocDeudor = $detaPrestamo[0] ['TipoDoc'];
+        $this->numeroiDeudor = $detaPrestamo[0] ['NumeroDoc'];
+        $this->celularDeudor = $detaPrestamo[0] ['celular'];
+        $this->direccionDeudor = $detaPrestamo[0] ['direccion'];
+        $this->estadoDetalle = $detaPrestamo[0] ['Estado_Prestamo'];
+        $this->CodigoPrestamoD = $detaPrestamo[0] ['Codigo_Prestamo'];
+        $this->EstadoPrestamo = $detaPrestamo[0] ['Estado'];
         $this->detaPrestamo = $detaPrestamo;
 
-        for($i=0; $i<1;$i++){
+        $total = 0;
+        $a = count($this->detaPrestamo);
+        for($i=0; $i<$a;$i++){
 
-            $tota=$this->detaPrestamo[$i]->CantidaPrestaU+$i;
+            $total=$total+ $this->detaPrestamo[$i]['CantidaPrestadaU'];
         }
+            $this->cantidadPrestadaDetalle = $total;
 
-
-
+            foreach ($detaPrestamo as $key => $value){$value;}
     }
     public function productosPrestados($id)
     {
 
+        $prestamo=Prestamo::find($id);
+
+        if($prestamo->Estado_Prestamo =='Finalizado'){
+            $this->dispatchBrowserEvent('cerrar');
+            $this->dispatchBrowserEvent('crear', [
+                'type' => 'error',
+                'title' => 'Este Prestamo ya fue Finalizado',
+                'text' => 'No se puede realizar la devolucion',
+                'icon' => 'error',
+
+                'timer' => 5000,
+
+                'position' => 'center',
+            ]);
+
+
+
+        }
 
         $arrayElementosPrestados = DetallePrestamo::select('prestamos.*', 'libros.Nombre', 'libros.id', 'elementos.*', 'detalle_prestamo.*', 'users.name', 'users.lastname')
             ->join('prestamos', 'prestamos.id', '=', 'detalle_prestamo.id_prestamo')
@@ -257,18 +291,42 @@ class Prestamos extends Component
 
 
         }
+
     }
 
 
 
     public function eliminar($id){
 
-        $this->dispatchBrowserEvent('eliminar', [
-            'type' => 'warning',
-            'title' => '¿Estas Seguro De Inactivar Este Prestamo?',
-            'id' => $id,
+        $prestamoeli=Prestamo::find($id);
 
-        ]);
+        if($prestamoeli->Estado_Prestamo =='Activo'){
+
+            $this->dispatchBrowserEvent('crear', [
+                'type' => 'error',
+                'title' => 'Este Prestamo esta Activo No Se Puede Eliminar',
+
+                'icon' => 'error',
+
+                'timer' => 6000,
+                'toast'=>true,
+
+                'position' => 'center',
+            ]);
+
+
+
+        }else{
+
+            $this->dispatchBrowserEvent('eliminar', [
+                'type' => 'warning',
+                'title' => '¿Estas Seguro De Inactivar Este Prestamo?',
+                'id' => $id,
+
+            ]);
+
+        }
+
 
     }
 
@@ -423,7 +481,11 @@ class Prestamos extends Component
                 'showConfirmButton' => false,
             ]);
             return;
-        } elseif ($this->CantidadDevuelta == null) {
+        }
+
+
+
+        elseif ($this->CantidadDevuelta == null) {
             $this->dispatchBrowserEvent('swal', [
                 'title' => 'El campo cantidad devuelta no puede estar vacio.',
                 'icon' => 'info',
@@ -577,17 +639,61 @@ class Prestamos extends Component
 
     public function retornarValores()
     {
-        $tota = count($this->datos);
-        dd($this->datos);
-        for ($i = 0; $i < $tota; $i++) {
 
-            $detallePrestamo = DetallePrestamo::find($this->datos[$i]['id']);
-            $detallePrestamo->EstadoDetalle = $this->datos[$i]['Est'];
-            $detallePrestamo->CantidaPrestadaU = $this->datos[$i]['CantidaPrestadaU'];
-            $detallePrestamo->save();
+
+        foreach($this->datos as $key => $value){
+
+            $sumar = array(
+
+
+                "CantidaPrestadaU" => $value['CantidaPrestadaU'],
+
+
+
+            );
+
+
+            $this->sumar[] = $sumar;
 
         }
 
+
+
+
+        $this->sumarCantidades();
+
+
+
+
+
+
+
+    }
+    public function sumarCantidades(){
+
+
+        $this->id_prestamo;
+        $id_prestamo=$this->id_prestamo;
+
+        $resultado=0;
+        $total = count($this->sumar);
+
+        for ($i = 0; $i < $total; $i++) {
+
+            $resultado=$resultado+ $this->sumar[$i]['CantidaPrestadaU'];
+
+
+
+
+        }
+
+        $this->resultado=$resultado;
+
+        if($resultado==0){
+            $this->finalizarPrestamoEstado($id_prestamo);
+        }else{
+
+        }
     }
 
     public function enviarDatosDevolucionPrestamo()
@@ -614,9 +720,9 @@ class Prestamos extends Component
 
             $tota = count($this->elementosentregados);
 
-           // for ($i = 0; $i < $tota; $i++) {      }
 
-           foreach ($this->elementosentregados as $key => $value) {
+
+            foreach ($this->elementosentregados as $key => $value) {
 
                 $detallePrestamoLibro = Libro::find($value['id_libro']);
 
@@ -626,103 +732,88 @@ class Prestamos extends Component
 
                     $detallePrestamoLibro->Novedades=$value['Novedades'];
                     $detallePrestamoLibro->TipoNovedad=$value['TipoNovedad'];
+                    if($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Ninguna"){
+                        $detallePrestamoLibro->Estado="Disponible";
+                        $detallePrestamoLibro->save();
+                    }elseif($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Media"){
+                        $detallePrestamoLibro->Estado="Disponible";
+                        $detallePrestamoLibro->save();
+
+                    }else{
+                        $detallePrestamoLibro->Estado="NoDisponible";
+                        $detallePrestamoLibro->save();
+
+                    }
+
                     $detallePrestamoLibro->save();
 
                 }else{
-                        
-                        dd('no son iguales')
-                        ;
-    
-                    
 
-               
+                    dd('no son iguales')
+                    ;
+
+
+
+
                 }
-    }
-
-   
-             /*   $detallePrestamoLibro->CantidadLibros = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoLibro->CantidadLibros;
+            }
 
 
-                $detallePrestamoLibro->Novedades=$this->elementosentregados[$i]['Novedades'];
-               $detallePrestamoLibro->TipoNovedad=$this->elementosentregados[$i]['TipoNovedad'];
 
-               if($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Ninguna"){
-                    $detallePrestamoLibro->Estado="Disponible";
-                    $detallePrestamoLibro->save();
-                }elseif($detallePrestamoLibro->CantidadLibros>0 and $detallePrestamoLibro->TipoNovedad=="Media"){
-                    $detallePrestamoLibro->Estado="Disponible";
-                    $detallePrestamoLibro->save();
 
-                }else{
-                    $detallePrestamoLibro->Estado="NoDisponible";
-                    $detallePrestamoLibro->save();
-
-                }*/
-            
 
         }else  {
 
 
-           /* $tota = count($this->elementosentregados);
-
-            for ($i = 0; $i < $tota; $i++) {
 
 
-                $detallePrestamoElemento = Elemento::find($this->datos[$i]['id_elemento']);
 
-                $detallePrestamoElemento->cantidad = $this->elementosentregados[$i]['Cantidad'] + $detallePrestamoElemento->cantidad;
-                $detallePrestamoElemento->NovedadesElemento = $this->elementosentregados[$i]['Novedades'];
-                $detallePrestamoElemento->TipoNovedad = $this->elementosentregados[$i]['TipoNovedad'];
+            foreach ($this->elementosentregados as $key => $value) {
 
-                if ($detallePrestamoElemento->cantidad > 0 and $detallePrestamoElemento->TipoNovedad == "Ninguna") {
-                    $detallePrestamoElemento->Estado = "Disponible";
+
+                $detallePrestamoElemento = Elemento::find($value['id_elemento']);
+                if($value['id_elemento'] == $detallePrestamoElemento->id  ){
+
+
+
+
+                    $detallePrestamoElemento->cantidad = $value['Cantidad'] + $detallePrestamoElemento->cantidad;
+                    $detallePrestamoElemento->NovedadesElemento = $value['Novedades'];
+                    $detallePrestamoElemento->TipoNovedad = $value['TipoNovedad'];
+
+                    if ($detallePrestamoElemento->cantidad > 0 and $detallePrestamoElemento->TipoNovedad == "Ninguna") {
+                        $detallePrestamoElemento->Estado = "Disponible";
+                        $detallePrestamoElemento->save();
+                    } elseif ($detallePrestamoElemento->TipoNovedad == "Alta" and $detallePrestamoElemento->cantidad > 0) {
+
+                        $detallePrestamoElemento->Estado = "NoDisponible";
+                        $detallePrestamoElemento->save();
+                    } elseif ($detallePrestamoElemento->TipoNovedad == "Media" and $detallePrestamoElemento->cantidad > 0) {
+
+                        $detallePrestamoElemento->Estado = "Disponible";
+                        $detallePrestamoElemento->save();
+
+                    }
                     $detallePrestamoElemento->save();
-                } elseif ($detallePrestamoElemento->TipoNovedad == "Alta" and $detallePrestamoElemento->cantidad > 0) {
+                }else{
 
-                    $detallePrestamoElemento->Estado = "NoDisponible";
-                    $detallePrestamoElemento->save();
-                } elseif ($detallePrestamoElemento->TipoNovedad == "Media" and $detallePrestamoElemento->cantidad > 0) {
-
-                    $detallePrestamoElemento->Estado = "Disponible";
-                    $detallePrestamoElemento->save();
-
-                }
-            }
-        }*/
-
-
-        foreach ($this->elementosentregados as $key => $value) {
-
-           
-            $detallePrestamoElemento = Elemento::find($value['id_elemento']);
-            if($value['id_elemento'] == $detallePrestamoElemento->id  ){
-
-               
-                
-
-                $detallePrestamoElemento->cantidad = $value['Cantidad'] + $detallePrestamoElemento->cantidad;
-                $detallePrestamoElemento->NovedadesElemento = $value['Novedades'];
-                $detallePrestamoElemento->TipoNovedad = $value['TipoNovedad'];
-                $detallePrestamoElemento->save();
-            }else{
-                    
                     dd('no son iguales')
                     ;
 
-                
 
-           
+
+
+                }
+
+
+
             }
-        
-
 
         }
 
-        }
-      $this->crearDevolucion();
 
-
-  }
+        $this->crearDevolucion();
+    }
     // dd($this->elementosentregados);
 
 
@@ -746,6 +837,7 @@ class Prestamos extends Component
 
     public function crearDevolucion(){
 
+
         $codigo_Devolucion ='LAINB'. rand(1, 99999999);
         $apellido= Auth::user()->lastname;
         $this->$codigo_Devolucion = $codigo_Devolucion;
@@ -761,8 +853,8 @@ class Prestamos extends Component
         $prestamos->created_at = now();
         $prestamos->updated_at = now();
 
-
         $prestamos->save();
+
 
         foreach($this->elementosentregados as $key =>$devolucion){
 
@@ -784,18 +876,76 @@ class Prestamos extends Component
 
         }
 
-        $this->dispatchBrowserEvent('swal', [
-            'title' => 'Articulos Devueltos  Con Exito....',
-            'icon' => 'success',
 
-            'timer' => 5000,
-            'toast' => true,
-            'position' => 'center',
+        foreach($this->datos as $key => $value){
 
-        ]);
+            $sumar = array(
 
 
+                "CantidaPrestadaU" => $value['CantidaPrestadaU'],
+
+
+
+            );
+
+
+            $this->sumar[] = $sumar;
+
+        }
+
+        $resultado=0;
+        $total = count($this->sumar);
+
+        for ($i = 0; $i < $total; $i++) {
+
+            $resultado=$resultado+ $this->sumar[$i]['CantidaPrestadaU'];
+
+
+
+
+        }
+
+        $this->resultado=$resultado;
+
+
+        if($resultado==0){
+
+            $this->dispatchBrowserEvent('cerrar');
+
+            $prestamoFinalizarCambiarEstado = Prestamo::find($this->datos[0]['id_prestamo']);
+            if ($prestamoFinalizarCambiarEstado->Estado_Prestamo == 'Activo') {
+                $prestamoFinalizarCambiarEstado->Estado_Prestamo = 'Finalizado';
+                $prestamoFinalizarCambiarEstado->save();
+
+
+
+                $this->dispatchBrowserEvent('crear', [
+                    'type' => 'success',
+                    'title' => 'Prestamo Finalizado Con Exito...',
+                    'icon' => 'success',
+
+                ]);
+
+            }
+        }elseif($resultado>0){
+
+
+            $this->dispatchBrowserEvent('cerrar');
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Articulos Devueltos  Con Exito....',
+                'icon' => 'success',
+
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+
+            ]);
+
+
+        }
+        $this->cerrar();
     }
+
     public function cerrar()
     {
 
@@ -808,6 +958,7 @@ class Prestamos extends Component
         $this->Tipo_elemento = "";
         $this->elementosentregados = [];
         $this->datos = [];
+        $this->sumar=[];
     }
 
 
@@ -825,6 +976,8 @@ class Prestamos extends Component
 
     public function finalizarPrestamoEstado($id)
     {
+
+
         $prestamoFinalizarCambiarEstado = Prestamo::find($id);
         if ($prestamoFinalizarCambiarEstado->Estado == 'Activo') {
             $prestamoFinalizarCambiarEstado->Estado = 'Finalizado';

@@ -11,7 +11,7 @@ class Devoluciones extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $Fecha_devolucion, $prestamos_id, $libros_id, $elementos_id, $usuario_id, $curso_id;
+    public $selected_id, $buscadorDevoluciones, $Fecha_devolucion, $prestamos_id, $libros_id, $elementos_id, $usuario_id, $curso_id;
 
 //Detalles Devolucion
 
@@ -26,20 +26,16 @@ protected $listeners = ['render' => 'render'];
 
 
 
-		$keyWord = '%'.$this->keyWord .'%';
+        $buscadorDevoluciones = '%'.$this->buscadorDevoluciones .'%';
         return view('livewire.devoluciones.vistaprincipal', [
-            'devoluciones' => Devolucion::select( 'devolucions.id','devolucions.Estado_Devolucion','prestamos.Tipo_Elemento' ,'Bibliotecario_Re', 'devolucions.created_at','Estado_Devolucion','Cantidad_Devuelta', 'users.name' ,'libros.Nombre' ,'elementos.nombre')
-->leftjoin('users', 'users.id', '=', 'devolucions.usuario_id')
-->leftjoin('prestamos', 'prestamos.id', '=', 'devolucions.prestamos_id')
-->leftjoin('libros', 'libros.id', '=', 'devolucions.libros_id')
-->leftjoin('elementos', 'elementos.id', '=', 'devolucions.elementos_id')
-->where('users.name', 'LIKE', $keyWord)
-->orWhere('libros.Nombre', 'LIKE', $keyWord)
-->orWhere('elementos.nombre', 'LIKE', $keyWord)
-->orWhere('devolucions.created_at', 'LIKE', $keyWord)
-->orWhere('Cantidad_Devuelta', 'LIKE', $keyWord)
-->orderBy('devolucions.id', 'desc')
-->paginate(10),
+
+            'devoluciones' => Devolucion::latest()
+                ->orWhere('devoluciones.created_at', 'like', $buscadorDevoluciones)
+                ->orWhere('devoluciones.Bibliotecario_Re', 'like', $buscadorDevoluciones)
+                ->orWhere('devoluciones.CodigoDevolucion', 'like', $buscadorDevoluciones)
+                ->orWhere('devoluciones.Tipo_Elemento', 'like', $buscadorDevoluciones)
+
+                ->paginate(10)
 		]);
 
 
@@ -84,19 +80,6 @@ protected $listeners = ['render' => 'render'];
 
 
 	public function verDetallesDevoluciones($id){
-
-
-
-        $detallesDevolucionConsulta = Devolucion::select('devolucions.Cantidad_Devuelta','prestamos.CantidadPrestada','prestamos.NombreBibliotecario','prestamos.Tipo_Elemento', 'libros.id', 'prestamos.id','libros.Nombre','users.*' ,'elementos.nombre', 'devolucions.created_at','devolucions.Novedades','devolucions.Bibliotecario_Re', 'prestamos.Fecha_prestamo', 'users.name' ,'users.lastname' ,'users.TipoDoc','users.Grado','users.NumeroDoc' )
-            ->leftjoin('users', 'users.id', '=', 'devolucions.usuario_id')
-            ->leftjoin('prestamos', 'prestamos.id', '=', 'devolucions.prestamos_id')
-            ->leftjoin('libros', 'libros.id', '=', 'devolucions.libros_id')
-            ->leftjoin('elementos', 'elementos.id', '=', 'devolucions.elementos_id')
-
-
-            ->where('devolucions.id', '=', $id)
-            ->first();
-            ;
 
 
 

@@ -68,10 +68,12 @@
 
 
 
+@vite(['resources/js/app.js', 'resources/js/jquery3.6.3.js'])
 
+<script src="{{ asset('jquery3.6.3.js') }}"></script>
 <script>
     window.addEventListener('cerrar', event => {
-        $('#editarPrestamoModal').modal('hide')
+        $('#yuca').modal('hide')
         $('#actualizarCategoriaModal').modal('hide')
         if ($('.modal-backdrop').is(':visible')) {
             $('body').removeClass('modal-open');
@@ -121,12 +123,27 @@
 
                 window.livewire.emit('eliminarTemporalPrestamo', event.detail.id);
                 Swal.fire(
-                    'Inactivada!',
+                    'Inactivado!',
                     'Prestamo Inactivado Con Exito.',
                     'success'
                 )
             }
         })
+
+
+    });
+</script>
+
+<script>
+    window.addEventListener('crear', function(e) {
+        Swal.fire({
+            title: e.detail.title,
+            icon: e.detail.icon,
+            iconColor: e.detail.iconColor,
+            timer: 4000,
+            text: e.detail.text,
+
+        });
 
 
     });

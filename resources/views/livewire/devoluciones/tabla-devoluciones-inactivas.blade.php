@@ -30,11 +30,8 @@
                             <td>#</td>
                             <th>Bibliotecario</th>
                             <th>Fecha Devolución</th>
-
-                            <th>Articulo Entregado</th>
-
                             <th>Usuario </th>
-                            <th>Cantidad Entregada</th>
+                            <th>Codigo de Entregada</th>
                             <th>Novedades</th>
                             <th>Estado</th>
                             <td>Acciones</td>
@@ -46,17 +43,9 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->Bibliotecario_Re }}</td>
                                 <td>{{ $row->created_at }}</td>
-
-                                @if ($row->Tipo_Elemento == 'Libro')
-                                    <td>  {{  $row->Nombre }}</td>
-                                @else
-
-                                    <td>{{ $row->nombre }}</td>
-                                @endif
                                 <td>{{ $row->name }}</td>
-                                <td>{{ $row->Cantidad_Devuelta }}</td>
-
-                                <td>{{ $row->Novedades}}</td>
+                                <td>{{ $row->CodigoDevolucion}}</td>
+                                <td>{{ $row->Tipo_Elemento}}</td>
                                 @if ($row->Estado_Devolucion =='Inactiva')
 
   <td>
@@ -86,7 +75,6 @@
                         @endforelse
                     </tbody>
                 </table>
-                <div class="float-end">{{ $devolucionesInactivas->links() }}</div>
             </div>
         </div>
     </div>

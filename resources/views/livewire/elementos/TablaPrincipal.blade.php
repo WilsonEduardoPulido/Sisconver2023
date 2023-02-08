@@ -68,7 +68,7 @@
                         @endif
 
 
-                        <td>{{ $row->nombre }}</td>
+                        <td>{{ $row->categoria->nombre }}</td>
                         <td class="d-flex justify-content-around">
 
 

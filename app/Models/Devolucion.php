@@ -12,7 +12,7 @@ class Devolucion extends Model
 	
     public $timestamps = true;
 
-    protected $table = 'devolucions';
+    protected $table = 'devoluciones';
 
     protected $fillable = ['Fecha_devolucion','prestamos_id','libros_id','elementos_id','usuario_id','curso_id'];
 	

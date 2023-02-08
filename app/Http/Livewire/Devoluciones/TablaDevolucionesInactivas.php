@@ -18,17 +18,10 @@ class TablaDevolucionesInactivas extends Component
 
 {      $keyWord = '%'.$this->keyWord .'%';
 
-      $devolucionesInactivas=  Devolucion::onlyTrashed()->select('devolucions.id', 'Estado_Devolucion','devolucions.*', 'prestamos.Tipo_Elemento', 'Bibliotecario_Re', 'devolucions.created_at', 'Novedades', 'Estado_Devolucion', 'Cantidad_Devuelta', 'users.name', 'prestamos.Fecha_prestamo', 'libros.Nombre', 'elementos.nombre')
+      $devolucionesInactivas=  Devolucion::onlyTrashed();
 
 
-      ->where('Estado_Devolucion' ,'Inactiva')
-      ->leftjoin('users', 'users.id', '=', 'devolucions.usuario_id')
-            ->leftjoin('prestamos', 'prestamos.id', '=', 'devolucions.prestamos_id')
-            ->leftjoin('libros', 'libros.id', '=', 'devolucions.libros_id')
-            ->leftjoin('elementos', 'elementos.id', '=', 'devolucions.elementos_id')
 
-            ->paginate(10)
-            ;
 
 
         return view('livewire.devoluciones.tabla-devoluciones-inactivas',compact('devolucionesInactivas'));

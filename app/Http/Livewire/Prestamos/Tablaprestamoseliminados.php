@@ -53,7 +53,7 @@ class Tablaprestamoseliminados extends Component
         $prestamoRestaurar->restore();
 
 
-        $this->dispatchBrowserEvent('swal', [
+        $this->dispatchBrowserEvent('crear', [
             'title' => 'Prestamo Restaurado Con Exito...',
             'icon'=>'success',
 

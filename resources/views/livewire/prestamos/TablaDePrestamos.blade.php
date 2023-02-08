@@ -39,6 +39,7 @@
                     @forelse ($consultaPrestamos as $row)
                         <tr>
                             <th>{{ $loop->iteration }}</td>
+                                
                             <td>{{ $row->NombreBibliotecario }} </td>
                            
                             <td>
@@ -49,18 +50,22 @@
                             <td>{{ $row->name }} {{ $row->lastname }} </td>
 
 
-                            <td>
+                           
                                 @if ($row->Estado_Prestamo == 'Activo')
+                                <td>
                                     <button title="Activo"
                                         class="btn btn-warning m-1 bi bi bi-check2-square  text-white ">
 
                                     </button>
+                                </td>
                                 @else
-                                    <button class="btn btn-dark m-1 bi bi-x-octagon-fill btn-sm text-white">
+                                <td  class="table-info">
+                                    <button title="Finalizado" class="btn btn-dark m-1 bi bi-x-octagon-fill  text-white">
 
                                     </button>
+                                    </td>
                                 @endif
-                            </td>
+                            
 
 
                             <td> 

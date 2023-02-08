@@ -8,7 +8,7 @@
     <div class="d-flex  justify-content-between">
 
         <div class="col-6">
-            <input wire:model='keyWord' type="text" class="form-control  m-3" name="buscarPrestamo"
+            <input wire:model='buscadorDevoluciones' type="text" class="form-control  m-3" name="buscarPrestamo"
                 id="buscarPrestamo"  placeholder="Buscar Devolucion...">
         </div>
 
@@ -26,11 +26,9 @@
                         <td>#</td>
                         <th>Bibliotecario</th>
                         <th>Fecha Devolución</th>
-
-                        <th>Articulo Entregado</th>
-
                         <th>Usuario </th>
-                        <th>Cantidad Entregada</th>
+                        <th>Codigo de Entregada</th>
+                        <th>Tipo Elemento</th>
                         <th>Estado</th>
                         <td>Acciones</td>
                     </tr>
@@ -41,15 +39,9 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $row->Bibliotecario_Re }}</td>
                             <td>{{ $row->created_at }}</td>
-
-                            @if ($row->Tipo_Elemento == 'Libro')
-                                <td>  {{  $row->Nombre }}</td>
-                            @else
-
-                                <td>{{ $row->nombre }}</td>
-                            @endif
-                            <td>{{ $row->name }}</td>
-                            <td>{{ $row->Cantidad_Devuelta }}</td>
+                            <td>{{ $row->user->name }} {{ $row->user->lastname }}</td>
+                            <td>{{ $row->CodigoDevolucion}}</td>
+                            <td>{{ $row->Tipo_Elemento}}</td>
 
 
 
@@ -84,7 +76,6 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="float-end">{{ $devoluciones->links() }}</div>
         </div>
     </div>
 </div>
