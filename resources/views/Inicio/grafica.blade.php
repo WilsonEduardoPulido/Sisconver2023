@@ -50,7 +50,7 @@
 
         var Undecimo = {{ json_encode($consultaGraficaCircuo) }}
 
-
+            var Prescolar = {{ json_encode($consultaGraficaCircuoPrescolar) }}
             var Primero = {{ json_encode($consultaGraficaCircuoPrimero) }}
             var Segundo = {{ json_encode($consultaGraficaCircuoSegundo) }}
             var Tercero = {{ json_encode($consultaGraficaCircuoTercero) }}
@@ -74,10 +74,10 @@
             type: 'polarArea',
 
             data: {
-                labels: ['Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Séptimo','Octavo','Noveno','Décimo','Undecimo'],
+                labels: ['Prescolar','Primero','Segundo','Tercero','Cuarto','Quinto','Sexto','Séptimo','Octavo','Noveno','Décimo','Undecimo'],
                 datasets: [{
                     label: 'Estadísticas Sisconver ',
-                    data: [Primero,Segundo,Tercero,Cuarto,Quinto,Sexto,Septimo,Octavo,Noveno,Decimo,Undecimo],
+                    data: [Prescolar,Primero,Segundo,Tercero,Cuarto,Quinto,Sexto,Septimo,Octavo,Noveno,Decimo,Undecimo],
                     borderWidth: 1,
                     backgroundColor: colors
 

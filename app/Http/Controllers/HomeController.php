@@ -44,6 +44,7 @@ class HomeController extends Controller
         $totalLibrosActivos = $cantidadLibros->count();
         $totalPrestamosActivos = $cantidadPrestamos->count();
         $totalDevolucionesRealizadas = $cantidadDevoluciones->count();
+        $consultaGraficaCircuoPrescolar = User::where('Grado','=','Prescolar')->count();
         $consultaGraficaCircuoPrimero =  User::where('Grado','=','Primero')->count();
         $consultaGraficaCircuoSegundo =  User::where('Grado','=','Segundo')->count();
         $consultaGraficaCircuoTercero =  User::where('Grado','=','Tercero')->count();
@@ -117,7 +118,7 @@ class HomeController extends Controller
 
 
 
-        return view('Inicio.inicio', compact('totalCategoriasActivas', 'totalLibrosActivos', 'totalPrestamosActivos', 'totalDevolucionesRealizadas', 'totalcantidadActivosUsuarios','consultaGraficaCircuo','consultaGraficaCircuoPrimero','consultaGraficaCircuoSegundo','consultaGraficaCircuoTercero','consultaGraficaCircuoCuarto','consultaGraficaCircuoQuinto','consultaGraficaCircuoSexto','consultaGraficaCircuoSeptimo','consultaGraficaCircuoOctavo','consultaGraficaCircuoNoveno','consultaGraficaCircuoDecimo'));
+        return view('Inicio.inicio', compact('totalCategoriasActivas', 'totalLibrosActivos', 'totalPrestamosActivos', 'totalDevolucionesRealizadas', 'totalcantidadActivosUsuarios','consultaGraficaCircuo','consultaGraficaCircuoPrimero','consultaGraficaCircuoSegundo','consultaGraficaCircuoTercero','consultaGraficaCircuoCuarto','consultaGraficaCircuoQuinto','consultaGraficaCircuoSexto','consultaGraficaCircuoSeptimo','consultaGraficaCircuoOctavo','consultaGraficaCircuoNoveno','consultaGraficaCircuoDecimo','consultaGraficaCircuoPrescolar'));
 
     
 }
