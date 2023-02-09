@@ -668,6 +668,29 @@ class Libros extends Component
         $libro = Libro::find($id);
 
 
+   
+        foreach($this->arrayAgregaralatabla as $key => $value){
+
+              if($value['id'] == $libro->id){
+    
+                $this->dispatchBrowserEvent('error', [
+                     'title' => 'El Libro Ya Esta En Lista De Prestamo. ',
+                     'icon'=>'error',
+    
+                ]);
+                return;
+              }
+       }
+      if(count($this->arrayAgregaralatabla)  == 5 ){
+
+        $this->dispatchBrowserEvent('error', [
+            'title' => 'No puedes Prestar Mas de 5 Tipos De Libro. ',
+            'icon'=>'error',
+
+        ]);
+      }
+      
+      else{
 
         if ($libro->TipoNovedad =='Media' ) {
 
@@ -722,6 +745,7 @@ class Libros extends Component
 
 
         }
+    }
 
 
     }

@@ -114,8 +114,8 @@
                         :{{ $detalleElemento }} </h5>
                     <div class="card-body">
                         <table class="table table-bordered">
-                           
-                           
+
+
 
 
                             <thead>
@@ -271,9 +271,13 @@
                         <form class="" id="">
                             <div class="">
                                 <label class="form-label">Bibliotecario</label>
-                                <input disabled type="text" class="form-control " id="validationServer01" required
+                                <input disabled type="text" class="form-control  @error('bibliotecario') is-invalid @enderror" id="validationServer01" required
                                     wire:model="bibliotecario">
-
+                                    @error('bibliotecario')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
 
@@ -282,11 +286,11 @@
 
                                 <label for="usuarioDeudorid" class="form-label">Alumno O Persona</label>
                                 <div class="mb-3">
-                                    <select class="form-select " wire:model="usuarioDeudorid" name="usuarioDeudorid"
+                                    <select class="form-select  @error('usuarioDeudorid') is-invalid @enderror " wire:model="usuarioDeudorid" name="usuarioDeudorid"
                                         id="usuarioDeudorid">
 
                                         <option>
-                                           elige el usuario
+                                           Seleccione un  usuario
 
                                         </option>
 
@@ -297,6 +301,11 @@
 
 
                                     </select>
+                                     @error('usuarioDeudorid')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
 
@@ -306,31 +315,37 @@
 
 
                             <div class="">
-                                <label for="validationServer01" class="form-label">Elemento o Libro</label>
-                                <input type="text" disabled class="form-control " id="validationServer01" required
+                                <label for="articuloDevolver" class="form-label">Elemento o Libro</label>
+                                <input type="text" disabled class="form-control  @error('articuloDevolver') is-invalid @enderror " id="validationServer01" required
                                     wire:model="articuloDevolver">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
+                                    @error('articuloDevolver')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="row m-auto justify-content-around d-flex">
                                 <div class="col-4">
                                     <label for="validationServer01" class="form-label">Cantidad Prestada</label>
-                                    <input disabled type="number" class="form-control " id="validationServer01"
+                                    <input disabled type="number" class="form-control  @error('CantidadPrestadaDevolver') is-invalid @enderror" id="validationServer01"
                                         value="Mark" required wire:model="CantidadPrestadaDevolver">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
+                                        @error('CantidadPrestadaDevolver')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
 
                                 <div class="col-4">
                                     <label for="validationServer01" class="form-label">Cantidad Devuelta</label>
-                                    <input type="number" class="form-control " id="validationServer01"
+                                    <input type="number" class="form-control @error('CantidadDevuelta') is-invalid @enderror" id="validationServer01"
                                         value="Mark" required wire:model="CantidadDevuelta">
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
+                                        @error('CantidadDevuelta')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                             </div>
@@ -347,8 +362,13 @@
                             <div class="">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Novedades </label>
-                                    <textarea style="resize: none" class="form-control" name="" id="" wire:model="NovedadesDevolucion"
+                                    <textarea style="resize: none" class="form-control @error('NovedadesDevolucion') is-invalid @enderror" name="" id="" wire:model="NovedadesDevolucion"
                                         rows="3"></textarea>
+                                         @error('NovedadesDevolucion')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
 
                             </div>
@@ -362,23 +382,38 @@
                                 <div class="form-check col-3">
                                     <input class="form-check-input" type="radio" name="Tipo_novedad"
                                         id="exampleRadios1" value="Alta" wire:model="Tipo_novedad">
-                                    <label class="form-check-label" for="exampleRadios1">
+                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror" for="exampleRadios1">
                                         Alta
                                     </label>
+                                    @error('Tipo_novedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="form-check col-3 ">
                                     <input class="form-check-input" type="radio" name="Tipo_novedad"
                                         id="exampleRadios2" value="Media" wire:model="Tipo_novedad">
-                                    <label class="form-check-label" for="exampleRadios2">
+                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror" for="exampleRadios2">
                                         Media
                                     </label>
+                                    @error('Tipo_novedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="form-check col-3" wirw:ignore>
-                                    <input class="form-check-input" type="radio" name="Tipo_novedad"
+                                    <input class="form-check-input  @error('Tipo_novedad') is-invalid @enderror" type="radio" name="Tipo_novedad"
                                         id="exampleRadios3" value="Ninguna" checked wire:model="Tipo_novedad">
                                     <label class="form-check-label" for="exampleRadios3">
                                         Baja
                                     </label>
+                                    @error('Tipo_novedad')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
 
                             </div>
@@ -463,7 +498,7 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Novedades</th>
-
+  <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -478,7 +513,11 @@
                                         <td> {{ $value['Articulo'] }} </td>
                                         <td> {{ $value['Cantidad'] }} </td>
                                         <td> {{ $value['Novedades'] }} </td>
+                                        <td> <button
+                                                wire:click.prevent="cancelarDevolucion(  {{ $key }} )"
+                                                class="btn btn-danger  text-white bi bi-dash-circle"></button>
 
+                                        </td>
                                     </tr>
 
                                 </tbody>

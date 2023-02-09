@@ -53,7 +53,7 @@
                             
                             <td>{{ $row->name }} {{ $row->lastname }} </td>
 
-                            @if ($row->Estado_Prestamo == 'Inactivo')
+                            @if ($row->Estado_Prestamo == 'Inactivo' or $row->Estado_Prestamo=='Finalizado')
                                 <td class=" text-white ">
                                     <button  title="Inactivo" class="btn btn-danger m-1 bi bi-x-square text-white">
 

@@ -64,8 +64,8 @@ class Elementos extends Component
         'descripcion' => 'required|min:3|max:150',
 
         'categoria_id' => 'required',
-        'NovedadesElemento'=>'nullable|min:3|max:150',
-        'TipoNovedad'=>'nullable'
+        'NovedadesElemento'=>'required|min:3|max:150',
+        'TipoNovedad'=>'required'
 
 
 
@@ -85,6 +85,13 @@ class Elementos extends Component
         'TipoNovedad.required' => 'El Tipo de Novedad es requerido',
         'NovedadesElemento.min' => 'La Novedad debe tener al menos 3 caracteres',
         'NovedadesElemento.max' => 'La Novedad debe tener maximo 150 caracteres',
+        'name.required'=>'El nombre de Bibliotecario es requerido',
+        'usuario_id.required'=>'El usuario es requerido',
+
+        'nombreElemento.required'=>'El nombre del elemento es requerido',
+        'NovedadesElemento.required'=>'Las novedades del elemento son requeridas ',
+        'cantidadElemento.required'=>'La cantidad disponible es requerida',
+'CantidadPrestar.required'=>'La cantidad a prestar es requerida',
 
 
     ];
@@ -288,6 +295,27 @@ class Elementos extends Component
         $prestamoC = Elemento::findOrFail($id);
 
 
+        foreach($this->arrayElementos as $key => $value){
+
+              if($value['id'] == $prestamoC->id){
+
+                $this->dispatchBrowserEvent('error', [
+                     'title' => 'El Elemento Ya Esta En Lista De Prestamo. ',
+                     'icon'=>'error',
+
+                ]);
+                return;
+              }
+       }
+      if(count($this->arrayElementos)  == 5 ){
+
+        $this->dispatchBrowserEvent('error', [
+            'title' => 'No puedes Prestar Mas de 5 Elementos . ',
+            'icon'=>'error',
+
+        ]);
+      }else{
+
 
 
 
@@ -295,26 +323,50 @@ class Elementos extends Component
 
 
         if($prestamoC->cantidad==0 and $prestamoC->TipoNovedad=='Alta'){
-            session()->flash('info', 'No se puede prestar este elemento porque no hay unidades disponibles');
+
+            $this->dispatchBrowserEvent('error', [
+                 'title' => 'No se puede prestar este elemento porque no hay unidades disponibles',
+                 'icon'=>'error',
+
+            ]);
             return;
 
         }
         elseif($prestamoC->TipoNovedad=='Alta')
         {
-            session()->flash('error', 'No se puede prestar este elemento porque actualmente tiene una novedad');
+
+            $this->dispatchBrowserEvent('error', [
+                 'title' => 'No se puede prestar este elemento porque actualmente tiene una novedad',
+                 'icon'=>'error',
+
+            ]);
             return;
         }elseif($prestamoC->Estado=='Agotado')
         {
-            session()->flash('info', 'No se puede prestar este elemento porque actualemte no hay unidades disponibles');
+          $this->dispatchBrowserEvent('error', [
+               'title' => 'No se puede prestar este elemento porque actualemte no hay unidades disponibles',
+               'icon'=>'error',
+
+          ]);
+
             return;
         }elseif($prestamoC->Estado=='Inactivo')
         {
-            session()->flash('error', 'No se puede prestar este elemento porque esta inactivo');
+          $this->dispatchBrowserEvent('error', [
+               'title' => 'No se puede prestar este elemento porque esta inactivo',
+               'icon'=>'error',
+
+          ]);
+
             return;
         }
         elseif($prestamoC->TipoNovedad =='Media'){
+          $this->dispatchBrowserEvent('error', [
+               'title' => 'Este elemento tiene una novedad media, se debe revisar antes de ser prestado',
+               'icon'=>'info',
 
-            session()->flash('info', 'Este elemento tiene una novedad media, se debe revisar antes de ser prestado');
+          ]);
+
 
             $prestador = Auth::user()->name;
             $this->name = $prestador;
@@ -326,7 +378,14 @@ class Elementos extends Component
             $this->NovedadesElemento = $prestamoC->NovedadesElemento;
             $this->Estado = $prestamoC->Estado;
         }elseif($prestamoC->cantidad==0 ){
-            session()->flash('info', 'No se puede prestar este elemento porque no hay unidades disponibles y tiene una novedad');
+
+          $this->dispatchBrowserEvent('error', [
+               'title' => 'No se puede prestar este elemento porque no hay unidades disponibles y tiene una novedad',
+               'icon'=>'info',
+
+          ]);
+
+
             return;
         }
 
@@ -348,6 +407,7 @@ class Elementos extends Component
                 'icon'=>'success',  ]);
         }
 
+}
         $this->resetErrorBag();
         $this->resetValidation();
 
@@ -416,17 +476,27 @@ class Elementos extends Component
 
         $this->validate([
             'usuario_id' => 'required',
+            'name'=>'required',
+            'nombreElemento'=>'required',
+            'NovedadesElemento'=>'required',
+            'cantidadElemento'=>'required',
+'CantidadPrestar'=>'required',
 
         ]);
 
         if ($CantidadPrestar > $cantidadElemento) {
 
-            session()->flash('info', 'La cantidad a prestar no puede ser mayor a la cantidad del elemento');
+          $this->dispatchBrowserEvent('error', [
+              'title' => 'La cantidad a prestar no puede ser mayor a la cantidad del elemento',
+              'icon'=>'error',  ]);
+
 
 
         } elseif ($CantidadPrestar <= 0) {
-            session()->flash('info', 'La cantidad a prestar no puede ser menor a 0');
 
+            $this->dispatchBrowserEvent('error', [
+                'title' => 'La cantidad a prestar no puede ser menor a 0',
+                'icon'=>'error',  ]);
         } else {
 
 
@@ -522,11 +592,6 @@ class Elementos extends Component
 
         $prestamoDevolver = Elemento::findOrFail($idlibor);
 
-
-
-
-
-
         $totaldevLi = (int) $cantidadPrestada +   $cantidadActualParaSumar=$prestamoDevolver->cantidad;
 
 
@@ -554,6 +619,7 @@ class Elementos extends Component
 
 
 
+
         $codigo_Prestamo ='LAINB'. rand(1, 99999999);
 
         $this->$codigo_Prestamo = $codigo_Prestamo;
@@ -574,7 +640,15 @@ class Elementos extends Component
         $prestamos->save();
 
 
+if(count($this->arrayElementos) == 0 ){
 
+  $this->dispatchBrowserEvent('crear', [
+
+      'title' => 'Error No hay Elementos En La Lista Para Prestar',
+      'icon'=>'error',
+
+  ]);
+}else{
 
         foreach($this->arrayElementos as $key =>$elemento){
 
@@ -590,7 +664,7 @@ class Elementos extends Component
             );
             DetallePrestamo::insert($datos);
             unset($this->arrayElementos[$key]);
-            session()->flash('alertaprestamow', 'Prestamo Realizado  Con Exito.');
+
             $this->limpiarCampos();
         }
 
@@ -600,6 +674,8 @@ class Elementos extends Component
             'icon'=>'success',
 
         ]);
+
+        }
     }
 
 

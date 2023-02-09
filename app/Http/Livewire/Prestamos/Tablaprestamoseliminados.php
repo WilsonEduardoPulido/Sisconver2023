@@ -18,17 +18,20 @@ class Tablaprestamoseliminados extends Component
     {
 
         $buscadorPrestamos = '%'.$this->buscadorPrestamos .'%';
-        $prestamosEliminados= Prestamo::onlyTrashed()
-            ->leftjoin('users', 'prestamos.usuario_id', '=', 'users.id')
-            ->select('users.name','users.lastname','prestamos.*')
-            ->where('Estado_Prestamo', 'Inactivo')
 
-
-
-
-
-            -> orderBy('prestamos.id','DESC')
-            ->paginate(10);
+       
+        $prestamosEliminados= Prestamo::select('prestamos.*', 'users.name', 'users.lastname')
+       
+        ->where('prestamos.Estado_Prestamo', 'Inactivo')
+        ->orWhere('prestamos.created_at', 'like', $buscadorPrestamos)
+        ->orWhere('prestamos.Tipo_Elemento', 'like', $buscadorPrestamos)
+        ->orWhere('prestamos.Codigo_Prestamo', 'like', $buscadorPrestamos)
+        ->orWhere('users.name', 'like', $buscadorPrestamos)
+      
+       
+        ->leftjoin('users', 'prestamos.usuario_id', '=', 'users.id')
+        ->orderBy('prestamos.id', 'desc')
+        ->paginate(8);
 
 
         return view('livewire.prestamos.tablaprestamoseliminados',compact('prestamosEliminados'));
@@ -49,6 +52,11 @@ class Tablaprestamoseliminados extends Component
         if($prestamoRestaurar->Estado_Prestamo == 'Inactivo' ){
             $prestamoRestaurar->Estado_Prestamo = 'Activo';
             $prestamoRestaurar->save();
+        }elseif($prestamoRestaurar->Estado_Prestamo =='Finalizado'){
+
+            $prestamoRestaurar->Estado_Prestamo = 'Finalizado';
+            $prestamoRestaurar->save();
+
         }
         $prestamoRestaurar->restore();
 

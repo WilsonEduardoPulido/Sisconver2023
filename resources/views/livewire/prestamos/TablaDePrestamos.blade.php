@@ -1,7 +1,7 @@
 <div class="card  mt-3 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
-       
+
         <caption>Gestiòn De Prestamos</caption>
     </div>
 
@@ -18,7 +18,7 @@
 
 
     <div class="card-body  ">
-       
+
         <div class="table-responsive  table-bordered border-primary">
             <table  class="table ">
                 <thead class="thead">
@@ -39,18 +39,18 @@
                     @forelse ($consultaPrestamos as $row)
                         <tr>
                             <th>{{ $loop->iteration }}</td>
-                                
+
                             <td>{{ $row->NombreBibliotecario }} </td>
-                           
+
                             <td>
                                 {{ $row->created_at }} </td>
                                 <td>     {{ $row->Tipo_Elemento }}  </td>
                             <th> {{ $row->Codigo_Prestamo  }} </th>
-                            
+
                             <td>{{ $row->name }} {{ $row->lastname }} </td>
 
 
-                           
+
                                 @if ($row->Estado_Prestamo == 'Activo')
                                 <td>
                                     <button title="Activo"
@@ -65,10 +65,10 @@
                                     </button>
                                     </td>
                                 @endif
-                            
 
 
-                            <td> 
+
+                            <td>
 
 
 
@@ -95,7 +95,7 @@
 
 
 
-              
+
 
 
 
@@ -116,12 +116,12 @@
                 <td class="text-center bg-emerald-300" colspan="100%">No hay registros para mostrar</td>
             </tr>
             @endforelse
-            <div class="float-end">{{ $consultaPrestamos->links() }}</div>
+
             </tbody>
 
 
             </table>
-
+<div class="float-end">{{ $consultaPrestamos->links() }}</div>
         </div>
     </div>
 
@@ -130,5 +130,3 @@
 
 
 </div>
-
-

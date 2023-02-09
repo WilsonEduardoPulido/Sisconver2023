@@ -1,64 +1,9 @@
-<!-- Ver Detalles  Modal -->
-<div wire:ignore.self class="modal fade" id="verDetallesCategoria" data-bs-backdrop="static" tabindex="-1" role="dialog"
-    aria-labelledby="createDataModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createDataModalLabel">Ver Detalles De La Categoría</h5>
-                <button wire:click.prevent="cancelar()" type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-12 ">
-                            <h5 class="card-header bi bi-bookmark-star-fill bg-primary text-white">Categoría o Género literario:{{ $nombre }}</h5>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="card-body">
-
-                                <div class="table-responsive col-12">
-                                    <table class="table table-light">
-                                        <thead>
-
-                                        </thead>
-                                        <tbody>
-                                        <tr class="">
-                                            <th scope="col-6">Tipo :</td>
-                                            <td>{{ $Tipo }}</td>
-                                        </tr>
-                                        <tr class="">
-                                            <th scope="row">Descripción:</td>
-                                                <td>{{ $descripcion }}</td>
-                                        </tr>
-                                        <tr class="">
-                                            <th scope="row">Estado : </th>
-                                            <td>{{ $Estado }}</td>
-
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
 
 
 
-            <div class="modal-footer">
-                <button type="button" wire:click="cancelar()" class="btn btn-warning text-white close-btn"
-                    data-bs-dismiss="modal">Cerrar</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Crear Categoria Modal -->
-<div wire:ignore.self class="modal fade" id="crearNuevaCategoriaModal" data-bs-backdrop="static"
-    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div wire:ignore.self class="modal " id="crearNuevaCategoriaModal"
+data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
@@ -208,12 +153,70 @@
 </div>
 
 
-<script>
-    window.addEventListener('cerrar', event => {
-        $('#categoriaModal2').modal('hide');
 
 
-        $('#modalEditarCategoria').modal('hide');
 
-    });
-</script>
+
+
+
+
+
+
+
+
+
+
+<div wire:ignore.self class="modal fade" id="verDetallesCategoria" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="createDataModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="codalLabel">Ver Detalles De La Categoría</h5>
+                <button wire:click.prevent="cancelar()" type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12 ">
+                            <h5 class="card-header bi bi-bookmark-star-fill bg-primary text-white">Categoría o Género literario:{{ $nombre }}</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-body">
+
+                                <div class="table-responsive col-12">
+                                    <table class="table table-light">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+                                        <tr class="">
+                                            <th scope="col-6">Tipo :</td>
+                                            <td>{{ $Tipo }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Descripción:</td>
+                                                <td>{{ $descripcion }}</td>
+                                        </tr>
+                                        <tr class="">
+                                            <th scope="row">Estado : </th>
+                                            <td>{{ $Estado }}</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+            <div class="modal-footer">
+                <button type="button" wire:click="cancelar()" class="btn btn-warning text-white close-btn"
+                    data-bs-dismiss="modal">Cerrar</button>
+
+            </div>
+
+</div>
+<!-- Crear Categoria Modal -->

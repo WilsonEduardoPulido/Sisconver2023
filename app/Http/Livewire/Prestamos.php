@@ -54,6 +54,7 @@ class Prestamos extends Component
             ->orWhere('users.name', 'like', $buscadorPrestamos)
             ->where('prestamos.Estado_Prestamo', 'Activo')
             ->where('prestamos.Estado_Prestamo','Finalizado')
+            ->where('prestamos.deleted_at', null)
             ->paginate(8);
 
         ;
@@ -71,6 +72,7 @@ class Prestamos extends Component
     public function cancel()
     {
         $this->resetInput();
+
     }
 
     private function resetInput()
@@ -82,99 +84,29 @@ class Prestamos extends Component
 
     }
 
-    public function store()
-    {
-        $this->validate([
-
-            'libros_id' => 'required',
-            'elementos_id' => 'required',
-            'usuario_id' => 'required',
-
-        ]);
-
-        Prestamo::create([
-
-            'libros_id' => $this->libros_id,
-            'elementos_id' => $this->elementos_id,
-            'usuario_id' => $this->usuario_id,
-
-        ]);
-
-        $this->resetInput();
-        $this->dispatchBrowserEvent('closeModal');
-        session()->flash('message', 'Prestamo Successfully created.');
-    }
-
-    public function editarPrestamo($id)
-    {
-
-
-        $editarPrestamo = Prestamo::findOrFail($id);
-
-        if ($editarPrestamo->Estado_Prestamo == 'Finalizado') {
-
-            $this->dispatchBrowserEvent('cerrar');
-            session()->flash('error', 'No se puede editar un prestamo finalizado');
-            return;
-        }
-
-
-        $this->libros_id = null;
-
-        $this->selected_id = $id;
-
-
-        if ($editarPrestamo->libros_id == null) {
-            $this->libros_id = null;
-
-        } else {
-            $usuario = User::findOrFail($editarPrestamo->usuario_id);
-
-
-            $libro = Libro::findOrFail($editarPrestamo->libros_id);
-            $this->libros_id = $editarPrestamo->libros_id;
 
 
 
-            $this->usuario_id = $editarPrestamo->usuario_id;
-            $this->usuarioDeudor = $usuario->name;
-            $this->ArticuloPrestado = $libro->Nombre;
+    protected $messages = [
 
-        }
-
-
-        if ($editarPrestamo->elementos_id == null) {
-            $this->elementos_id = null;
-
-
-        } else {
-            $usuario = User::findOrFail($editarPrestamo->usuario_id);
-
-            $elemento = Elemento::findOrFail($editarPrestamo->elementos_id);
-
-            $this->elementos_id = $editarPrestamo->elementos_id;
-
-            $this->usuario_id = $editarPrestamo->usuario_id;
-            $this->usuarioDeudor = $usuario->name;
-            $this->ArticuloPrestado = $elemento->nombre;
-        }
+        'Tipo_novedad.required' => 'El Campo Tipo de Novedad  Es Obligatorio',
+        'NovedadesDevolucion.required' => 'El Campo Novedades De Devolucion Es Obligatorio',
+        'CantidadDevuelta.required' => 'El Campo Cantidad Devuelta Es Obligatorio',
+        'CantidadDevuelta.numeric' => 'El Campo Cantidad Devuelta Debe Ser Numerico',
+        'CantidadDevuelta.min' => 'El Campo Cantidad Devuelta Debe Ser Mayor a 0',
+        'CantidadDevuelta.max' => 'El Campo Cantidad Devuelta Debe Ser Menor a 100',
+        'CantidadPrestadaDevolver.required' => 'El Campo Cantidad Prestada Es Obligatorio',
+        'CantidadPrestadaDevolver.numeric' => 'El Campo Cantidad Prestada Debe Ser Numerico',
+        'bibliotecario.required'=>'El campo bibliotecario Es Obligatorio ',
+        'usuarioDeudorid.required'=>'El campo usuario Deudor Es Obligatorio ',
+        'articuloDevolver.required'=>'El campo articulo Devolver Es Obligatorio ',
 
 
 
+    ];
 
 
 
-
-
-        $estadoInicial = $editarPrestamo->Estado_Prestamo;
-
-        $this->Estado_Prestamo = $estadoInicial;
-
-        $this->CantidadPrestada = $editarPrestamo->CantidadPrestada;
-
-        $this->Fecha_prestamo = $editarPrestamo->Fecha_prestamo;
-
-    }
 
     public function verDetallesPrestamo($id)
     {
@@ -197,7 +129,7 @@ class Prestamos extends Component
         $this->direccionDeudor = $detaPrestamo[0] ['direccion'];
         $this->estadoDetalle = $detaPrestamo[0] ['Estado_Prestamo'];
         $this->CodigoPrestamoD = $detaPrestamo[0] ['Codigo_Prestamo'];
-        $this->EstadoPrestamo = $detaPrestamo[0] ['Estado'];
+//$this->EstadoPrestamo = $detaPrestamo[0] ['Estado'];
         $this->detaPrestamo = $detaPrestamo;
 
         $total = 0;
@@ -362,17 +294,20 @@ class Prestamos extends Component
 
         $prestamoEli = Prestamo::find($id);
 
-        if ($prestamoEli->Estado_Prestamo == 'Activo' or $prestamoEli->Estado_Prestamo == 'Finalizado') {
+        if ($prestamoEli->Estado_Prestamo == 'Activo' ) {
             $prestamoEli->Estado_Prestamo = 'Inactivo';
 
 
             $prestamoEli->save();
             $prestamoEli->delete();
 
+        }elseif($prestamoEli->Estado_Prestamo == 'Finalizado'){
+            $prestamoEli->Estado_Prestamo = 'Finalizado';
 
 
-            $this->emit('render')
-            ;
+            $prestamoEli->save();
+            $prestamoEli->delete();
+
 
         }
 
@@ -481,6 +416,19 @@ class Prestamos extends Component
                 'showConfirmButton' => false,
             ]);
             return;
+        }elseif($this->usuarioDeudorid ==null){
+
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'El campo Usuario no puede estar vacio.',
+                'icon' => 'error',
+                'iconColor' => 'red',
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+                'showConfirmButton' => false,
+            ]);
+            return;
+
         }
 
 
@@ -632,6 +580,9 @@ class Prestamos extends Component
             'position' => 'center',
 
         ]);
+        $this->resetErrorBag();
+        $this->resetValidation();
+
     }
 
 
@@ -698,6 +649,20 @@ class Prestamos extends Component
 
     public function enviarDatosDevolucionPrestamo()
     {
+
+   if(count($this->elementosentregados)  == 0 ){
+
+     $this->dispatchBrowserEvent('swal', [
+         'title' => 'Error La Lista De Devolucion No Puede Estar Vacia.',
+         'icon' => 'error',
+
+         'timer' => 5000,
+         'toast' => true,
+         'position' => 'center',
+
+     ]);
+
+   }else{
 
 
 
@@ -813,6 +778,7 @@ class Prestamos extends Component
 
 
         $this->crearDevolucion();
+        }
     }
     // dd($this->elementosentregados);
 
@@ -837,6 +803,20 @@ class Prestamos extends Component
 
     public function crearDevolucion(){
 
+        $this->validate([
+            'EstadoDetalle'=>'required',
+            'CantidadDevuelta'=>'required',
+            'CatidadLibros'=>'required',
+            'Novedades'=>'required',
+            'Tipo_novedad'=>'required',
+            'Codigo_Devolucion'=>'required',
+            'prestamos_id'=>'required',
+            'usuario_id'=>'required',
+            'Tipo_Elemento'=>'required',
+            'Bibliotecario_id'=>'required',
+
+
+        ]);
 
         $codigo_Devolucion ='LAINB'. rand(1, 99999999);
         $apellido= Auth::user()->lastname;
@@ -959,6 +939,8 @@ class Prestamos extends Component
         $this->elementosentregados = [];
         $this->datos = [];
         $this->sumar=[];
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
 
@@ -990,5 +972,27 @@ class Prestamos extends Component
         }
     }
 
+/*
+    public function cancelarDevolucion($key){
 
+      $resultadodevo=$this->elementosentregados[$key]['Cantidad']);
+      $idelementode=$this->elementosentregados[$key]['id_elemento']);
+      $total = count($this->datos);
+      for ($i = 0; $i < $total; $i++) {
+
+  $id=$this->datos[$i]['id_elemento'];
+if($idelementode  == $id){
+
+  dd('Somo Iguales htm');
 }
+
+
+        //  $resultadodevo=$resultado+ $this->sumar[$i]['CantidaPrestadaU'];
+
+
+      }
+
+      $this->resultado=$resultado;
+  }
+  */
+  }

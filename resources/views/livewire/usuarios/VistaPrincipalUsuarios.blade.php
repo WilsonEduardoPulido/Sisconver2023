@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="justify-content-center">
             <div class="row m-1   d-flex " style="height: 70%" >
-                <div class="col-9">
+                <div class="col-8">
                         <!--------LINICIO LINKS TABS -------->
                         <!--------LINICIO LINKS TABS -------->
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
@@ -16,8 +16,10 @@
                                     data-bs-target="#pills-profile" type="button" role="tab"
                                     aria-controls="pills-profile" aria-selected="false">Restaurar Usuarios</button>
                             </li>
-                            <li class="nav-item " role="presentation">
-                            </li>
+
+                            <button type="button" class="btn btn-primary text-white small bi-plus-circle-fill" data-bs-toggle="modal" data-bs-target="#modalAñadirUsuario">
+                                Añadir Nuevo Usuario
+                            </button>
                         </ul>
                         <div class="tab-content h-100 " id="pills-tabContent">
                             <!----------- INICIO CONTENEDOR 1  ------------->
@@ -38,7 +40,7 @@
                             <!----------- FIN  CONTENEDOR 3  ------------->
                         </div>
                 </div>
-                <div class="col-3 mt-4  p-2 h-100  ">
+                <div class="col-4 mt-4  p-2 h-100  ">
                     <!------Formulario de Devolucion------>
                     @include('livewire.usuarios.formulariosancion')
                  </div>
@@ -47,17 +49,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

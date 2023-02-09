@@ -68,7 +68,7 @@
                             <label for="descripcion">Descripción</label>
 
                             <textarea required class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" id="descripcion"
-                                      wire:model="descripcion" rows="3"></textarea>
+                                      wire:model="descripcion" rows="3"  placeholder="Descripción"></textarea>
                             @error('descripcion')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
                             @enderror
@@ -83,13 +83,15 @@
                                 <strong>!Registro De Novedades...</strong>
 
                                 Por Favor Si el Elemento registra alguna anomalia o daño, registre la novedad en este
-                                campo, de lo contrario deje el campo vacio.
+                                campo.
                             </div>
 
                             <div class="col-6">
                                 <label for="exampleFormControlTextarea1" class="form-label col-6">Novedades</label>
                                 <textarea class="form-control @error('NovedadesElemento') is-invalid @enderror" id="exampleFormControlTextarea1"
-                                          wire:model="NovedadesElemento" cols="1" rows="3"></textarea>
+                                          wire:model="NovedadesElemento" cols="1" rows="3"  placeholder="
+                                          Ejemplo Ninguna
+                                          " ></textarea>
                                 @error('NovedadesElemento')
                                 <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
                                 @enderror
