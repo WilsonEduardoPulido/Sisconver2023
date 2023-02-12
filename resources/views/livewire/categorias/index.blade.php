@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Categorias'))
+@section('title', __('Gestion De CategoriasComponente'))
 @section('content')
 
 

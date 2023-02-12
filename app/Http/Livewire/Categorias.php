@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Categorias;
 
+use App\Models\Categoria;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\Categoria;
 
 class Categorias extends Component
 {
@@ -16,7 +16,7 @@ class Categorias extends Component
 
 
     protected $paginationTheme = 'bootstrap';
-    
+
     public $selected_id, $buscarCategoria, $nombre, $descripcion, $Estado, $Tipo;
 
 
@@ -116,7 +116,7 @@ class Categorias extends Component
         $this->Estado = $categoria->Estado;
 
     }
-   
+
 
 
 

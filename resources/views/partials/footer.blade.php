@@ -4,7 +4,7 @@
 
         <img class=" " src="{{ asset('img/lulogo_Plumita.svg') }}" alt="Logo colegioS" width="70px" height="40px">
 
-        <span class="  fs-4 ">SISCONVER 2022 ©</span>
+        <span class="  fs-5 ">SISCONVER 2022 ©</span>
 
     </div>
     <ul class=" col-2   list-unstyled d-flex justify-content-around">

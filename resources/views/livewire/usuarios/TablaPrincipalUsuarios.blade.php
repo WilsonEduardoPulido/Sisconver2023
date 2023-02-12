@@ -1,4 +1,13 @@
-<div class="card  h-100 mt-3 "  style="height: 100%" >
+
+
+
+
+
+<div class="contenedor_padre">
+
+
+
+<div class="card contenedor_padre  "   >
 
     <div class="card-header d-flex justify-content-between bg-white">
         <h4 class="text-center ">Gestión De Usuarios</h4>
@@ -76,13 +85,13 @@
 
                                 <a   title="Ver Detalles" data-bs-toggle="modal" data-bs-target="#verDetallesUsuario"
                                     class=" bi bi bi-eye-fill m-1  text-white btn btn-warning "
-                                    wire:click="editarUsuario({{ $row->id }})"> </a>
+                                    wire:click="verUsuario({{ $row->id }})"> </a>
 
 
                                 @if ($row->Estado=='Sancionado')
                                     <a   title="Retirar Sancion" data-bs-toggle="modal" data-bs-target="#cargarDatosSancion"
                                          class="bi bi-lock-fill  m-1 text-white btn btn-warning  "
-                                         wire:click="retirarSancion({{ $row->id }})"> </a>
+                                         wire:click="retirarSancione({{ $row->id }})"> </a>
 
                                 @else
 
@@ -110,4 +119,5 @@
 
 
 
+</div>
 </div>

@@ -1,7 +1,7 @@
 <div>
     <div class="container-fluid">
         <div class="justify-content-center">
-            <div class="row m-1   d-flex " style="height: 70%" >
+            <div class="row m-1   d-flex "  >
                 <div class="col-8">
                         <!--------LINICIO LINKS TABS -------->
                         <!--------LINICIO LINKS TABS -------->

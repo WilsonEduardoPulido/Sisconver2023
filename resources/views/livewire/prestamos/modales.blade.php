@@ -214,7 +214,7 @@
 
 
                                         <td> {{ $value['CantidaPrestadaU'] }} </td>
-                                        <td> {{ $value['Estado_Prestamo'] }} </td>
+                                        <td> {{ $value['EstadoDetalle'] }} </td>
                                         <td> {{ $value['NovedadesPrestamoU'] }} </td>
 
                                         </td>

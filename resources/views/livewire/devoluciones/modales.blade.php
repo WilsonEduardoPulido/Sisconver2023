@@ -12,42 +12,21 @@
                 <thead>
                   <tr>
                     <th  colspan="4">Tipo Prestamo :{{  $tipoPresta }} </th>
-                    <th colspan="3" > Elemento o Libro Prestado :{{$nombreArticulo}}  </th>
+
                   </tr>
                 </thead>
                 <tbody>
 
 
                   <tr>
-                    <th colspan="3" > Bibliotecario Prestador :  {{$NombreBibliotecario}}   </th>
+
                     <th colspan="3" > Bibliotecario Devoluciòn :   {{ $bibliotecarioR}} </th>
 
                   </tr>
                   <tr>
-                    <th colspan="3" > Fecha Prestamo :{{$Fecha_Prestamo}}  </th>
+
                     <th colspan="3" > Fecha Devoluciòn  :   {{ $fechaDevo }}   </th>
 
-                  </tr>
-
-                  <tr>
-
-                    <th colspan="3" > Cantidad Devuelta  :  {{  $cantidaD }}   </th>
-
-                  </tr>
-
-                  <tr>
-                    <th colspan="4" > Novedades : {{  $novedadesA }} </th>
-
-
-                  </tr>
-
-
-
-
-
-
-
-                  <tr>
 
 
 
@@ -72,6 +51,47 @@
 
                 </tbody>
               </table>
+
+                   <table class="table ">
+                       <thead>
+
+                       <tr>
+                           <th scope="col">#</th>
+                           <th scope="col">Tipo</th>
+                           <th scope="col">Nombre</th>
+                           <th scope="col">Cantidad</th>
+                           <th scope="col">Novedades</th>
+                       </tr>
+                       </thead>
+                       <tbody>
+
+                       @foreach ($detallesDevolucionConsulta as $key => $value)
+                           <tbody>
+                           <tr class="text-center " wir:key=" {{ $key }} ">
+                               <td scope="row" wire:key=" {{ $key + 1 }} "> {{ $loop->iteration }}
+                               </td>
+                               <td> {{ $value['Tipo_Elemento'] }} </td>
+
+                               @if ($value['Tipo_Elemento'] == 'Libro')
+                                   <td> {{ $value['Nombre'] }}{{ $value['NombreTomo'] }} </td>
+                               @elseif ($value['Tipo_Elemento'] == 'Elemento')
+                                   <td> {{ $value['nombre'] }} </td>
+                               @endif
+
+
+                               <td> {{ $value['CantidaDevueltaU'] }} </td>s
+                               <td> {{ $value['NovedadesDevolucionU'] }} </td>
+
+                               </td>
+                           </tr>
+
+                           </tbody>
+                           @endforeach
+                           </tbody>
+                   </table>
+
+
+
             </div>
             <div class="modal-footer">
                 <button type="button"  wire:click="cancelar()" class="btn btn-danger  text-white close-btn" data-bs-dismiss="modal">Cerrar </button>

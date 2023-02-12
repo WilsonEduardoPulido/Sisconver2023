@@ -18,20 +18,7 @@ class Tablaprestamoseliminados extends Component
     {
 
         $buscadorPrestamos = '%'.$this->buscadorPrestamos .'%';
-
-       
-        $prestamosEliminados= Prestamo::select('prestamos.*', 'users.name', 'users.lastname')
-       
-        ->where('prestamos.Estado_Prestamo', 'Inactivo')
-        ->orWhere('prestamos.created_at', 'like', $buscadorPrestamos)
-        ->orWhere('prestamos.Tipo_Elemento', 'like', $buscadorPrestamos)
-        ->orWhere('prestamos.Codigo_Prestamo', 'like', $buscadorPrestamos)
-        ->orWhere('users.name', 'like', $buscadorPrestamos)
-      
-       
-        ->leftjoin('users', 'prestamos.usuario_id', '=', 'users.id')
-        ->orderBy('prestamos.id', 'desc')
-        ->paginate(8);
+        $prestamosEliminados= Prestamo::onlyTrashed()->get();
 
 
         return view('livewire.prestamos.tablaprestamoseliminados',compact('prestamosEliminados'));
@@ -52,11 +39,6 @@ class Tablaprestamoseliminados extends Component
         if($prestamoRestaurar->Estado_Prestamo == 'Inactivo' ){
             $prestamoRestaurar->Estado_Prestamo = 'Activo';
             $prestamoRestaurar->save();
-        }elseif($prestamoRestaurar->Estado_Prestamo =='Finalizado'){
-
-            $prestamoRestaurar->Estado_Prestamo = 'Finalizado';
-            $prestamoRestaurar->save();
-
         }
         $prestamoRestaurar->restore();
 
@@ -64,7 +46,6 @@ class Tablaprestamoseliminados extends Component
         $this->dispatchBrowserEvent('crear', [
             'title' => 'Prestamo Restaurado Con Exito...',
             'icon'=>'success',
-
         ]);
 
         $this->emit('render');
@@ -74,8 +55,7 @@ class Tablaprestamoseliminados extends Component
     //Elimina El Registro De La Base De Datos De Manera Definitiva
     public function eliminarTotalMente($id){
 
-        $ide = $id;
-        $prestamoEliminarT =Prestamo::onlyTrashed()->where('id', $ide)->first();
+        $prestamoEliminarT =Prestamo::onlyTrashed()->where('id', $id)->first();
 
         $prestamoEliminarT->forceDelete();
         $this->dispatchBrowserEvent('swal', [

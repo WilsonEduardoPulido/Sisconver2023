@@ -9,13 +9,14 @@ export default defineConfig({
             
                 {
                     input: [
-                        'resources/css/app.scss',
                         'resources/js/app.js',
                         'resources/css/app.css',
                         'resources/js/modales.js',
                         'resources/css/newStyle.css',
                         'resources/css/style.css',
-                        'resources/js/jquery3.6.3.js',
+                        'resources/css/darkmode.css',
+                        'resources/js/darkmode.js',
+                        'resources/js/fontsize.js',
                     ],
                     refresh: true,
                 }),

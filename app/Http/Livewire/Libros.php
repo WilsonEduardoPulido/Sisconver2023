@@ -178,6 +178,21 @@ class Libros extends Component
 
     public function añadirPrestamoModeloPrestamo(){
 
+
+        if(count($this->arrayAgregaralatabla)  == 0 ) {
+
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Error La Lista De Prestamos No Puede Estar Vacia.',
+                'icon' => 'error',
+
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+
+            ]);
+        }else{
+
+
         $codigo_Prestamo ='LAINB'. rand(1, 99999999);
 
         $this->$codigo_Prestamo = $codigo_Prestamo;
@@ -223,7 +238,7 @@ class Libros extends Component
             'icon'=>'success',
 
         ]);
-
+        }
     }
 
 
@@ -544,33 +559,43 @@ class Libros extends Component
 
         }
     }
+
     public function eliminar($id){
 
         $this->selected_id = $id;
-        $libro = Libro::where('id',$id)->with('detalle_prestamo')->first();
+        //  $libro = Libro::where('id',$id)->with('detalle_prestamo')->first();
 
+        $libro =Libro::select('detalle_prestamo.*')
+            ->join('detalle_prestamo','libros.id','=','detalle_prestamo.id_libro')
+            ->where('libros.id',$id)
+            ->where('detalle_prestamo.EstadoDetalle','Activo')
+            ->orWhere('detalle_prestamo.EstadoDetalle','Pendiente')
+            ->get();
 
-        if($libro->detalle_prestamo == null ){
+        $contador=count($libro);
+
+        if($contador ==  0){
 
             $this->dispatchBrowserEvent('eliminar', [
                 'type' => 'warning',
-                'title' => '¿Estas Seguro De Inactivar El Libro?',
+                'title' => '¿Estás seguro de Inactivar el Libro?',
                 'id' => $id,
 
             ]);
         }
-        elseif($libro->detalle_prestamo->count() >0 ){
+        else{
 
 
 
             $this->dispatchBrowserEvent('swal', [
-                'title' => 'No se puede Inactivar El Libro, tiene prestamos asociados.',
+                'title' => 'No se puede Inactivar El Libro, tiene préstamos asociados.',
                 'icon'=>'error',
                 'iconColor'=>'red',
             ]);
         }
 
     }
+
     public function destroy($id)
     {
 

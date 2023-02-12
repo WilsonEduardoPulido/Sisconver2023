@@ -32,7 +32,7 @@
                             <th>Fecha Devolución</th>
                             <th>Usuario </th>
                             <th>Codigo de Entregada</th>
-                            <th>Novedades</th>
+                            <th>Tipo</th>
                             <th>Estado</th>
                             <td>Acciones</td>
                         </tr>
@@ -42,8 +42,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $row->Bibliotecario_Re }}</td>
-                                <td>{{ $row->created_at }}</td>
-                                <td>{{ $row->name }}</td>
+                                <td>{{ $row->deleted_at }}</td>
+                                <td>{{ $row->user->name }} {{ $row->user->lastname }}</td>
                                 <td>{{ $row->CodigoDevolucion}}</td>
                                 <td>{{ $row->Tipo_Elemento}}</td>
                                 @if ($row->Estado_Devolucion =='Inactiva')

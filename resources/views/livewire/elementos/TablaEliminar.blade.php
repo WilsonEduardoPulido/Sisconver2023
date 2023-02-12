@@ -7,11 +7,6 @@
 
     <div class="d-flex  justify-content-between">
 
-        <div class="col-6">
-            <input wire:model='buscarCategoria' type="text" class="form-control  m-3" name="buscarCategoria"
-                id="buscarCategoria" placeholder="Buscar Categorias...">
-        </div>
-
 
 
     </div>

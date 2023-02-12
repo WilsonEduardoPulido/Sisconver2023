@@ -616,6 +616,19 @@ class Elementos extends Component
 
     public function añadirPrestamoModeloPrestamoElemento(){
 
+        if(count($this->arrayElementos)  == 0 ) {
+
+            $this->dispatchBrowserEvent('swal', [
+                'title' => 'Error La Lista De Prestamo No Puede Estar Vacia.',
+                'icon' => 'error',
+
+                'timer' => 5000,
+                'toast' => true,
+                'position' => 'center',
+
+            ]);
+        }else{
+
 
 
 
@@ -676,6 +689,7 @@ if(count($this->arrayElementos) == 0 ){
         ]);
 
         }
+        }
     }
 
 
@@ -728,9 +742,22 @@ if(count($this->arrayElementos) == 0 ){
 
     public function eliminar($id){
 
-        $elemento = Elemento::where('id',$id)->with('detalle_prestamo')->first();
+        //$elemento = Elemento::where('id',$id)->with('detalle_prestamo')->first();
 
-        if($elemento->detalle_prestamo == null ){
+        $elemento =Elemento::select('detalle_prestamo.*')
+            ->join('detalle_prestamo','elementos.id','=','detalle_prestamo.id_elemento')
+            ->where('elementos.id',$id)
+            ->where('detalle_prestamo.EstadoDetalle','Activo')
+            ->orWhere('detalle_prestamo.EstadoDetalle','Pendiente')
+            ->get();
+
+
+
+
+        $contador=count($elemento);
+
+
+        if($contador == 0 ){
 
             $this->dispatchBrowserEvent('eliminar', [
                 'type' => 'warning',
@@ -739,7 +766,7 @@ if(count($this->arrayElementos) == 0 ){
 
             ]);
         }
-        elseif($elemento->detalle_prestamo->count() >0 ){
+        else{
 
 
 
@@ -749,6 +776,9 @@ if(count($this->arrayElementos) == 0 ){
                 'iconColor'=>'red',
             ]);
         }
+
+
+
 
 
     }

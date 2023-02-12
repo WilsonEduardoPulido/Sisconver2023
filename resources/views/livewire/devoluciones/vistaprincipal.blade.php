@@ -10,9 +10,9 @@
 
 
 
-            <div class="row m-1   d-flex " style="height: 70%" >
+            <div class="row m-1   d-flex " >
 
-                <div class="  col-10"    >
+                <div class="  col-12"    >
 
                         <!--------LINICIO LINKS TABS -------->
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
@@ -91,31 +91,14 @@
 
 
 
-                    </div>
-					@include('partials.footer')
-                </div>
-
-
-                <div class="col-2 mt-4  p-2 h-100  ">
-                    <!------Formulario de Devolucion------>
 
 
 
-
-
-
-                 </div>
 
 
 				 @include('livewire.devoluciones.modales')
             </div>
 
-        </div>
 
-    </div>
-
+	@include('partials.footer')
 </div>
-
-
-
-

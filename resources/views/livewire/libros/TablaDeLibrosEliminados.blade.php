@@ -7,10 +7,6 @@
 
     <div class="d-flex  justify-content-between">
 
-        <div class="col-6">
-            <input wire:model='keyWord' type="text" class="form-control  m-3"
-                name="search" id="search" placeholder="Buscar Libros">
-        </div>
 
 
 

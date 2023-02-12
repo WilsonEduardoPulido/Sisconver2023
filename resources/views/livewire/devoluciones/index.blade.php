@@ -71,12 +71,49 @@
     });
 </script>
 
+<script>
+    window.addEventListener('crear', function(e) {
+        Swal.fire({
+            title: e.detail.title,
+            icon: e.detail.icon,
+            iconColor: e.detail.iconColor,
+            timer: 4000,
+            text: e.detail.text,
+
+        });
+
+
+    });
+</script>
 
 
 
 
+<script>
+    window.addEventListener('eliminar', event => {
+        Swal.fire({
+            title: 'Desea Inactivar Esta Devolucion?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Inactivar!',
+            cancelButtonText: 'No, Cancelar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.livewire.emit('eliminarTemporalDevolucion', event.detail.id);
+                Swal.fire(
+                    'Inactivada!',
+                    'Usuario Inactivado Con Exito.',
+                    'success'
+                )
+            }
+        })
 
 
-
+    });
+</script>
 
 

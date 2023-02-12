@@ -16,9 +16,9 @@ class TablaDevolucionesInactivas extends Component
     public $keyWord;
     public function render()
 
-{      $keyWord = '%'.$this->keyWord .'%';
+    {      $keyWord = '%'.$this->keyWord .'%';
 
-      $devolucionesInactivas=  Devolucion::onlyTrashed();
+        $devolucionesInactivas =  Devolucion::onlyTrashed()->paginate(10);
 
 
 
@@ -41,13 +41,13 @@ class TablaDevolucionesInactivas extends Component
         $prestamoRestaurar->restore();
 
 
-        $this->dispatchBrowserEvent('swald', [
+        $this->dispatchBrowserEvent('crear', [
             'title' => 'Devolucion Restaurada Con Exito...',
             'icon'=>'success',
-            'iconColor'=>'green',
+
         ]);
 
-            $this->emit('render');
+        $this->emit('render');
 
     }
 
@@ -56,16 +56,18 @@ class TablaDevolucionesInactivas extends Component
 
 
     //Elimina El Registro De La Base De Datos De Manera Definitiva
-public function eliminarTotalMenteDevolucion($id){
+    public function eliminarTotalMenteDevolucion($id){
 
-    $prestamoEliminarT =Devolucion::onlyTrashed()->where('id', $id)->first();
+        $prestamoEliminarT =Devolucion::onlyTrashed()->where('id', $id)->first();
 
-    $prestamoEliminarT->forceDelete();
-    $this->dispatchBrowserEvent('swald', [
-        'title' => 'Devolucion eliminada del sistema..',
-        'icon'=>'success',
-        'iconColor'=>'green',
-    ]);
+        $prestamoEliminarT->forceDelete();
+        $this->dispatchBrowserEvent('swald', [
+            'title' => 'Devolucion eliminada del sistema..',
+            'icon'=>'success',
+            'iconColor'=>'green',
+        ]);
 
     }
 }
+
+

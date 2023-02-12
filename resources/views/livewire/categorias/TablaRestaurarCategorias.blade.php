@@ -10,16 +10,11 @@
 <div class="card mt-3 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
-        <h4 class="text-center ">Tabla Gestion Generos Literarios Y categorias</h4>
+        <h4 class="text-center ">Restaurar categorias</h4>
 
     </div>
 
     <div class="d-flex  justify-content-between">
-
-        <div class="col-6">
-            <input wire:model='buscarCategoria' type="text" class="form-control  m-3" name="buscarCategoria"
-                id="buscarCategoria" placeholder="Buscar Categorias...">
-        </div>
 
 
 
