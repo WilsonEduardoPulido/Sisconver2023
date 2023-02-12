@@ -1,13 +1,13 @@
 
 
-## **<div align="center"> * Sisonver 2023 Sena !💻</div>**  
+## **<div align="center"> * Sisconver 2023 Sena !💻</div>**  
   
 
 
 
 ### DESCRPCIÒN:
 
-Sisonver es un sistema de informacion diseñado para la institucion educativa tecnica la independencia del municipio de sogamoso Boyaca que cumple con la funcion de gestionar el inventario de libros y elementos con cuales cuanta la Biblioteca de esta institucion mediante este sistema se soluciono el control sobre el dicho inventario de los articulos relacionados anteriormente con el desarrolo de un sistema.  
+Sisconver es un sistema de informacion diseñado para la institucion educativa tecnica la independencia del municipio de sogamoso Boyaca que cumple con la funcion de gestionar el inventario de libros y elementos con los cuales cuanta la Biblioteca de esta institucion mediante este sistema se soluciono el control sobre el  inventario de los articulos relacionados anteriormente con el desarrolo de un sistema.  
 <div align="center">
 <a href="https://github.com/https://github.com/WilsonEduardoPulido/SisconverLugo/edit/main/README.md" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
@@ -27,13 +27,53 @@ Sisonver es un sistema de informacion diseñado para la institucion educativa te
 <br/>  
 <hr>
 
+<h2>Requisitos  Para Su Ejecucion O Desarrollo</h2>
 
 
+1-Php 8.0 + <br>
+2-Node.js <br>
+3-Mysql 5.0 +<br>
+4-Composer +<br>
+5-Laragon <br>
+
+<h2>Conocimientos Previos Para Modificar El Software</h2>
+1-HTML5 <br>
+2-CSS3 <br>
+3-Boostrap 5.0 +<br>
+4-Composer +<br>
+5-Javascript<br>
+6-Jquery <br>
+7-Php <br>
+8-Mysql  +<br>
+9-Git +<br>
+10-Framework Laravel <br>
+11-Chart.js Libreria +<br>
+12-SweetAlert Libreria +<br>
+
+
+
+
+<h2>Herramientas O Librerias Usadas</h2>
+1-Chart.js Libreria +<br>
+2-SweetAlert Libreria +<br>
+3-Livewire 2.0 +<br>
+
+<h2>Starter Kits<h2>
+Laravel Ui 
+** https://github.com/laravel/ui
 <h2>Como instalar </h2>
 
-*Descargar El Repositorio De 
+*Descargar El Repositorio De  Git 
 
+*Descromprimir el Archivo Descargado
 
+* Usar La Terminal De nuestro Equipo de computo
+
+ejecutar 
+
+1 . Git Clone https://github.com/WilsonEduardoPulido/SisconverLugo/edit/main/README.md
+2. composer install
+3.npm install
 <hr>
 
 <h2>Tecnologias y Librerias Usadas</h2>
