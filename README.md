@@ -107,7 +107,7 @@ Esta desarrollado con el modelo MVC con el lenguaje de programación php con el 
       <li> <a href="https://laravel-livewire.com/" >https://laravel-livewire.com/<a/></li>
 <h2>Starter Kits<h2>
 Laravel Ui 
-  
+  <a href="https://github.com/WilsonEduardoPulido/SisconverLugo/tree/main/database" >Click Aqui<a/>
   <li> <a href="https://github.com/laravel/ui" >https://github.com/laravel/ui/<a/></li>
 
 <h2>Como instalar </h2>
@@ -124,14 +124,23 @@ ejecutar
 2. composer install
 3.npm install
 <hr>
+<h2>Base De Datos </h2>
+    
+    <li>Script Base De Datos </li>
+    <li>Diagrama</li>
+    <li> </li>
+    <a href="https://github.com/WilsonEduardoPulido/SisconverLugo/tree/main/database" >Click Aqui<a/>
 
 <h2>Tecnologias y Librerias Usadas</h2>
-*Esta Elaborado con :
+Esta Elaborado con :
 
 
-    ### <h2>Base De Datos </h2>
+     <h2>Base De Datos </h2>
     
-    <a href="" >https://github.com/laravel/ui/<a/>
+    <li>Script Base De Datos </li>
+    <li>Diagrama</li>
+    <li> </li>
+    <a href="https://github.com/WilsonEduardoPulido/SisconverLugo/tree/main/database" >Click Aqui<a/>
     
     <hr>
     ### <h2>Manual De Usuario </h2>
