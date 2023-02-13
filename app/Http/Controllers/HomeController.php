@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Libro;
-use App\Models\Elemento;
-use App\Models\Prestamo;
-use App\Models\Categoria;
-use App\Models\Devolucion;
+use App\Models\ModeloLibro\Libro;
+use App\Models\ModeloElemento\Elemento;
+use App\Models\ModeloPrestamo\Prestamo;
+use App\Models\ModeloCategoria\Categoria;
+use App\Models\ModeloDevolucion\Devolucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -61,14 +61,14 @@ class HomeController extends Controller
 
         $cantidadusuariosActivos =DB::table('users')
         ->select('Grado')
-        
-        
+
+
         ->groupBy('Grado')
         ->count();
 
-       
 
-       
+
+
 
 
         $cantidadusuariosInactivos =DB::table('users')
@@ -76,7 +76,7 @@ class HomeController extends Controller
         ->where('Estado','=','Primero')
         ->groupBy('Estado')
         ->count();
-       
+
 
         $cantidadusuariosSancionados =DB::table('users')
         ->select('Estado')
@@ -104,23 +104,23 @@ class HomeController extends Controller
         ->where('Grado','=','Undecimo')
         ->groupBy('Grado')
         ->count();
-        
-        
-        
 
 
-        
+
+
+
+
 
         $conusultaPrestamosdia = Prestamo::select('id', 'created_at')->groupBy('created_at');
 
-      
+
 
 
 
 
         return view('Inicio.inicio', compact('totalCategoriasActivas', 'totalLibrosActivos', 'totalPrestamosActivos', 'totalDevolucionesRealizadas', 'totalcantidadActivosUsuarios','consultaGraficaCircuo','consultaGraficaCircuoPrimero','consultaGraficaCircuoSegundo','consultaGraficaCircuoTercero','consultaGraficaCircuoCuarto','consultaGraficaCircuoQuinto','consultaGraficaCircuoSexto','consultaGraficaCircuoSeptimo','consultaGraficaCircuoOctavo','consultaGraficaCircuoNoveno','consultaGraficaCircuoDecimo','consultaGraficaCircuoPrescolar'));
 
-    
+
 }
 
 
