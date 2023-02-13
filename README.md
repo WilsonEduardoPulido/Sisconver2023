@@ -26,7 +26,13 @@ Sisconver es un sistema de informacion diseñado para la institucion educativa t
   <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" />
   <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" />
    <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
-
+    <img src=" https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white" />
+  <img src=" https://img.shields.io/badge/livewire-4e56a6?style=for-the-badge&logo=livewire&logoColor=white" />
+<img src=" https://img.shields.io/badge/Laragon-0E83CD?style=for-the-badge&logo=Laragon&logoColor=white "/>
+<img src=" https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white "/>
+<img src=" https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E "/>
+![Google Drive](https://img.shields.io/badge/Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)
+![Livweire](https://img.shields.io/endpoint?url=https%3A%2F%2Flaravel-livewire.com%2Fimg%2Ftwitter.png)
 </div>
 
 
