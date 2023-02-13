@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Devoluciones;
 
 use Livewire\Component;
-use App\Models\Devolucion;
+use App\Models\ModeloDevolucion\Devolucion;
 use Livewire\WithPagination;
 class TablaDevolucionesInactivas extends Component
 
@@ -12,6 +12,7 @@ class TablaDevolucionesInactivas extends Component
 {
 
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     protected $listeners = ['render' => 'render'];
     public $keyWord;
     public function render()
@@ -64,10 +65,8 @@ class TablaDevolucionesInactivas extends Component
         $this->dispatchBrowserEvent('swald', [
             'title' => 'Devolucion eliminada del sistema..',
             'icon'=>'success',
-            'iconColor'=>'green',
+
         ]);
 
     }
 }
-
-

@@ -29,6 +29,6 @@ Route::view('prestamos', 'livewire.prestamos.index')->middleware('auth');
 Route::view('devoluciones', 'livewire.devoluciones.index')->middleware('auth');
 Route::view('elementos', 'livewire.elementos.index')->middleware('auth');
 Route::view('libros', 'livewire.libros.index')->middleware(['auth']);
-Route::view('categorias', 'livewire.categorias.index')->middleware(['auth']);
+Route::view('categorias', 'livewire.componente-categorias.index')->middleware(['auth']);
 Route::view('usuarios', 'livewire.usuarios.index')->middleware(['auth']);
 Route::view('categorias/opciones', 'livewire.categorias-configuraciones')->middleware('auth');

@@ -11,6 +11,14 @@ element.style {
 *::after {
     box-sizing: inherit;
 }
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 100vh;
+}
+
 body{
     overflow-y: scroll !important ;
     padding-right: 0px !important;
@@ -384,12 +392,3 @@ height: auto;
     margin: 0 auto;
     margin-bottom: 45px !important;
 }
-
-
-
-
-
-
-
-
-

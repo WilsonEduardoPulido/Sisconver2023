@@ -1,4 +1,7 @@
-<div class="card   mt-3 ">
+
+<div  class="container">
+
+<div class="card  h-100   mt-3 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
         <h4 class="text-center ">Gestiòn De Devoluciones</h4>
@@ -19,7 +22,7 @@
 
     <div class="card-body  ">
 
-        <div class="table-responsive table-bordered border-primary">
+        <div class="table-responsive ">
             <table class="table ">
                 <thead class="thead">
                     <tr>
@@ -45,14 +48,14 @@
 
 
 
-@if ($row->Estado_Devolucion =='Activa')
+                         @if ($row->Estado_Devolucion =='Activa')
 
-  <td>
+                       <td>
 
-    <button class="text-white btn bi bi bi-check2-square btn-warning"></button>
-  </td>
+                          <button class="text-white btn bi bi bi-check2-square btn-warning"></button>
+                       </td>
 
-@endif
+                         @endif
 
 
                             <td >
@@ -80,3 +83,8 @@
         </div>
     </div>
 </div>
+</div>
+<div  class="mt-5"> @include('partials.footer')</div>
+
+ 
+

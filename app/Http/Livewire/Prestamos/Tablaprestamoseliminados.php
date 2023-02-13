@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Prestamos;
 
 use Livewire\Component;
-use App\Models\Prestamo;
+use App\Models\ModeloPrestamo\Prestamo;
 use Livewire\WithPagination;
 class Tablaprestamoseliminados extends Component
 {

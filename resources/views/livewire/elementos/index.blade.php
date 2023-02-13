@@ -7,22 +7,22 @@
 
     @include('partials.sidebar')
 
-    
+
 
     <section class="home-section " >
         @include('partials.nav')
 
 
-        
-        
 
-       
-           
-                
-                    
 
-                        
-                        @livewire('elementos')
+
+
+
+
+
+
+
+                        @livewire('componente-elementos.elementos')
 
 
 
@@ -49,12 +49,12 @@
 
 
     @include('partials.footer')
-    
 
-                     
+
+
 
     </section>
-   
+
 
 
 
@@ -89,15 +89,15 @@
 
 
     $(document).ready(() =>{
- 
+
      $('#ocultarNovedades').on('click', function () {
      $("#mostrarNovedades").toggle();
      });
-    
-     
+
+
      }
- 
- 
+
+
     );
  </script>
 

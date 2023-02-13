@@ -1,11 +1,13 @@
 <div>
     {{-- Success is as dangerous as failure. --}}
 
+<div class="container ">
 
-    <div class="card  mt-3 ">
+
+    <div class="card h-100  mt-3 ">
 
         <div class="card-header d-flex justify-content-between bg-white">
-            <h4 class="text-center ">Gestiòn De Devoluciones</h4>
+            <h4 class="text-center ">Restaurar Devoluciones</h4>
 
         </div>
 
@@ -27,20 +29,20 @@
                 <table class="table table-bordered table-sm">
                     <thead class="thead">
                         <tr>
-                            <td>#</td>
+                            <th>#</th>
                             <th>Bibliotecario</th>
                             <th>Fecha Devolución</th>
                             <th>Usuario </th>
                             <th>Codigo de Entregada</th>
                             <th>Tipo</th>
                             <th>Estado</th>
-                            <td>Acciones</td>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($devolucionesInactivas as $row)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <th>{{ $loop->iteration }}</th>
                                 <td>{{ $row->Bibliotecario_Re }}</td>
                                 <td>{{ $row->deleted_at }}</td>
                                 <td>{{ $row->user->name }} {{ $row->user->lastname }}</td>
@@ -75,8 +77,14 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="float-end">{{ $devolucionesInactivas->links() }}</div>
             </div>
-        </div>
+
     </div>
 
 </div>
+
+
+
+
+@include('partials.footer')

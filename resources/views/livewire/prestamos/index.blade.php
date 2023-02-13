@@ -7,19 +7,19 @@
 
     @include('partials.sidebar')
 
-    
+
 
     <section class="home-section " >
         @include('partials.nav')
 
-       
-        
-           
-                
-                    
 
-                        
-        @livewire('prestamos')
+
+
+
+
+
+
+        @livewire('componente-prestamos.prestamos')
 
 
 
@@ -44,14 +44,12 @@
             </div>
         </div>
 
-<div class="mt-5 ">
-    @include('partials.footer')
-    </div>
 
-                     
+
+
 
     </section>
-   
+
 
 
 

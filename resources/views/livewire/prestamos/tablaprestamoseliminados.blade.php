@@ -1,5 +1,9 @@
 <div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
+
+
+  <div class="container">
+
+
 
     <div class="card  mt-3 ">
 
@@ -24,7 +28,7 @@
                 <table class="table libros table-bordered table-sm">
                     <thead class="thead">
                     <tr>
-                        <  <td>#</td>
+                          <td>#</td>
 
                         <th>Bibliotecario</th>
                         <th>Fecha Prèstamo</th>
@@ -102,4 +106,11 @@
 
 
     </div>
+</div>
+
+</div>
+
+
+<div class="mt-5">
+@include('partials.footer')
 </div>

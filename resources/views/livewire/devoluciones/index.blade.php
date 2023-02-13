@@ -19,7 +19,7 @@
 
 
 
-        @livewire('devoluciones')
+        @livewire('componente-devoluciones.devoluciones')
 
 
 
@@ -51,8 +51,8 @@
 
 
     </section>
-
-
+@vite(['resources/js/app.js', 'resources/js/jquery3.6.3.js'])
+<script src="{{ asset('jquery3.6.3.js') }}"></script>
 <script>
     window.addEventListener('swald', function(e) {
         Swal.fire({
@@ -115,5 +115,3 @@
 
     });
 </script>
-
-

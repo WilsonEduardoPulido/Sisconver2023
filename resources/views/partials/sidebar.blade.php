@@ -14,17 +14,17 @@
            <div>
             <a href="{{ '/home' }}">
 
-                
- 
+
+
                 <i class="bi-house-fill bi-grid bxs-book"></i>
                 <span class="link_name ">Inicio</span>
-             
-            
-            
-                           
+
+
+
+
                         </a>
-            </div> 
-          
+            </div>
+
             <ul class="sub-menu blank">
                 <li><a class=" bi bi-house-fill text-white btn btn-primary " href="/home">Inicio  </a></li>
             </ul>
@@ -39,7 +39,7 @@
           </div>
           <ul class="sub-menu">
               <li><a class="text-white btn btn-primary " href="/categorias">Gestion Categorias</a></li>
-             
+
 
           </ul>
       </li>
@@ -53,7 +53,7 @@
             </div>
             <ul class="sub-menu">
                 <li><a class="text-white btn btn-primary" href="/libros">Gestion Libros</a></li>
-               
+
 
             </ul>
         </li>
@@ -85,7 +85,7 @@
                     <i class='bx bx-book-alt bi bi-calendar-x'></i>
                     <span class="link_name">Devoluciones</span>
                 </a>
-                
+
             </div>
             <ul class="sub-menu">
                 <li><a class="text-white btn btn-primary" href="/devoluciones">Devoluciones</a></li>
@@ -110,31 +110,9 @@
             </ul>
         </li>
 
-        <form class="col-8" method="POST" action="{{ route('logout') }} ">
-        <li class="mt-2">
-          <a href="/logout">
-              <i class='bx bx-cog bx-spin-hover bi bi-escape'></i>
-              <span class="link_name">Salir</span>
-
-          </a>
-          <ul class="sub-menu blank">
-              <li><a class="link_name  text-white btn btn-primary" href="/logout">Salir</a></li>
-              <ul class="">
-
-                 
-                 
-                    @csrf
-
-                    
-
-
-                </form>
-              </ul>
-          </ul>
-      </li>
+      
     </ul>
-    
+
 
 
 </div>
-

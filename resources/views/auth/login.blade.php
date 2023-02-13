@@ -2,14 +2,14 @@
 <link rel="icon" href=" {{ asset('img/lulogo_PLumita.svg') }} " type="image/x-icon">
 
 <body class="inicio">
-    
+
 
     <button type="button" class="  text-white btn btn-info bi bi-question-circle-fill" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on right">
         Ayuda <strong>sisconver2023@gmail.com</strong>
     </button>
 <div class="container-fluid h-100   m-auto">
-    
-    
+
+
     <div class="row d-flex  justify-content-center align-content-center  ">
         <div class="col-md-4">
             <div class="card col-md-12  mt-4">
@@ -26,32 +26,32 @@
 
                             <div class="alert col-12 alert-warning alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                <strong>{{session('error')}}</strong> 
+                                <strong>{{session('error')}}</strong>
                               </div>
-                            
-                            
-                                
+
+
+
                             @endif
                             @if (session('cuentaCreada'))
 
 
                             <div class="alert col-12 alert-info alert-dismissible fade show" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                <strong>{{session('cuentaCreada')}}</strong> 
+                                <strong>{{session('cuentaCreada')}}</strong>
                               </div>
-                            
-                            
-                                
+
+
+
                             @endif
 
 @if (session('errorsancionado'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <strong> <p>{{session('errorsancionado')}}</p></strong> 
+    <strong> <p>{{session('errorsancionado')}}</p></strong>
   </div>
 
 
-    
+
 @endif
 
                             <div class="card-header  text-center text-white bg-primary">
@@ -142,16 +142,15 @@
         </div>
     </div>
 
-    
-    
+
+
     <script>
       var alertList = document.querySelectorAll('.alert');
       alertList.forEach(function (alert) {
         new bootstrap.Alert(alert)
       })
     </script>
-    
+
 
 
 </div>
-

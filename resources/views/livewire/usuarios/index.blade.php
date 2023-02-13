@@ -14,7 +14,7 @@
 
 
 
-            @livewire('usuarios')
+            @livewire('componente-usuarios.usuarios')
         </div>
 
 
@@ -38,10 +38,7 @@
             <label for="btn-mas"><img src="{{asset('img/accesibilidad.png')}}"></label>
         </div>
     </div>
-    <div class="mt-5">
-        @include('partials.footer')
-    </div>
-
+    
 
 @endsection
 <script src="{{ asset('jquery3.6.3.js') }}"></script>

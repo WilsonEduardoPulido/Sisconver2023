@@ -1,3 +1,8 @@
+
+
+<div class="container">
+
+
 <div class="card  mt-3 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
@@ -129,4 +134,9 @@
 
 
 
+</div>
+
+<div class="mt-5">
+@include('partials.footer')
+</div>
 </div>

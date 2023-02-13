@@ -8,14 +8,14 @@
     <div class="d-flex  justify-content-between">
 
         <div class="col-6">
-            <input wire:model="buscar" type="text" class="form-control  m-3" 
+            <input wire:model="buscar" type="text" class="form-control  m-3"
               placeholder="Buscar Libros">
         </div>
 
 
 
     </div>
-    <div class="card-body  " style="height:80%">
+    <div class="card-body  " >
 
         <div class="table-responsive">
 

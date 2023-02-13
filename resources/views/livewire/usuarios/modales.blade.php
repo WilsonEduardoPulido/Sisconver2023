@@ -287,7 +287,7 @@
                 <div class="modal-body">
 
                     <form>
-
+                        @csrf
 
 
                         <div class="row d-flex   m-auto   ">

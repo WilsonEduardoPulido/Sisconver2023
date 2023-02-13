@@ -21,7 +21,7 @@
             type: 'bar',
 
             data: {
-                labels: ['CategoriasComponente', 'Usarios', 'Libros', 'Prestamos', 'Devoluciones'],
+                labels: ['Categorias', 'Usuarios', 'Libros', 'Prestamos', 'Devoluciones'],
                 datasets: [{
                     label: 'Estadísticas Sisconver ',
                     data: [datosc,usuarios,libros,prestamos,devoluciones],
