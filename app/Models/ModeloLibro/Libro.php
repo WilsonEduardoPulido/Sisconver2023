@@ -22,7 +22,7 @@ class Libro extends Model
      */
     public function categoria()
     {
-        return $this->hasOne('App\Models\ModeloCategoria\Catgoria', 'id', 'categoria_id');
+        return $this->hasOne('App\Models\ModeloCategoria\Categoria', 'id', 'categoria_id');
     }
 
     /**

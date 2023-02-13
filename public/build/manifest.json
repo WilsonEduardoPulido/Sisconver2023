@@ -1,60 +1,60 @@
 {
+  "public/img/inciologin.svg": {
+    "file": "assets/inciologin-bd7a7a6b.svg",
+    "src": "public/img/inciologin.svg"
+  },
   "resources/Fuentes/Krub-ExtraLight.ttf": {
     "file": "assets/Krub-ExtraLight-9e6f368e.ttf",
     "src": "resources/Fuentes/Krub-ExtraLight.ttf"
-  },
-  "public/img/inciologin.svg": {
-    "file": "assets/inciologin-1a7912cb.svg",
-    "src": "public/img/inciologin.svg"
-  },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
-    "file": "assets/fa-regular-400-5da313b0.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
-  },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
-    "file": "assets/fa-brands-400-c61287c2.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
     "file": "assets/fa-solid-900-8f06540f.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
-    "file": "assets/fa-v4compatibility-f46715c9.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-c61287c2.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-5da313b0.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
   },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2": {
     "file": "assets/bootstrap-icons-966620f9.woff2",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
-    "file": "assets/fa-regular-400-d7b19fe2.ttf",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
+    "file": "assets/fa-v4compatibility-f46715c9.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
     "file": "assets/fa-solid-900-e4f6a7e9.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
   },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf": {
-    "file": "assets/fa-v4compatibility-2ddb3b41.ttf",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
-  },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf": {
     "file": "assets/fa-brands-400-b1d1c1b0.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-d7b19fe2.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
   },
   "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff": {
     "file": "assets/bootstrap-icons-c6569d46.woff",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff"
   },
-  "resources/css/newStyle.css": {
-    "file": "assets/newStyle-37c0f99d.css",
-    "src": "resources/css/newStyle.css",
-    "isEntry": true
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf": {
+    "file": "assets/fa-v4compatibility-2ddb3b41.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
   },
   "resources/css/darkmode.css": {
     "file": "assets/darkmode-d06e9c26.css",
     "src": "resources/css/darkmode.css",
+    "isEntry": true
+  },
+  "resources/css/newStyle.css": {
+    "file": "assets/newStyle-c893b584.css",
+    "src": "resources/css/newStyle.css",
     "isEntry": true
   },
   "resources/css/style.css": {
@@ -62,14 +62,14 @@
     "src": "resources/css/style.css",
     "isEntry": true
   },
+  "resources/css/app.css": {
+    "file": "assets/app-5f35bd73.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
   "resources/js/app.css": {
     "file": "assets/app-680636d3.css",
     "src": "resources/js/app.css"
-  },
-  "resources/css/app.css": {
-    "file": "assets/app-cd11140b.css",
-    "src": "resources/css/app.css",
-    "isEntry": true
   },
   "resources/js/darkmode.js": {
     "file": "assets/darkmode-330520eb.js",

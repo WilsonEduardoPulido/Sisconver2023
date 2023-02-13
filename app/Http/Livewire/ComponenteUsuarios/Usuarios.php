@@ -17,7 +17,7 @@ class Usuarios extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['eliminarTemporalUsuario' => 'eliminarTemporalUsuario'];
+    protected $listeners = ['eliminarTemporalUsuario' => 'eliminarTemporalUsuario', 'eliminarTotalmente'=> 'eliminarTotalmente'];
     protected $paginationTheme = 'bootstrap';
     public $buscar;
     public $usuario_id;
@@ -795,7 +795,17 @@ class Usuarios extends Component
 
     }
 
+    public function eliminarTotalmenteUs($id)
+    {
 
+
+        $this->dispatchBrowserEvent('eliminarT', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Eliminar el Usuario?',
+            'id' => $id,
+
+        ]);
+    }
 
 
 

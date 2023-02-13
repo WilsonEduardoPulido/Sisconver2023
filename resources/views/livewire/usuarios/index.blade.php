@@ -158,7 +158,7 @@
 <script>
     window.addEventListener('eliminarT', event => {
         Swal.fire({
-            title: 'Desea Eliminar Esta Categoria?',
+            title: 'Desea Eliminar Este Usuario?',
 
             icon: 'warning',
             showCancelButton: true,
@@ -169,10 +169,10 @@
         }).then((result) => {
             if (result.isConfirmed) {
 
-                window.livewire.emit('inactivarCategoria', event.detail.id);
+                window.livewire.emit('eliminarTotalmente', event.detail.id);
                 Swal.fire(
                     'Eliminada!',
-                    'Categoria Eliminada Con Exito Del Sistema.',
+                    'Usuario Eliminado Con Exito Del Sistema.',
                     'success'
                 )
             }

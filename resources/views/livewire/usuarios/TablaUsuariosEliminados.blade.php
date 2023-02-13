@@ -73,8 +73,7 @@
                                 wire:click="restaurarUsuario({{ $row->id }})"></a>
 
                                 <a class="bi bi-trash3-fill  text-white  m-1  btn btn-danger " title="Eliminar"
-                                    onclick="confirm('Desea eliminar el usuario? \nSi  No')||event.stopImmediatePropagation()"
-                                    wire:click="eliminarTotalMente"> </a>
+                                    wire:click="eliminarTotalmenteUs({{ $row->id }})"> </a>
 
 
                             </td>
