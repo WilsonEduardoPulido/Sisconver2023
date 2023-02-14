@@ -45,7 +45,7 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $row->Bibliotecario_Re }}</td>
                                 <td>{{ $row->deleted_at }}</td>
-                                <td>{{ $row->user->name }} {{ $row->user->lastname }}</td>
+                                <td>{{ $row->name }} {{ $row->lastname }}</td>
                                 <td>{{ $row->CodigoDevolucion}}</td>
                                 <td>{{ $row->Tipo_Elemento}}</td>
                                 @if ($row->Estado_Devolucion =='Inactiva')
@@ -66,7 +66,7 @@
                                     wire:click="restaurarDevoluciones({{ $row->id }})"></a>
                                     <a title="Eliminar Del Sistema" class="btn m-1 btn-danger bi bi-trash3-fill text-white "
 
-                                    wire:click="eliminarTotalMenteDevolucion({{ $row->id }})"></a>
+                                    wire:click="llamarModalEliminarDevol({{ $row->id }})"></a>
 
                                 </td>
                             </tr>

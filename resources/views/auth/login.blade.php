@@ -55,7 +55,7 @@
 @endif
 
                             <div class="card-header  text-center text-white bg-primary">
-                                {{ __('Inicio de Sesion Colegio La Independencia') }}</div>
+                                {{ __('Inicio de Sesiòn Sisconver  I.E.T La Indenpedencia') }}</div>
                             <div class="col-12 mt-4 d-flex justify-content-center">
                                 <img class="rounded-circle "
                                     src="{{ asset('img/escudo-colegio-nombre.png') }} "alt="Escudo   Colegio" width="90px" height="100px">

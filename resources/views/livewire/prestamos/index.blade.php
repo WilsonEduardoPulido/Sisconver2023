@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Prestamos'))
+@section('title', __('Gestiòn  Prèstamos'))
 @section('content')
 
 
@@ -142,6 +142,33 @@
             text: e.detail.text,
 
         });
+
+
+    });
+</script>
+
+<script>
+    window.addEventListener('eliminarT', event => {
+        Swal.fire({
+            title: 'Desea Eliminar Este Prestamo ?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.livewire.emit('eliminarsPre', event.detail.id);
+                Swal.fire(
+                    'Eliminado!',
+                    'Prestamo Eliminado Con Exito Del Sistema.',
+                    'success'
+                )
+            }
+        })
 
 
     });

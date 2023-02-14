@@ -13,13 +13,17 @@ class TablaDevolucionesInactivas extends Component
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    protected $listeners = ['render' => 'render'];
+    protected $listeners = ['render' => 'render','eliminarsDev'=> 'eliminarTotalMenteDevolucion'];
     public $keyWord;
     public function render()
 
     {      $keyWord = '%'.$this->keyWord .'%';
 
-        $devolucionesInactivas =  Devolucion::onlyTrashed()->paginate(10);
+        $devolucionesInactivas =  $devolucion = Devolucion::select('users.*','devoluciones.*','devoluciones.Estado_Devolucion','devoluciones.deleted_at')
+            ->join('users','users.id',"=",'devoluciones.usuario_id')
+            ->where('devoluciones.Estado_Devolucion','Inactiva')
+            ->onlyTrashed()
+   ->paginate(7);
 
 
 
@@ -54,7 +58,15 @@ class TablaDevolucionesInactivas extends Component
 
 
 
+    public function llamarModalEliminarDevol($id){
 
+        $this->dispatchBrowserEvent('eliminarT', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar El Libro?',
+            'id' => $id,
+
+        ]);
+    }
 
     //Elimina El Registro De La Base De Datos De Manera Definitiva
     public function eliminarTotalMenteDevolucion($id){
@@ -62,11 +74,44 @@ class TablaDevolucionesInactivas extends Component
         $prestamoEliminarT =Devolucion::onlyTrashed()->where('id', $id)->first();
 
         $prestamoEliminarT->forceDelete();
-        $this->dispatchBrowserEvent('swald', [
-            'title' => 'Devolucion eliminada del sistema..',
-            'icon'=>'success',
 
-        ]);
 
     }
+
+    public function cancelar()
+    {
+        $this->limpiarCampos();
+    }
+
+    private function limpiarCampos()
+    {
+        $this->fechaDevo = null;
+
+        $this->NombreBibliotecario = null;
+        $this->tipoPresta = null;
+        $this->nombreAlumno = null;
+        $this->apellidoAlumno = null;
+
+        $this->direccionA = null;
+
+        $this->celularA = null;
+        $this->tipocDocA = null;
+
+        $this->numeroDocA = null;
+
+        $this->gradoA = null;
+
+        $this->nombreArticulo = null;
+
+        $this->novedadesA = null;
+
+        $this->bibliotecarioR = null;
+
+        $this->Fecha_Prestamo = null;
+
+        $this->cantidaD = null;
+        $this->cantidadP = null;
+    }
+
+
 }

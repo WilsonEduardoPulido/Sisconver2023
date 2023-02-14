@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Elementos'))
+@section('title', __('Gestiòn  Libros'))
 @section('content')
 
 
@@ -197,7 +197,7 @@
 
                 window.livewire.emit('eliminarsl', event.detail.id);
                 Swal.fire(
-                    'Eliminada!',
+                    'Eliminado!',
                     'Libro Eliminado Con Exito Del Sistema.',
                     'success'
                 )

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('prestamos', function (Blueprint $table) {
-            $table->foreign(['usuario_id'])->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['usuario_id'])->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('CASCADE');
         });
     }
 

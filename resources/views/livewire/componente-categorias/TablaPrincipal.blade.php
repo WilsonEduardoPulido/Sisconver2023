@@ -9,7 +9,7 @@
 
 
 
-<div class="card   justify-content-center d-flex ">
+<div class="card  h-100 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
         <h4 class="text-center ">Tabla Gestion Generos Literarios Y categorias</h4>

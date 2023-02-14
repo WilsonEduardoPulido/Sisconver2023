@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="card-body col-sm-12 overflow-auto" >
                             <div class="card-header  text-center text-white bg-primary">
-                                {{ __('Registro de Usuario Colegio La Independencia') }}
+                                {{ __('Registro de Usuario I.T.E La Indepedencia') }}
                             </div>
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf

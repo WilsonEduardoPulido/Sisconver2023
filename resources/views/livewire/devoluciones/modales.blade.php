@@ -79,7 +79,7 @@
                                @endif
 
 
-                               <td> {{ $value['CantidaDevueltaU'] }} </td>s
+                               <td> {{ $value['CantidaDevueltaU'] }} </td>
                                <td> {{ $value['NovedadesDevolucionU'] }} </td>
 
                                </td>
@@ -100,5 +100,3 @@
         </div>
     </div>
 </div>
-
-

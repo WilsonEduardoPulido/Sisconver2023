@@ -4,12 +4,15 @@
 
       <div class="container-fluid   ">
 
-          <div class="" >
+
+       
+       
+          <div class=" m-2" >
 
 
 
 
-              <div class="col-md-12 ">
+              <div class="col-md-12 m-3 ">
 
 
 
@@ -30,7 +33,7 @@
 
 
 
-                      <button class=" btn-warning text-white  btn  " data-bs-toggle="modal"
+                      <button class=" text-white  btn btn-primary  " data-bs-toggle="modal"
                           data-bs-target="#crearNuevaCategoriaModal">
                           Añadir Categoría<i class=" text-white small bi-plus-circle-fill"></i>
                       </button>

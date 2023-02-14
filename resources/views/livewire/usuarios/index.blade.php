@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Usuarios'))
+@section('title', __('Gestiòn  Usuarios'))
 @section('content')
 
     @include('partials.sidebar')
@@ -38,7 +38,7 @@
             <label for="btn-mas"><img src="{{asset('img/accesibilidad.png')}}"></label>
         </div>
     </div>
-    
+
 
 @endsection
 <script src="{{ asset('jquery3.6.3.js') }}"></script>
@@ -141,7 +141,7 @@
 
                 window.livewire.emit('eliminarTemporalUsuario', event.detail.id);
                 Swal.fire(
-                    'Inactivada!',
+                    'Inactivado!',
                     'Usuario Inactivado Con Exito.',
                     'success'
                 )
@@ -171,7 +171,7 @@
 
                 window.livewire.emit('eliminarTotalmente', event.detail.id);
                 Swal.fire(
-                    'Eliminada!',
+                    'Eliminado!',
                     'Usuario Eliminado Con Exito Del Sistema.',
                     'success'
                 )

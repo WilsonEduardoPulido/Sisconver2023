@@ -3,12 +3,12 @@
 
 
 
-<div class="container mt-3">
+<div class="container  mt-3">
 
 
 
 
-<div class="card mt-3 ">
+<div class="card mt-3 h-100 ">
 
     <div class="card-header d-flex justify-content-between bg-white">
         <h4 class="text-center ">Restaurar categorias</h4>

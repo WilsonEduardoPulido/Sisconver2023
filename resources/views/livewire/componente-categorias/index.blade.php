@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De CategoriasComponente'))
+@section('title', __('Gestiòn  Categorìas'))
 @section('content')
 
 
@@ -53,7 +53,7 @@
             <label for="btn-mas"><img src="{{asset('img/accesibilidad.png')}}"></label>
         </div>
     </div>
-    
+
 
 
 

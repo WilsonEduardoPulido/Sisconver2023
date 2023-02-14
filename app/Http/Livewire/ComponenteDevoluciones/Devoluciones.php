@@ -226,7 +226,15 @@ class Devoluciones extends Component
     }
 
 
+    public function llamarModalEliminarDevol($id){
 
+        $this->dispatchBrowserEvent('eliminarT', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar El Libro?',
+            'id' => $id,
+
+        ]);
+    }
     public function eliminardos($id){
 
         $prestamoeli=Devolucion::find($id);

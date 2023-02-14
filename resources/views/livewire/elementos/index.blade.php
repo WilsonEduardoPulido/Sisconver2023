@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Elementos'))
+@section('title', __('Gestion  Elementos'))
 @section('content')
 
 
@@ -134,7 +134,7 @@
 
                 window.livewire.emit('inactivarElemento', event.detail.id);
                 Swal.fire(
-                    'Inactivada!',
+                    'Inactivado!',
                     'Elemento Inactivado Con Exito.',
                     'success'
                 )
@@ -191,6 +191,34 @@
             showConfirmButton: false,
 
         });
+
+
+    });
+</script>
+
+
+<script>
+    window.addEventListener('eliminarT', event => {
+        Swal.fire({
+            title: 'Desea Eliminar Este Elemento?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.livewire.emit('eliminarsele', event.detail.id);
+                Swal.fire(
+                    'Eliminado!',
+                    'Elemento Eliminado Con Exito Del Sistema.',
+                    'success'
+                )
+            }
+        })
 
 
     });

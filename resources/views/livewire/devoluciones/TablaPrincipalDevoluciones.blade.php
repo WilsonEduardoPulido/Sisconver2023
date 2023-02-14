@@ -37,6 +37,8 @@
                     </tr>
                 </thead>
                 <tbody>
+
+
                     @forelse($devoluciones as $row)
                         <tr>
                             <th>{{ $loop->iteration }}</th>
@@ -62,11 +64,11 @@
 
 
 
-                            <a title="Inactivar" class="btn m-1 btn-danger bi bi-trash3-fill   text-white "
+                            <a title="Inactivar" class="btn btn-danger bi bi-trash3-fill   text-white "
 
                                 wire:click="eliminardos({{ $row->id }})"></a>
                             <a title="Ver Detalles" data-bs-toggle="modal" data-bs-target="#verDetallesDevoluciones"
-                                class=" bi bi bi-eye-fill m-1  text-white btn btn-warning "
+                                class=" bi bi bi-eye-fill   text-white btn btn-warning "
                                 wire:click="verDetallesDevoluciones({{ $row->id }})"> </a>
 
 
@@ -85,6 +87,3 @@
 </div>
 </div>
 <div  class="mt-5"> @include('partials.footer')</div>
-
- 
-

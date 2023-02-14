@@ -10,7 +10,7 @@ class Tablaprestamoseliminados extends Component
 
     use WithPagination;
     public $buscadorPrestamos;
-    protected $listeners = ['render' => 'render'];
+    protected $listeners = ['render' => 'render','eliminarsPre'=>'eliminarTotalMente'];
     protected $paginationTheme = 'bootstrap';
     public function render()
 
@@ -51,18 +51,22 @@ class Tablaprestamoseliminados extends Component
         $this->emit('render');
     }
 
+    public function llamarModalEliminarPresta($id){
 
+        $this->dispatchBrowserEvent('eliminarT', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar El Libro?',
+            'id' => $id,
+
+        ]);
+    }
     //Elimina El Registro De La Base De Datos De Manera Definitiva
     public function eliminarTotalMente($id){
 
         $prestamoEliminarT =Prestamo::onlyTrashed()->where('id', $id)->first();
 
         $prestamoEliminarT->forceDelete();
-        $this->dispatchBrowserEvent('swal', [
-            'title' => 'Categoria Eliminada Del Sistema...',
-            'icon'=>'danger',
-            'iconColor'=>'red',
-        ]);
+
 
     }
 

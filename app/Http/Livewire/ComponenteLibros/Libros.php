@@ -562,17 +562,22 @@ class Libros extends Component
 
     public function eliminar($id){
 
+
         $this->selected_id = $id;
         //  $libro = Libro::where('id',$id)->with('detalle_prestamo')->first();
 
-        $libro =Libro::select('detalle_prestamo.*')
-            ->join('detalle_prestamo','libros.id','=','detalle_prestamo.id_libro')
-            ->where('libros.id',$id)
-            ->where('detalle_prestamo.EstadoDetalle','Activo')
-            ->orWhere('detalle_prestamo.EstadoDetalle','Pendiente')
+        $libro =Libro::
+            join('detalle_prestamo','libros.id','=','detalle_prestamo.id_libro')
+
+  ->where('detalle_prestamo.id_libro',$id)
+  ->orWhere('detalle_prestamo.EstadoDetalle','Activo')
+->Where('detalle_prestamo.EstadoDetalle','Pendiente')
+
             ->get();
 
+
         $contador=count($libro);
+
 
         if($contador ==  0){
 

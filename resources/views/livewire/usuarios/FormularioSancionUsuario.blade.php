@@ -66,7 +66,7 @@
 
         <div class="">
             <div class="mb-3">
-                <label for="" class="form-label @error('descripcionSancion') is-invalid @enderror">Motivo de la sancion </label>
+                <label for="" class="form-label @error('descripcionSancion') is-invalid @enderror">Motivo   Sanciòn </label>
                 <textarea style="resize: none" class="form-control" name="" id="" wire:model="descripcionSancion"
                           rows="6"></textarea>
                           @error('descripcionSancion')

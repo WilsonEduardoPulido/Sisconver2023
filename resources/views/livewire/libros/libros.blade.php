@@ -24,7 +24,7 @@
                             Libros Eliminados</button>
                     </li>
 
-                    <button class=" btn btn-warning text-white
+                    <button class=" btn btn-primary text-white
                               " id="contact-tab" data-bs-toggle="modal"
                         data-bs-target="#añadirLibroModal" type="button" role="tab"
                         aria-controls="contact-tab-pane" aria-selected="false"> Añadir Nuevo Libro <i

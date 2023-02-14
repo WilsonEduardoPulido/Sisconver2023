@@ -27,7 +27,7 @@
 
 
 
-                        <button class=" btn-warning text-white  btn  " data-bs-toggle="modal"
+                        <button class=" btn-primary text-white  btn  " data-bs-toggle="modal"
                             data-bs-target="#crearNuevoElementoModal">
                             Añadir Elemento<i class=" text-white small bi-plus-circle-fill"></i>
                         </button>

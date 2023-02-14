@@ -33,12 +33,12 @@
           <div class="iocn-link">
               <a href="{{ '/categorias' }}">
                   <i class='bx bi bi-grid bxs-book'></i>
-                  <span class="link_name">Categorias</span>
+                  <span class="link_name">Categorìas</span>
               </a>
               <i class='bx bxs-chevron-down arrow'></i>
           </div>
           <ul class="sub-menu">
-              <li><a class="text-white btn btn-primary " href="/categorias">Gestion Categorias</a></li>
+              <li><a class="text-white btn btn-primary " href="/categorias">Categorìas</a></li>
 
 
           </ul>
@@ -52,7 +52,7 @@
                 <i class='bx bxs-chevron-down  arrow'></i>
             </div>
             <ul class="sub-menu">
-                <li><a class="text-white btn btn-primary" href="/libros">Gestion Libros</a></li>
+                <li><a class="text-white btn btn-primary" href="/libros"> Libros</a></li>
 
 
             </ul>
@@ -73,10 +73,10 @@
         <li class="mt-2">
             <a href="{{ '/prestamos' }}">
                 <i class='bx bx-pie-chart-alt-2 bi bi-calendar-check-fill'></i>
-                <span class="link_name  ">Prestamos</span>
+                <span class="link_name  ">Prèstamos</span>
             </a>
             <ul class="sub-menu blank">
-                <li><a class="text-white btn btn-primary" href="/prestamos"> Prestamos</a></li>
+                <li><a class="text-white btn btn-primary" href="/prestamos"> Prèstamos</a></li>
             </ul>
         </li>
         <li class="mt-2">

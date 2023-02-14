@@ -5,14 +5,14 @@
 
     <div class="container-fluid">
 
-        <div class="justify-content-center">
+        <div class=" m-auto">
 
 
 
 
             <div class="row m-1   d-flex " >
 
-                <div class="  col-12"    >
+                <div class="  col-12 m-2"    >
 
                         <!--------LINICIO LINKS TABS -------->
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
@@ -46,7 +46,7 @@
 
 
 
-                        <div class="tab-content h-100 " id="pills-tabContent">
+                        <div class="tab-content " id="pills-tabContent">
                             <!----------- INICIO CONTENEDOR 1  ------------->
 
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -100,5 +100,5 @@
             </div>
 
 
-	
+
 </div>

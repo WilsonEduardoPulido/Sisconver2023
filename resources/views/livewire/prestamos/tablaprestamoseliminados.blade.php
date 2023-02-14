@@ -5,7 +5,7 @@
 
 
 
-    <div class="card  mt-3 ">
+    <div class="card h-100 mt-3 ">
 
         <div class="card-header d-flex justify-content-between bg-white">
             <h4 class="text-center ">Restaurar Prestamos</h4>
@@ -28,7 +28,7 @@
                 <table class="table libros table-bordered table-sm">
                     <thead class="thead">
                     <tr>
-                          <td>#</td>
+                          <th>#</th>
 
                         <th>Bibliotecario</th>
                         <th>Fecha Prèstamo</th>
@@ -81,8 +81,8 @@
 
 
                                 <a title="Eliminar Totalmente" class="  bi bi-trash3-fill  text-white  m-1  btn btn-danger "
-                                   onclick="confirm('Confirm Delete Libro id {{ $row->id }}? \nDeleted Libros cannot be recovered!')||event.stopImmediatePropagation()"
-                                   wire:click="eliminarTotalMente({{ $row->id }})"></a>
+
+                                   wire:click="llamarModalEliminarPresta({{ $row->id }})"></a>
 
 
 

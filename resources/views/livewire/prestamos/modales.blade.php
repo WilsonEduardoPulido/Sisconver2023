@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 <!-- ver Modal -->
 <div wire:ignore.self class="modal fade modal-lg" id="VerDetallesPrestamo" data-bs-backdrop="static" tabindex="-1"
     role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -93,19 +84,19 @@
 
 
 
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th>Estado</th>
-                                    <th scope="col">Novedades</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th>Estado</th>
+                                        <th scope="col">Novedades</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
 
-                                @foreach ($detaPrestamo as $key => $value)
-                                    <tbody>
+                                    @foreach ($detaPrestamo as $key => $value)
+                                <tbody>
                                     <tr class="text-center " wir:key=" {{ $key }} ">
                                         <td scope="row" wire:key=" {{ $key + 1 }} "> {{ $loop->iteration }}
                                         </td>
@@ -125,9 +116,9 @@
                                         </td>
                                     </tr>
 
-                                    </tbody>
-                                    @endforeach
-                                    </tbody>
+                                </tbody>
+                                @endforeach
+                                </tbody>
                             </table>
                         </div>
 
@@ -176,9 +167,10 @@
                         <form class="" id="">
                             <div class="">
                                 <label class="form-label">Bibliotecario</label>
-                                <input disabled type="text" class="form-control  @error('bibliotecario') is-invalid @enderror" id="validationServer01" required
-                                    wire:model="bibliotecario">
-                                    @error('bibliotecario')
+                                <input disabled type="text"
+                                    class="form-control  @error('bibliotecario') is-invalid @enderror"
+                                    id="validationServer01" required wire:model="bibliotecario">
+                                @error('bibliotecario')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -191,11 +183,11 @@
 
                                 <label for="usuarioDeudorid" class="form-label">Alumno O Persona</label>
                                 <div class="mb-3">
-                                    <select class="form-select  @error('usuarioDeudorid') is-invalid @enderror " wire:model="usuarioDeudorid" name="usuarioDeudorid"
-                                        id="usuarioDeudorid">
+                                    <select class="form-select  @error('usuarioDeudorid') is-invalid @enderror "
+                                        wire:model="usuarioDeudorid" name="usuarioDeudorid" id="usuarioDeudorid">
 
                                         <option>
-                                           Seleccione un  usuario
+                                            Seleccione un usuario
 
                                         </option>
 
@@ -206,7 +198,7 @@
 
 
                                     </select>
-                                     @error('usuarioDeudorid')
+                                    @error('usuarioDeudorid')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -221,9 +213,10 @@
 
                             <div class="">
                                 <label for="articuloDevolver" class="form-label">Elemento o Libro</label>
-                                <input type="text" disabled class="form-control  @error('articuloDevolver') is-invalid @enderror " id="validationServer01" required
-                                    wire:model="articuloDevolver">
-                                    @error('articuloDevolver')
+                                <input type="text" disabled
+                                    class="form-control  @error('articuloDevolver') is-invalid @enderror "
+                                    id="validationServer01" required wire:model="articuloDevolver">
+                                @error('articuloDevolver')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -232,9 +225,11 @@
                             <div class="row m-auto justify-content-around d-flex">
                                 <div class="col-4">
                                     <label for="validationServer01" class="form-label">Cantidad Prestada</label>
-                                    <input disabled type="number" class="form-control  @error('CantidadPrestadaDevolver') is-invalid @enderror" id="validationServer01"
-                                        value="Mark" required wire:model="CantidadPrestadaDevolver">
-                                        @error('CantidadPrestadaDevolver')
+                                    <input disabled type="number"
+                                        class="form-control  @error('CantidadPrestadaDevolver') is-invalid @enderror"
+                                        id="validationServer01" value="Mark" required
+                                        wire:model="CantidadPrestadaDevolver">
+                                    @error('CantidadPrestadaDevolver')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -244,9 +239,11 @@
 
                                 <div class="col-4">
                                     <label for="validationServer01" class="form-label">Cantidad Devuelta</label>
-                                    <input type="number" class="form-control @error('CantidadDevuelta') is-invalid @enderror" id="validationServer01"
-                                        value="Mark" required wire:model="CantidadDevuelta">
-                                        @error('CantidadDevuelta')
+                                    <input type="number"
+                                        class="form-control @error('CantidadDevuelta') is-invalid @enderror"
+                                        id="validationServer01" value="Mark" required
+                                        wire:model="CantidadDevuelta">
+                                    @error('CantidadDevuelta')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -261,19 +258,20 @@
                                 <strong>!Registro De Novedades...</strong>
 
                                 Por Favor Si el Elemento registra alguna anomalia o daño, registre la novedad en este
-                                campo, <strong>!Tenga en cuenta </strong> que la novedad sera aplicada a todos los libros o elementos a nivel general.
+                                campo, <strong>!Tenga en cuenta </strong> que la novedad sera aplicada a todos los
+                                libros o elementos a nivel general.
                             </div>
 
                             <div class="">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Novedades </label>
-                                    <textarea style="resize: none" class="form-control @error('NovedadesDevolucion') is-invalid @enderror" name="" id="" wire:model="NovedadesDevolucion"
-                                        rows="3"></textarea>
-                                         @error('NovedadesDevolucion')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <textarea style="resize: none" class="form-control @error('NovedadesDevolucion') is-invalid @enderror" name=""
+                                        id="" wire:model="NovedadesDevolucion" rows="3"></textarea>
+                                    @error('NovedadesDevolucion')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                             </div>
@@ -287,38 +285,41 @@
                                 <div class="form-check col-3">
                                     <input class="form-check-input" type="radio" name="Tipo_novedad"
                                         id="exampleRadios1" value="Alta" wire:model="Tipo_novedad">
-                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror" for="exampleRadios1">
+                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror"
+                                        for="exampleRadios1">
                                         Alta
                                     </label>
                                     @error('Tipo_novedad')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-check col-3 ">
                                     <input class="form-check-input" type="radio" name="Tipo_novedad"
                                         id="exampleRadios2" value="Media" wire:model="Tipo_novedad">
-                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror" for="exampleRadios2">
+                                    <label class="form-check-label  @error('Tipo_novedad') is-invalid @enderror"
+                                        for="exampleRadios2">
                                         Media
                                     </label>
                                     @error('Tipo_novedad')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-check col-3" wirw:ignore>
-                                    <input class="form-check-input  @error('Tipo_novedad') is-invalid @enderror" type="radio" name="Tipo_novedad"
-                                        id="exampleRadios3" value="Ninguna" checked wire:model="Tipo_novedad">
+                                    <input class="form-check-input  @error('Tipo_novedad') is-invalid @enderror"
+                                        type="radio" name="Tipo_novedad" id="exampleRadios3" value="Ninguna"
+                                        checked wire:model="Tipo_novedad">
                                     <label class="form-check-label" for="exampleRadios3">
                                         Baja
                                     </label>
                                     @error('Tipo_novedad')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
 
                             </div>
@@ -379,7 +380,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p>Total Elementos Prestados : {{ $resultado    }} </p>
+                        <p>Total Elementos Prestados : {{ $resultado }} </p>
 
                         <caption>Elementos o Libros Devueltos</caption>
 
@@ -403,7 +404,7 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Novedades</th>
-  <th scope="col">Acciones</th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -418,8 +419,7 @@
                                         <td> {{ $value['Articulo'] }} </td>
                                         <td> {{ $value['Cantidad'] }} </td>
                                         <td> {{ $value['Novedades'] }} </td>
-                                        <td> <button
-                                                wire:click.prevent="cancelarDevolucion(  {{ $key }} )"
+                                        <td> <button wire:click.prevent="cancelarDevolucion(  {{ $key }} )"
                                                 class="btn btn-danger  text-white bi bi-dash-circle"></button>
 
                                         </td>

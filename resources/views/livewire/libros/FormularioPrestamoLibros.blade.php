@@ -1,7 +1,7 @@
 <div class="card p-1">
-  
+
     <div class="card-header m-2 bg-info text-center text-white">
-        Formulario Libros
+        Realizar Prestamo
     </div>
     <form class="row g-3" id="#prestamoLibro" wire:submit.prevent="RealizarPrestamoLibro">
         @csrf
@@ -16,7 +16,7 @@
                        </span>
                    @enderror
         </div>
-      
+
 
         <div class="col-md-12">
             <label for="nombreUsuario" class="form-label">Usuario</label>
@@ -30,7 +30,7 @@
                         <option selected value="{{ $usuario->id }}"> {{ $usuario->name }} {{ $usuario->lastname }}
                         </option>
                     @endforeach
-                   
+
 
                 </select>
                 @error('nombreUsuario')
@@ -54,7 +54,7 @@
                        </span>
                    @enderror
         </div>
-       
+
 
         <div>
             <label for="NovedadesF" class="form-label">Novedades</label>
@@ -67,7 +67,7 @@
                 @enderror
         </div>
 
-       
+
         <div class="col-md-12  d-flex justify-content-around ">
             <div class="col-md-5">
                 <label for="cantidadDisponible" class="form-label">Cantidad Disponible</label>
@@ -94,9 +94,9 @@
 
         </div>
         <div class="col-12 d-flex justify-content-around mt-4">
-            <button class="btn btn-warning text-white btn-sm" type="submit">Prestar</button>
+            <button class="btn btn-warning text-white " type="submit">Prestar</button>
 
-            <button class="btn btn-danger text-white btn-sm " type="button"
+            <button class="btn btn-danger text-white  " type="button"
                     wire:click="limpiarCamposPrestamo">Limpiar Campos</button>
         </div>
 

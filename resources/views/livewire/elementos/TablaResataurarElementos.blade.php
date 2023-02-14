@@ -16,15 +16,15 @@
             <table class="table libros table-bordered table-sm">
                 <thead class="thead">
                     <tr>
-                        <td>#</td>
+                        <th>#</th>
                         <th>Nombre</th>
                         <th>Cantidad</th>
                         <th>Descripción</th>
 
 
                         <th>Estado</th>
-                        <td>Categoría</td>
-                        <td>Acciones</td>
+                        <th>Categoría</th>
+                        <th>Acciones</th>
 
                     </tr>
                 </thead>
@@ -66,7 +66,7 @@
 
                                 <a data-bs-toggle="modal" title="Eliminar"
                                    class=" bi bi-trash3-fill  text-white  m-1  btn btn-danger "
-                                   wire:click="eliminarElementoTotalMente({{ $row->id }})">
+                                   wire:click="llamarModalEliminarEle({{ $row->id }})">
                                 </a>
 
 

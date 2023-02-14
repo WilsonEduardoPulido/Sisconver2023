@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Dashboard'))
+@section('title', __('Inicio'))
 @section('content')
 
 
@@ -73,5 +73,3 @@
 
 @endsection
 <script src="{{ asset('jquery3.6.3.js') }}"></script>
-
-

@@ -10,7 +10,7 @@
 
     <div class="card p-1">
         <div class="card-header bg-info text-center text-white">
-            Realizar Prestamo de un elemento
+            Realizar Prestamo
         </div>
 
 
@@ -105,10 +105,10 @@
             </div>
             <div class="mt-4 col-12 justify-content-around  d-flex">
 
-                <button type="submit" title="Prestar" class="btn btn-warning btn-sm text-white  ">Prestar</button>
+                <button type="submit" title="Prestar" class="btn btn-warning  text-white  ">Prestar</button>
 
                 <button type="button" title="Cancelar" wire:click="limpiarCampos()"
-                        class="btn btn-danger  btn-sm text-white ">Limpiar Campos</button>
+                        class="btn btn-danger  text-white ">Limpiar Campos</button>
 
 
             </div>

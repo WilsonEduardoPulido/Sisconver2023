@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', __('Gestion De Devoluciones'))
+@section('title', __('Gestiòn  Devoluciones'))
 
 
 
@@ -8,7 +8,7 @@
 
 
 
-    <section class="home-section  h-100" >
+    <section class="home-section  " >
         @include('partials.nav')
 
 
@@ -92,7 +92,7 @@
 <script>
     window.addEventListener('eliminar', event => {
         Swal.fire({
-            title: 'Desea Inactivar Esta Devolucion?',
+            title: 'Desea Inactivar Esta Devoluciòn?',
 
             icon: 'warning',
             showCancelButton: true,
@@ -106,7 +106,34 @@
                 window.livewire.emit('eliminarTemporalDevolucion', event.detail.id);
                 Swal.fire(
                     'Inactivada!',
-                    'Usuario Inactivado Con Exito.',
+                    'Devoluciòn Inactivado Con Exito.',
+                    'success'
+                )
+            }
+        })
+
+
+    });
+</script>
+
+<script>
+    window.addEventListener('eliminarT', event => {
+        Swal.fire({
+            title: 'Desea Eliminar Este Devoluciòn?',
+
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'No, Cancelar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.livewire.emit('eliminarsDev', event.detail.id);
+                Swal.fire(
+                    'Eliminada!',
+                    'Devoluciòn Eliminado Con Exito Del Sistema.',
                     'success'
                 )
             }

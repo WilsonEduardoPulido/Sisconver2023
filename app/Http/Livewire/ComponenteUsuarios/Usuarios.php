@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ComponenteUsuarios;
 use App\Models\ModeloLibro\Libro;
 use App\Models\User;
 use App\Models\ModeloPrestamo\Prestamo;
+use App\Models\ModeloDevolucion\Devolucion;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,7 +18,7 @@ class Usuarios extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['eliminarTemporalUsuario' => 'eliminarTemporalUsuario', 'eliminarTotalmente'=> 'eliminarTotalmente'];
+    protected $listeners = ['eliminarTemporalUsuario' => 'eliminarTemporalUsuario', 'eliminarTotalmente'=> 'eliminarTotalMente'];
     protected $paginationTheme = 'bootstrap';
     public $buscar;
     public $usuario_id;
@@ -238,11 +239,13 @@ class Usuarios extends Component
     public function eliminarTemporalUsuario($id)
     {
         $usuarioT = User::find($id);
+
+      //  dd($usuarioT);
         if($usuarioT->Estado == 'Activo'){
             $usuarioT->Estado = 'Inactivo';
             $usuarioT->save();
             $usuarioT->delete();
-            session()->flash('message', 'Usuario Inactivado Con Exito.');
+
         }  }
 
 //Restaurar Categoria Eliminada
@@ -271,7 +274,7 @@ class Usuarios extends Component
         $usuarioD =User::onlyTrashed()->where('id', $id)->first();
 
         $usuarioD->forceDelete();
-        session()->flash('mensaje','Usuario Eliminado Del Sistema');
+
     }
 
     public function sancionarUsuario($id){
@@ -764,7 +767,24 @@ class Usuarios extends Component
             ->where('prestamos.Estado_Prestamo','Activo')
             ->get();
 
+            $devolucion = Devolucion::select('users.id','devoluciones.usuario_id','devoluciones.Estado_Devolucion','devoluciones.deleted_at')
+                ->join('users','users.id',"=",'devoluciones.usuario_id')
+                ->where('devoluciones.usuario_id',$id)
+                ->onlyTrashed()
+       ->get();
 
+       $devolucionnu = Devolucion::select('users.id','devoluciones.usuario_id','devoluciones.Estado_Devolucion','devoluciones.deleted_at')
+           ->join('users','users.id',"=",'devoluciones.usuario_id')
+           ->where('devoluciones.usuario_id',$id)
+
+       ->get();
+
+
+$totale=count($devolucionnu);
+$total =count($devolucion);
+
+
+//dd($devolucion);
 
         if($inactivarUser->Estado == 'Sancionado'){
 
@@ -781,16 +801,28 @@ class Usuarios extends Component
                 'icon' => 'error',
 
             ]);
+        }elseif ($total == 0 and $totale == 0) {
+          $this->dispatchBrowserEvent('eliminar', [
+              'type' => 'warning',
+              'title' => '¿Estas Seguro De Inactivar El Usuario?',
+              'id' => $id,
+
+          ]);
+        }elseif( $total  > 0){
+          $this->dispatchBrowserEvent('swal', [
+              'title' => 'No Puedes Inactivar Un Usuario Actualmente Hace Parte De Nuestro Historial de Devoluciones Intenta Revisar En Las Devoluciones .',
+              'icon' => 'error',
+
+          ]);
+        }elseif ($totale > 0 ) {
+          $this->dispatchBrowserEvent('swal', [
+              'title' => 'No Puedes Inactivar Un Usuario Actualmente Hace Parte De Nuestro Historial de Devoluciones Intenta Revisar En Las Devoluciones .',
+              'icon' => 'error',
+
+          ]);
         }
 
-        else{
-            $this->dispatchBrowserEvent('eliminar', [
-                'type' => 'warning',
-                'title' => '¿Estas Seguro De Inactivar El Libro?',
-                'id' => $id,
-
-            ]);
-        }
+      
 
 
     }

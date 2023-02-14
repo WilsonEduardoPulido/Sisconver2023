@@ -16,7 +16,7 @@ class Elementos extends Component
 {
     use WithPagination;
 
-    protected $listeners = [ 'inactivarElemento' => 'inactivarElemento'];
+    protected $listeners = [ 'inactivarElemento' => 'inactivarElemento' ,'eliminarsele'=>'eliminarElementoTotalMente'];
     public $nombreElemento, $cantidadElemento,$NovedadesElemento,$TipoNovedad;
     public $totalCantidad;
 
@@ -149,6 +149,16 @@ class Elementos extends Component
 
     }
 
+
+    public function llamarModalEliminarEle($id){
+
+        $this->dispatchBrowserEvent('eliminarT', [
+            'type' => 'warning',
+            'title' => '¿Estas Seguro De Inactivar El Libro?',
+            'id' => $id,
+
+        ]);
+    }
     public function editarElemento($id)
     {
         $record = Elemento::findOrFail($id);
@@ -283,7 +293,7 @@ class Elementos extends Component
         $eliElemento = Elemento::onlyTrashed()->where('id', $id)->first();
 
         $eliElemento->forceDelete();
-        session()->flash('message', 'Elemento Eliminado Del Sistema');
+
     }
 
 //Funcion Para Cargar Los Datos Del Prestamo

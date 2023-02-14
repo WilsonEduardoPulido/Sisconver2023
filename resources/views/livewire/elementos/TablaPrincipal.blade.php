@@ -21,7 +21,7 @@
             <table class="table libros table-bordered table-sm">
                 <thead class="thead">
                 <tr>
-                    <td>#</td>
+                    <th>#</th>
                     <th>Nombre</th>
                     <th>Cantidad</th>
                     <th>Descripción</th>
@@ -109,4 +109,3 @@
 
 </div>
 </div>
-
