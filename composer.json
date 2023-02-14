@@ -14,11 +14,10 @@
         "laraveldaily/laravel-charts": "^0.1.29",
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^2.10",
-        "rappasoft/laravel-livewire-tables": "^2.9",
         "spatie/laravel-backup": "^8.1"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.7",
+       
         "fakerphp/faker": "^1.9.1",
         "kitloong/laravel-migrations-generator": "^6.7",
         "laravel/pint": "^1.0",
