@@ -115,20 +115,58 @@ Sisconver cuenta con Los Siguientes Modulos
 <img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Inicio%20de%20sesion.png" alt="License" width="800" heigth="400" ></div>
 
 <li><a href="https://youtu.be/2XXBKP-M7w0">Video Tutorial Click Aqui</a></li>
+<hr>
+*📌 <h3> Inicio</h3>
 
 
+<div align="center" >
+<img src="" alt="License" width="800" heigth="400" ></div>
+
   <hr>
-*📌Usuarios
+
   <hr>
-*📌Libros
+*📌 <h3> Usuarios y sanciones</h3>
+
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Usuarios.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href=" https://youtu.be/ktlHbnj58Qc">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Elementos
+*📌 <h3> Libros  </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Libros.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/ThwunHbjoqU">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Prestamos
+*📌 <h3> Elementos  </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Elementos.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/qEXT5L5VtTU">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Devoluciones
+*📌  <h3> Prestamos </h3>
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Prestamos.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/pbSqs6UnNbg ">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Sanciones 
+*📌<h3> Devoluciones </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Devoluciones.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/GfBD_qr5kj8 ">Video Tutorial Click Aqui</a></li>
+  <hr>
+
+*📌 <h3> Categorìas </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Categorias.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/gjzzXTM_mEQ ">Video Tutorial Click Aqui</a></li>
 <hr>
 .😉
 
