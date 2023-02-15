@@ -8,7 +8,7 @@
 
 ### DESCRIPCIÒN:
 
-Sisconver es un sistema de informacion diseñado para la institucion educativa tecnica la independencia del municipio de sogamoso Boyaca que cumple con la funcion de gestionar el inventario de libros y elementos con los cuales cuanta la Biblioteca de esta institucion mediante este sistema se soluciono el control sobre el  inventario de los articulos relacionados anteriormente con el desarrolo de un sistema.  
+Sisconver es un sistema de información diseñado para la institución educativa técnica la independencia del municipio de Sogamoso Departamento  Boyacá que cumple con la función de automatizar la gestión o procesos llevados a cabo dentro de una Biblioteca su principal función es llevar el control sobre  el inventario de libros , elementos con los cuales cuenta la Biblioteca de esta institución además de la implementación de  un control sobre los préstamos y devoluciones de los artículos mencionados anteriormente.  
 <div align="center">
 <a href="https://github.com/https://github.com/WilsonEduardoPulido/SisconverLugo/edit/main/README.md" target="_blank">
 <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;" />
@@ -36,16 +36,27 @@ Sisconver es un sistema de informacion diseñado para la institucion educativa t
 
 
 
-### Tabla De Contenido   
-- ***Instalaciòn📌*** 
-- ***Modulos📌*** 
+### Tabla De Contenido  
+- ***Requisitos  Para Su Ejecucion O Desarrollo📌*** 
 -  ***Librerias y Tecnologias Usadas📌*** 
+- ***Instalaciòn📌*** 
+- ***Base De Datos📌*** 
+- **Conocimientos Previos Para Modificar El Software***
+- ***Modulos📌*** 
+
 -  ***Autores📌***  
   
 
 <br/>  
 <hr>
+<div align="center"> 
+<h2>Soporte Documentaciòn</h2>
+**Video Tutoriales (Manual De Usuario)
+**Manual Programador Base De Datos Diagramas Contraseñas Requerimientos Diccionario De Datos**
+<li><a href="https://drive.google.com/drive/folders/19u78UZlV68olI1RaXHArbNLq_1NniSRE?usp=share_link">Documentaciòn Completa</a></li>
+</div>
 
+<hr>
 <h2>Requisitos  Para Su Ejecucion O Desarrollo</h2>
 
 
@@ -55,6 +66,40 @@ Sisconver es un sistema de informacion diseñado para la institucion educativa t
 4-Composer +<br>
 5-Laragon <br>
 
+<hr>
+<h2>Herramientas O Librerias Usadas</h2>
+1-Chart.js Libreria +<br>
+2-SweetAlert Libreria +<br>
+3-Livewire 2.0 +<br>
+
+
+<hr>
+<h2>Instalaciòn</h2>
+**Documentaciòn de Instlaciòn
+<li><a href="https://youtu.be/2XXBKP-M7w0">Documentaciòn Instalaciòn Completa Click Aqui</a></li>
+1-Clonamos el repositorio +<br>
+
+**https://github.com/WilsonEduardoPulido/Sisconver2023.git
+
+2-Una vez instalado abrimos una terminal situada en la ruta de nuestro directorio ejecutamos los siguientes comandos <br>
+
+1--composer install <br>
+
+2--npm install <br>
+
+3--php artisan key:generate <br>
+
+4--php artisan migrate <br>
+<hr>
+<h2>Base De Datos</h2>
+
+MYSQL 8
+**Documentaciòn Referente a la base de datos contraseña Estructura.
+<li><a href="">Diagrama ER</a></li>
+<li><a href="">Diccionario De Datos</a></li>
+
+
+<hr>
 <h2>Conocimientos Previos Para Modificar El Software</h2>
 1-HTML5 <br>
 2-CSS3 <br>
@@ -72,80 +117,79 @@ Sisconver es un sistema de informacion diseñado para la institucion educativa t
 
 
 
-<h2>Herramientas O Librerias Usadas</h2>
-1-Chart.js Libreria +<br>
-2-SweetAlert Libreria +<br>
-3-Livewire 2.0 +<br>
-
-<h2>Starter Kits<h2>
-Laravel Ui 
-** https://github.com/laravel/ui
-<h2>Como instalar </h2>
-
-*Descargar El Repositorio De  Git 
-
-*Descromprimir el Archivo Descargado
-
-* Usar La Terminal De nuestro Equipo de computo
-
-ejecutar 
-
-1 . Git Clone https://github.com/WilsonEduardoPulido/SisconverLugo/edit/main/README.md
-2. composer install
-3.npm install
-<hr>
-
-
-
-
-
-
-
-<h2>Modulos </h2>
-
-*💻Descargar El Repositorio De 
-
 
 <hr>
+
+
+
+
+
+
+<h2>Modulos Con Su Respectivo video Tutorial </h2>
+
+link:Tutorial <li><a href="https://drive.google.com/drive/folders/1v_UAn9T3WuPEwIkOVvlazelIh5D7AYbs?usp=share_link0">Video Tutoriales Click Aqui</a></li>
+
+
   
 Sisconver cuenta con Los Siguientes Modulos 
 <hr>
 *📌 <h3>Inicio de sesiòn</h3> 
 <div align="center" >
-<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Inicio%20de%20sesion.png" alt="License" width="800" heigth="400" ></div>
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Inicion%20de%20sesion%202023-02-14%20201241.png" alt="License" width="800" heigth="400" ></div>
 
 <li><a href="https://youtu.be/2XXBKP-M7w0">Video Tutorial Click Aqui</a></li>
+<hr>
+*📌 <h3> Inicio</h3>
 
 
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Pagina%20inicio.png" alt="License" width="800" heigth="400" ></div>
+
   <hr>
-*📌Usuarios
+
   <hr>
-*📌Libros
+*📌 <h3> Usuarios y sanciones</h3>
+
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Usuarios.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href=" https://youtu.be/ktlHbnj58Qc">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Elementos
+*📌 <h3> Libros  </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Libros.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/ThwunHbjoqU">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Prestamos
+*📌 <h3> Elementos  </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Elementos.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/qEXT5L5VtTU">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Devoluciones
+*📌  <h3> Prestamos </h3>
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Prestamos.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/pbSqs6UnNbg ">Video Tutorial Click Aqui</a></li>
   <hr>
-*📌Sanciones 
+*📌<h3> Devoluciones </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Devoluciones.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/GfBD_qr5kj8 ">Video Tutorial Click Aqui</a></li>
+  <hr>
+
+*📌 <h3> Categorìas </h3>
+
+<div align="center" >
+<img src="https://github.com/WilsonEduardoPulido/Sisconver2023/blob/main/public/Pantallazon-Interfas-Siscomver/Captura%20de%20pantalla-Categorias.png" alt="License" width="800" heigth="400" ></div>
+
+<li><a href="https://youtu.be/gjzzXTM_mEQ ">Video Tutorial Click Aqui</a></li>
 <hr>
 .😉
-
-
-Motor de base de Datos
-MysQl 5.3
-
-Libreiras 
-<strong>livewire<strong>
-
-<a href="https://laravel-livewire.com/"><img src="https://laravel-livewire.com/img/twitter.png" alt="License" width="50" heigth="50" ></a>
-
-* Documentaciòn Ofical 
-  <li>
-    
-  
-* https://laravel-livewire.com/
-Livewire es un marco completo para Laravel que simplifica la creación de interfaces dinámicas, sin dejar la comodidad de Laravel.
-
 
